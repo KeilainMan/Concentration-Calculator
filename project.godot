@@ -8,6 +8,22 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Resource",
+"class": "Internal_Standard_Resource",
+"language": "GDScript",
+"path": "res://Preset_Tabs/Internal_Standard_Resource.gd"
+}, {
+"base": "Tabs",
+"class": "Internal_Standard_Tab",
+"language": "GDScript",
+"path": "res://Preset_Tabs/Internal_Standard_Tab.gd"
+} ]
+_global_script_class_icons={
+"Internal_Standard_Resource": "",
+"Internal_Standard_Tab": ""
+}
+
 [application]
 
 config/name="Concentration Calculator"
