@@ -1,5 +1,5 @@
 extends Resource
-class_name Internal_Standard_Resource
+class_name InternalStandardResource
 
 
 var tab_name: String = ""

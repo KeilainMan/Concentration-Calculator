@@ -1,5 +1,5 @@
 extends Resource
-
+class_name MainTabResource
 
 var series_name: String = ""
 var compound_class: String = ""

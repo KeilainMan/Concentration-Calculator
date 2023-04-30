@@ -1,5 +1,5 @@
 extends Tabs
-class_name Main_Tab
+class_name MainTab
 
 onready var series_name_edit = $Spacer/HBoxContainer/LeftSpace/VBoxContainer/SeriesNameContainer/SeriesNameEdit
 onready var compound_class_edit = $Spacer/HBoxContainer/LeftSpace/VBoxContainer/CompoundClassContainer/CompoundClassEdit
@@ -17,7 +17,7 @@ var masses_column_name: String = ""
 
 
 func _ready():
-	pass # Replace with function body.
+	name = "Main"
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

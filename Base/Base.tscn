@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Base/Base.gd" type="Script" id=1]
 [ext_resource path="res://SpreadsheetBase/SpreadsheetBase.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Preset_Tabs/Internal_Standard_Tab.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Preset_Tabs/Main_Tab.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Preset_Tabs/Internal_Standard_Tab/Internal_Standard_Tab.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/bg_grey.jpg" type="Texture" id=5]
 
 [node name="Base" type="Control"]
@@ -11,11 +10,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 1 )
 
-[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
-
-[node name="Sprite" type="Sprite" parent="ParallaxBackground"]
+[node name="Bg" type="TextureRect" parent="."]
 modulate = Color( 0.490196, 0.490196, 0.490196, 1 )
-position = Vector2( 470, 247 )
 texture = ExtResource( 5 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
@@ -29,15 +25,22 @@ rect_min_size = Vector2( 0, 50 )
 size_flags_horizontal = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/TopPartMenueContainer"]
-margin_left = 5.0
-margin_top = 5.0
-margin_right = 1019.0
-margin_bottom = 45.0
+margin_right = 1024.0
+margin_bottom = 50.0
+custom_constants/separation = 466
 
 [node name="MenueButton" type="Button" parent="VBoxContainer/TopPartMenueContainer/HBoxContainer"]
 margin_right = 56.0
-margin_bottom = 40.0
+margin_bottom = 50.0
 text = "Menue"
+align = 0
+
+[node name="NewTabButton" type="Button" parent="VBoxContainer/TopPartMenueContainer/HBoxContainer"]
+visible = false
+margin_left = 522.0
+margin_right = 588.0
+margin_bottom = 50.0
+text = "New Tab"
 align = 0
 
 [node name="ActionMenueContainer" type="HBoxContainer" parent="VBoxContainer"]
@@ -61,14 +64,7 @@ size_flags_horizontal = 3
 tab_align = 0
 drag_to_rearrange_enabled = true
 
-[node name="Main" parent="VBoxContainer/ActionMenueContainer/TabContainer" instance=ExtResource( 4 )]
-margin_left = 4.0
-margin_top = 32.0
-margin_right = -4.0
-margin_bottom = -4.0
-
 [node name="ISTab" parent="VBoxContainer/ActionMenueContainer/TabContainer" instance=ExtResource( 3 )]
-visible = false
 margin_left = 4.0
 margin_top = 32.0
 margin_right = -4.0
@@ -89,7 +85,6 @@ margin_right = -4.0
 margin_bottom = -4.0
 
 [node name="FileOpenDialog" type="FileDialog" parent="."]
-visible = true
 margin_left = 161.0
 margin_top = 66.0
 margin_right = 766.0
@@ -105,6 +100,37 @@ margin_top = 43.0
 margin_right = 64.0
 margin_bottom = 63.0
 
+[node name="NewPresetWarningDialog" type="ConfirmationDialog" parent="."]
+margin_left = 159.0
+margin_top = 111.0
+margin_right = 385.0
+margin_bottom = 272.0
+popup_exclusive = true
+window_title = "Attention!"
+resizable = true
+dialog_text = "There is currently an open preset!
+Press OK to discard it.  "
+dialog_autowrap = true
+
+[node name="NewTabPopUpMenu" type="PopupMenu" parent="."]
+margin_left = 519.0
+margin_top = 47.0
+margin_right = 591.0
+margin_bottom = 67.0
+
+[node name="PresetSaveDialog" type="FileDialog" parent="."]
+visible = true
+margin_left = 12.0
+margin_top = 77.0
+margin_right = 456.0
+margin_bottom = 354.0
+window_title = "Save Preset"
+resizable = true
+
 [connection signal="pressed" from="VBoxContainer/TopPartMenueContainer/HBoxContainer/MenueButton" to="." method="_on_MenueButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/TopPartMenueContainer/HBoxContainer/NewTabButton" to="." method="_on_NewTabButton_pressed"]
 [connection signal="file_selected" from="FileOpenDialog" to="." method="_on_FileDialog_file_selected"]
 [connection signal="id_pressed" from="MainPopUpMenu" to="." method="_on_MainPopUpMenu_id_pressed"]
+[connection signal="confirmed" from="NewPresetWarningDialog" to="." method="_on_NewPresetWarningDialog_confirmed"]
+[connection signal="id_pressed" from="NewTabPopUpMenu" to="." method="_on_NewTabPopUpMenu_id_pressed"]
+[connection signal="file_selected" from="PresetSaveDialog" to="." method="_on_PresetSaveDialog_file_selected"]
