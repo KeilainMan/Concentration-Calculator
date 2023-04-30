@@ -1,5 +1,5 @@
 extends Tabs
-class_name Internal_Standard_Tab
+class_name InternalStandardTab
 
 onready var compound_name_edit = $Spacer/HBoxContainer/LeftSpace/VBoxContainer/CompoundNameContainer2/CompoundNameEdit
 onready var is_name_edit = $Spacer/HBoxContainer/LeftSpace/VBoxContainer/ISNameContainer/ISNameEdit
@@ -10,7 +10,7 @@ onready var column_name_edit = $Spacer/HBoxContainer/LeftSpace/VBoxContainer/Col
 
 
 
-var tab_resource: Resource setget set_tab_resource
+var tab_resource: Resource setget set_tab_resource, get_tab_resource
 
 var tab_name: String = "" setget set_tab_name
 var compound_name: String = ""
@@ -20,10 +20,6 @@ var is_concentration: float = 0.0
 var response_factor: int = 1
 var column_name: String = ""
 
-
-
-func init(resource: Resource) -> void:
-	set_tab_resource(resource)
 
 
 func _ready():
@@ -65,7 +61,7 @@ func set_up_values() -> void:
 	is_name = tab_resource.is_name
 	is_abbreviation = tab_resource.is_abbreviation
 	is_concentration = tab_resource.is_concentration
-	response_factor = tab_resource.responde_factor
+	response_factor = tab_resource.response_factor
 	column_name = tab_resource.column_name
 
 
@@ -101,6 +97,10 @@ func set_tab_resource(new_resource: Resource) -> void:
 	tab_resource = new_resource
 	set_up_values()
 	update_line_edits()
+
+
+func get_tab_resource() -> Resource:
+	return tab_resource
 
 
 
