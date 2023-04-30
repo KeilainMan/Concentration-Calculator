@@ -18,10 +18,16 @@ _global_script_classes=[ {
 "class": "Internal_Standard_Tab",
 "language": "GDScript",
 "path": "res://Preset_Tabs/Internal_Standard_Tab.gd"
+}, {
+"base": "Tabs",
+"class": "Main_Tab",
+"language": "GDScript",
+"path": "res://Preset_Tabs/Main_Tab.gd"
 } ]
 _global_script_class_icons={
 "Internal_Standard_Resource": "",
-"Internal_Standard_Tab": ""
+"Internal_Standard_Tab": "",
+"Main_Tab": ""
 }
 
 [application]
@@ -32,6 +38,10 @@ config/icon="res://icon.png"
 [autoload]
 
 Signals="*res://Globals/Signals.gd"
+
+[display]
+
+window/stretch/aspect="expand"
 
 [gui]
 

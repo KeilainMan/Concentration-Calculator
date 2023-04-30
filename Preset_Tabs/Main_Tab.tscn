@@ -1,8 +1,8 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://Preset_Tabs/Internal_Standard_Tab.gd" type="Script" id=1]
+[ext_resource path="res://Preset_Tabs/Main_Tab.gd" type="Script" id=1]
 
-[node name="ISTab" type="Tabs"]
+[node name="Main" type="Tabs"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 1 )
@@ -31,29 +31,29 @@ margin_bottom = 570.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="CompoundNameContainer2" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer"]
+[node name="SeriesNameContainer" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer"]
 margin_right = 452.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 
-[node name="Description" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CompoundNameContainer2"]
+[node name="Description" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/SeriesNameContainer"]
 margin_right = 203.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 7
-text = "Compound Name"
+text = "Series Name"
 valign = 1
 
-[node name="CompoundNameEdit" type="LineEdit" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CompoundNameContainer2"]
+[node name="SeriesNameEdit" type="LineEdit" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/SeriesNameContainer"]
 margin_left = 207.0
 margin_right = 411.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 align = 1
-placeholder_text = "insert compound name"
+placeholder_text = "insert series name"
 
-[node name="Unit" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CompoundNameContainer2"]
+[node name="Unit" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/SeriesNameContainer"]
 margin_left = 415.0
 margin_right = 452.0
 margin_bottom = 24.0
@@ -63,30 +63,30 @@ align = 1
 valign = 1
 percent_visible = 0.0
 
-[node name="ISNameContainer" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer"]
+[node name="CompoundClassContainer" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer"]
 margin_top = 28.0
 margin_right = 452.0
 margin_bottom = 52.0
 size_flags_horizontal = 3
 
-[node name="Description" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/ISNameContainer"]
+[node name="Description" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CompoundClassContainer"]
 margin_right = 203.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 7
-text = "Internal Standard Name"
+text = "Compound Class"
 valign = 1
 
-[node name="ISNameEdit" type="LineEdit" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/ISNameContainer"]
+[node name="CompoundClassEdit" type="LineEdit" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CompoundClassContainer"]
 margin_left = 207.0
 margin_right = 411.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 align = 1
-placeholder_text = "insert IS name"
+placeholder_text = "Insert Compound Class"
 
-[node name="Unit" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/ISNameContainer"]
+[node name="Unit" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CompoundClassContainer"]
 margin_left = 415.0
 margin_right = 452.0
 margin_bottom = 24.0
@@ -96,81 +96,82 @@ align = 1
 valign = 1
 percent_visible = 0.0
 
-[node name="ISAbbreviationContainer2" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer"]
+[node name="ExtractionVolumeContainer" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer"]
 margin_top = 56.0
 margin_right = 452.0
 margin_bottom = 80.0
 size_flags_horizontal = 3
 
-[node name="Description" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/ISAbbreviationContainer2"]
+[node name="Description" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/ExtractionVolumeContainer"]
 margin_right = 203.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 7
-text = "Internal Standard Abbreviation"
+text = "Extraction Volume"
 valign = 1
 
-[node name="ISAbbreviationEdit" type="LineEdit" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/ISAbbreviationContainer2"]
+[node name="ExtractionVolumeEdit" type="LineEdit" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/ExtractionVolumeContainer"]
 margin_left = 207.0
 margin_right = 411.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 align = 1
-placeholder_text = "insert IS abbreviation"
+placeholder_text = "insert extraction volume"
 
-[node name="Unit" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/ISAbbreviationContainer2"]
+[node name="Unit" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/ExtractionVolumeContainer"]
 margin_left = 415.0
 margin_right = 452.0
 margin_bottom = 24.0
+size_flags_vertical = 1
+text = "     ml"
+align = 1
+valign = 1
+
+[node name="MassesColumnContainer" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer"]
+margin_top = 84.0
+margin_right = 452.0
+margin_bottom = 108.0
+size_flags_horizontal = 3
+
+[node name="Description" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/MassesColumnContainer"]
+margin_right = 203.0
+margin_bottom = 24.0
+hint_tooltip = "Insert the internal standard concentration in ng/ml "
+size_flags_horizontal = 3
+size_flags_vertical = 7
+text = "Masses Column"
+valign = 1
+
+[node name="MassesColumnEdit" type="LineEdit" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/MassesColumnContainer"]
+margin_left = 207.0
+margin_right = 411.0
+margin_bottom = 24.0
+hint_tooltip = "Insert the internal standard concentration in ng/ml "
+size_flags_horizontal = 3
+size_flags_vertical = 3
+align = 1
+placeholder_text = "insert masses column name"
+
+[node name="Unit" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/MassesColumnContainer"]
+margin_left = 415.0
+margin_right = 452.0
+margin_bottom = 24.0
+hint_tooltip = "Insert the internal standard concentration in ng/ml "
 size_flags_vertical = 1
 text = "ng/ml"
 align = 1
 valign = 1
 percent_visible = 0.0
 
-[node name="ISContainer" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer"]
-margin_top = 84.0
-margin_right = 452.0
-margin_bottom = 108.0
-size_flags_horizontal = 3
-
-[node name="Description" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/ISContainer"]
-margin_right = 203.0
-margin_bottom = 24.0
-hint_tooltip = "Insert the internal standard concentration in ng/ml "
-size_flags_horizontal = 3
-size_flags_vertical = 7
-text = "Internal Standard Concentration"
-valign = 1
-
-[node name="ISConcentrationEdit" type="LineEdit" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/ISContainer"]
-margin_left = 207.0
-margin_right = 411.0
-margin_bottom = 24.0
-hint_tooltip = "Insert the internal standard concentration in ng/ml "
-size_flags_horizontal = 3
-size_flags_vertical = 3
-align = 1
-placeholder_text = "insert concentration"
-
-[node name="Unit" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/ISContainer"]
-margin_left = 415.0
-margin_right = 452.0
-margin_bottom = 24.0
-hint_tooltip = "Insert the internal standard concentration in ng/ml "
-size_flags_vertical = 1
-text = "ng/ml"
-align = 1
-valign = 1
-
 [node name="ResponseFactorContainer" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer"]
+visible = false
 margin_top = 112.0
-margin_right = 452.0
+margin_right = 460.0
 margin_bottom = 136.0
 
 [node name="Description" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/ResponseFactorContainer"]
-margin_right = 203.0
+margin_right = 207.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -178,8 +179,8 @@ text = "Response Factor"
 valign = 1
 
 [node name="ISResponseFactorEdit" type="LineEdit" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/ResponseFactorContainer"]
-margin_left = 207.0
-margin_right = 411.0
+margin_left = 211.0
+margin_right = 419.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -187,8 +188,8 @@ align = 1
 placeholder_text = "insert factor"
 
 [node name="Unit" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/ResponseFactorContainer"]
-margin_left = 415.0
-margin_right = 452.0
+margin_left = 423.0
+margin_right = 460.0
 margin_bottom = 24.0
 size_flags_vertical = 1
 text = "ng/ml"
@@ -197,13 +198,14 @@ valign = 1
 percent_visible = 0.0
 
 [node name="ColumnNameContainer" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer"]
+visible = false
 margin_top = 140.0
-margin_right = 452.0
+margin_right = 460.0
 margin_bottom = 164.0
 size_flags_horizontal = 3
 
 [node name="Description" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/ColumnNameContainer"]
-margin_right = 203.0
+margin_right = 207.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 7
@@ -211,8 +213,8 @@ text = "Column Name"
 valign = 1
 
 [node name="ColumnNameEdit" type="LineEdit" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/ColumnNameContainer"]
-margin_left = 207.0
-margin_right = 411.0
+margin_left = 211.0
+margin_right = 419.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -220,8 +222,8 @@ align = 1
 placeholder_text = "insert column name"
 
 [node name="Unit" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/ColumnNameContainer"]
-margin_left = 415.0
-margin_right = 452.0
+margin_left = 423.0
+margin_right = 460.0
 margin_bottom = 24.0
 size_flags_vertical = 1
 text = "ng/ml"
@@ -236,9 +238,7 @@ margin_bottom = 570.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[connection signal="text_changed" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CompoundNameContainer2/CompoundNameEdit" to="." method="_on_CompoundNameEdit_text_changed"]
-[connection signal="text_changed" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/ISNameContainer/ISNameEdit" to="." method="_on_ISNameEdit_text_changed"]
-[connection signal="text_changed" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/ISAbbreviationContainer2/ISAbbreviationEdit" to="." method="_on_ISAbbreviationEdit_text_changed"]
-[connection signal="text_changed" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/ISContainer/ISConcentrationEdit" to="." method="_on_ISConcentrationEdit_text_changed"]
-[connection signal="text_changed" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/ResponseFactorContainer/ISResponseFactorEdit" to="." method="_on_ISResponseFactorEdit_text_changed"]
-[connection signal="text_changed" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/ColumnNameContainer/ColumnNameEdit" to="." method="_on_ColumnNameEdit_text_changed"]
+[connection signal="text_changed" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/SeriesNameContainer/SeriesNameEdit" to="." method="_on_SeriesNameEdit_text_changed"]
+[connection signal="text_changed" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CompoundClassContainer/CompoundClassEdit" to="." method="_on_CompoundClassEdit_text_changed"]
+[connection signal="text_changed" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/ExtractionVolumeContainer/ExtractionVolumeEdit" to="." method="_on_ExtractionVolumeEdit_text_changed"]
+[connection signal="text_changed" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/MassesColumnContainer/MassesColumnEdit" to="." method="_on_MassesColumnEdit_text_changed"]
