@@ -168,11 +168,11 @@ percent_visible = 0.0
 [node name="ResponseFactorContainer" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer"]
 visible = false
 margin_top = 112.0
-margin_right = 460.0
+margin_right = 452.0
 margin_bottom = 136.0
 
 [node name="Description" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/ResponseFactorContainer"]
-margin_right = 207.0
+margin_right = 203.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -180,8 +180,8 @@ text = "Response Factor"
 valign = 1
 
 [node name="ISResponseFactorEdit" type="LineEdit" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/ResponseFactorContainer"]
-margin_left = 211.0
-margin_right = 419.0
+margin_left = 207.0
+margin_right = 411.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -189,8 +189,8 @@ align = 1
 placeholder_text = "insert factor"
 
 [node name="Unit" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/ResponseFactorContainer"]
-margin_left = 423.0
-margin_right = 460.0
+margin_left = 415.0
+margin_right = 452.0
 margin_bottom = 24.0
 size_flags_vertical = 1
 text = "ng/ml"
@@ -200,13 +200,13 @@ percent_visible = 0.0
 
 [node name="ColumnNameContainer" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer"]
 visible = false
-margin_top = 140.0
-margin_right = 460.0
-margin_bottom = 164.0
+margin_top = 112.0
+margin_right = 452.0
+margin_bottom = 136.0
 size_flags_horizontal = 3
 
 [node name="Description" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/ColumnNameContainer"]
-margin_right = 207.0
+margin_right = 203.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 7
@@ -214,8 +214,8 @@ text = "Column Name"
 valign = 1
 
 [node name="ColumnNameEdit" type="LineEdit" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/ColumnNameContainer"]
-margin_left = 211.0
-margin_right = 419.0
+margin_left = 207.0
+margin_right = 411.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -223,9 +223,39 @@ align = 1
 placeholder_text = "insert column name"
 
 [node name="Unit" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/ColumnNameContainer"]
-margin_left = 423.0
-margin_right = 460.0
+margin_left = 415.0
+margin_right = 452.0
 margin_bottom = 24.0
+size_flags_vertical = 1
+text = "ng/ml"
+align = 1
+valign = 1
+percent_visible = 0.0
+
+[node name="ColumnSelectionContainer" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer"]
+margin_top = 112.0
+margin_right = 452.0
+margin_bottom = 132.0
+size_flags_horizontal = 3
+
+[node name="Description" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/ColumnSelectionContainer"]
+margin_right = 203.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+size_flags_vertical = 7
+text = "IS Column positions"
+valign = 1
+
+[node name="ColumnSelectionButton" type="OptionButton" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/ColumnSelectionContainer"]
+margin_left = 207.0
+margin_right = 411.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+
+[node name="Unit" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/ColumnSelectionContainer"]
+margin_left = 415.0
+margin_right = 452.0
+margin_bottom = 20.0
 size_flags_vertical = 1
 text = "ng/ml"
 align = 1

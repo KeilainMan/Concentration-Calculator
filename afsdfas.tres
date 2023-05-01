@@ -1,4 +1,7 @@
-extends Resource
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Resource
 class_name PresetSaver
 
 #export var all_tab_resources: Array = [] setget set_all_tab_resources, get_all_tab_resources
@@ -9,7 +12,7 @@ export var all_tab_properties: Array = [] setget set_all_tab_properties, get_all
 #	all_tab_resources.clear()
 #	print(new_resources)
 #	all_tab_resources.append_array(new_resources)
-#	print("everything appended")
+#	print(\"everything appended\")
 #
 #
 #func get_all_tab_resources() -> Array:
@@ -22,3 +25,8 @@ func set_all_tab_properties(new_properties: Array) -> void:
 
 func get_all_tab_properties() -> Array:
 	return all_tab_properties
+"
+
+[resource]
+script = SubResource( 1 )
+all_tab_properties = [ [ "MAIN", "Phytohormone", "", 0.0, "" ] ]

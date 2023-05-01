@@ -1,7 +1,7 @@
 extends Resource
 class_name InternalStandardResource
 
-
+var tab_class: String = "INTERNAL_STANDARD"
 var tab_name: String = ""
 var compound_name: String = ""
 var is_name: String = ""

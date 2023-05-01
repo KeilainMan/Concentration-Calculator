@@ -1,8 +1,7 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Base/Base.gd" type="Script" id=1]
 [ext_resource path="res://SpreadsheetBase/SpreadsheetBase.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Preset_Tabs/Internal_Standard_Tab/Internal_Standard_Tab.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/bg_grey.jpg" type="Texture" id=5]
 
 [node name="Base" type="Control"]
@@ -64,26 +63,6 @@ size_flags_horizontal = 3
 tab_align = 0
 drag_to_rearrange_enabled = true
 
-[node name="ISTab" parent="VBoxContainer/ActionMenueContainer/TabContainer" instance=ExtResource( 3 )]
-margin_left = 4.0
-margin_top = 32.0
-margin_right = -4.0
-margin_bottom = -4.0
-
-[node name="ISTab2" parent="VBoxContainer/ActionMenueContainer/TabContainer" instance=ExtResource( 3 )]
-visible = false
-margin_left = 4.0
-margin_top = 32.0
-margin_right = -4.0
-margin_bottom = -4.0
-
-[node name="ISTab3" parent="VBoxContainer/ActionMenueContainer/TabContainer" instance=ExtResource( 3 )]
-visible = false
-margin_left = 4.0
-margin_top = 32.0
-margin_right = -4.0
-margin_bottom = -4.0
-
 [node name="FileOpenDialog" type="FileDialog" parent="."]
 margin_left = 161.0
 margin_top = 66.0
@@ -119,13 +98,23 @@ margin_right = 591.0
 margin_bottom = 67.0
 
 [node name="PresetSaveDialog" type="FileDialog" parent="."]
-visible = true
 margin_left = 12.0
 margin_top = 77.0
 margin_right = 456.0
 margin_bottom = 354.0
 window_title = "Save Preset"
 resizable = true
+
+[node name="PresetLoadDialog" type="FileDialog" parent="."]
+margin_left = 6.0
+margin_top = 79.0
+margin_right = 456.0
+margin_bottom = 353.0
+popup_exclusive = true
+window_title = "Open a File or Directory"
+resizable = true
+mode = 3
+access = 2
 
 [connection signal="pressed" from="VBoxContainer/TopPartMenueContainer/HBoxContainer/MenueButton" to="." method="_on_MenueButton_pressed"]
 [connection signal="pressed" from="VBoxContainer/TopPartMenueContainer/HBoxContainer/NewTabButton" to="." method="_on_NewTabButton_pressed"]
@@ -134,3 +123,4 @@ resizable = true
 [connection signal="confirmed" from="NewPresetWarningDialog" to="." method="_on_NewPresetWarningDialog_confirmed"]
 [connection signal="id_pressed" from="NewTabPopUpMenu" to="." method="_on_NewTabPopUpMenu_id_pressed"]
 [connection signal="file_selected" from="PresetSaveDialog" to="." method="_on_PresetSaveDialog_file_selected"]
+[connection signal="file_selected" from="PresetLoadDialog" to="." method="_on_PresetLoadDialog_file_selected"]
