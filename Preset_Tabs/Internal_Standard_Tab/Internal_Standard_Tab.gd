@@ -9,10 +9,8 @@ onready var is_response_factor_edit = $Spacer/HBoxContainer/LeftSpace/VBoxContai
 onready var column_name_edit = $Spacer/HBoxContainer/LeftSpace/VBoxContainer/ColumnNameContainer/ColumnNameEdit
 
 
-
-var tab_resource: Resource setget set_tab_resource, get_tab_resource
-
-var tab_name: String = "" setget set_tab_name
+var tab_class: String = "INTERNAL_STANDARD"
+var tab_name: String = "" #setget set_tab_name
 var compound_name: String = ""
 var is_name: String = ""
 var is_abbreviation: String = ""
@@ -20,49 +18,66 @@ var is_concentration: float = 0.0
 var response_factor: int = 1
 var column_name: String = ""
 
+var tab_properties: Array = [
+	tab_class,
+	tab_name,
+	compound_name,
+	is_name,
+	is_abbreviation,
+	is_concentration,
+	response_factor,
+	column_name,
+] setget set_tab_properties, get_tab_properties
+
 
 
 func _ready():
 	pass
 
+func _on_TabNameEdit_text_changed(new_text):
+	tab_name = new_text
+	name = new_text
+	tab_properties[1] = new_text
+
+
 func _on_CompoundNameEdit_text_changed(new_text):
 	compound_name = new_text
-	save_to_resource()
+	tab_properties[2] = new_text
 
 
 func _on_ISNameEdit_text_changed(new_text):
 	is_name = new_text
-	save_to_resource()
+	tab_properties[3] = new_text
 
 
 func _on_ISAbbreviationEdit_text_changed(new_text):
 	is_abbreviation = new_text
-	save_to_resource()
+	tab_properties[4] = new_text
 
 
 func _on_ISConcentrationEdit_text_changed(new_text):
 	is_concentration = float(new_text)
-	save_to_resource()
+	tab_properties[5] = float(new_text)
 
 
 func _on_ISResponseFactorEdit_text_changed(new_text):
 	response_factor = int(new_text)
-	save_to_resource()
+	tab_properties[6] = int(new_text)
 
 
 func _on_ColumnNameEdit_text_changed(new_text):
 	column_name = new_text
-	save_to_resource()
+	tab_properties[7] = new_text
 
 
 func set_up_values() -> void:
-	tab_name = tab_resource.tab_name
-	compound_name = tab_resource.compound_name
-	is_name = tab_resource.is_name
-	is_abbreviation = tab_resource.is_abbreviation
-	is_concentration = tab_resource.is_concentration
-	response_factor = tab_resource.response_factor
-	column_name = tab_resource.column_name
+	tab_name = tab_properties[1]
+	compound_name = tab_properties[2]
+	is_name = tab_properties[3]
+	is_abbreviation = tab_properties[4]
+	is_concentration = tab_properties[5]
+	response_factor = tab_properties[6]
+	column_name = tab_properties[7]
 
 
 func update_line_edits() -> void:
@@ -74,33 +89,23 @@ func update_line_edits() -> void:
 	column_name_edit.text = column_name
 
 
-func save_to_resource() -> void:
-	tab_resource.tab_name = tab_name
-	tab_resource.compound_name = compound_name
-	tab_resource.is_name = is_name
-	tab_resource.is_abbreviation = is_abbreviation
-	tab_resource.is_concentration = is_concentration
-	tab_resource.response_factor = response_factor
-	tab_resource.column_name = column_name
-
-
-
 ########################################
 
-func set_tab_name(new_name: String) -> void:
-	tab_name = new_name
-	name = tab_name
-	save_to_resource()
+#func set_tab_name(new_name: String) -> void:
+#	tab_name = new_name
+#	name = new_name
+#	tab_properties[1] = new_name
 
 
-func set_tab_resource(new_resource: Resource) -> void:
-	tab_resource = new_resource
+func set_tab_properties(new_properties: Array) -> void:
+	tab_properties = new_properties
 	set_up_values()
 	update_line_edits()
 
 
-func get_tab_resource() -> Resource:
-	return tab_resource
+func get_tab_properties() -> Array:
+	return tab_properties
+
 
 
 

@@ -31,9 +31,42 @@ margin_bottom = 570.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="CompoundNameContainer2" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer"]
+[node name="TabNameContainer" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer"]
 margin_right = 452.0
 margin_bottom = 24.0
+size_flags_horizontal = 3
+
+[node name="Description" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/TabNameContainer"]
+margin_right = 203.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_vertical = 7
+text = "Tab Name"
+valign = 1
+
+[node name="TabNameEdit" type="LineEdit" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/TabNameContainer"]
+margin_left = 207.0
+margin_right = 411.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+align = 1
+placeholder_text = "insert tab name"
+
+[node name="Unit" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/TabNameContainer"]
+margin_left = 415.0
+margin_right = 452.0
+margin_bottom = 24.0
+size_flags_vertical = 1
+text = "ng/ml"
+align = 1
+valign = 1
+percent_visible = 0.0
+
+[node name="CompoundNameContainer2" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer"]
+margin_top = 28.0
+margin_right = 452.0
+margin_bottom = 52.0
 size_flags_horizontal = 3
 
 [node name="Description" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CompoundNameContainer2"]
@@ -64,9 +97,9 @@ valign = 1
 percent_visible = 0.0
 
 [node name="ISNameContainer" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer"]
-margin_top = 28.0
+margin_top = 56.0
 margin_right = 452.0
-margin_bottom = 52.0
+margin_bottom = 80.0
 size_flags_horizontal = 3
 
 [node name="Description" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/ISNameContainer"]
@@ -97,9 +130,9 @@ valign = 1
 percent_visible = 0.0
 
 [node name="ISAbbreviationContainer2" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer"]
-margin_top = 56.0
+margin_top = 84.0
 margin_right = 452.0
-margin_bottom = 80.0
+margin_bottom = 108.0
 size_flags_horizontal = 3
 
 [node name="Description" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/ISAbbreviationContainer2"]
@@ -130,9 +163,9 @@ valign = 1
 percent_visible = 0.0
 
 [node name="ISContainer" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer"]
-margin_top = 84.0
+margin_top = 112.0
 margin_right = 452.0
-margin_bottom = 108.0
+margin_bottom = 136.0
 size_flags_horizontal = 3
 
 [node name="Description" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/ISContainer"]
@@ -165,9 +198,9 @@ align = 1
 valign = 1
 
 [node name="ResponseFactorContainer" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer"]
-margin_top = 112.0
+margin_top = 140.0
 margin_right = 452.0
-margin_bottom = 136.0
+margin_bottom = 164.0
 
 [node name="Description" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/ResponseFactorContainer"]
 margin_right = 203.0
@@ -197,9 +230,9 @@ valign = 1
 percent_visible = 0.0
 
 [node name="ColumnNameContainer" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer"]
-margin_top = 140.0
+margin_top = 168.0
 margin_right = 452.0
-margin_bottom = 164.0
+margin_bottom = 192.0
 size_flags_horizontal = 3
 
 [node name="Description" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/ColumnNameContainer"]
@@ -236,6 +269,7 @@ margin_bottom = 570.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
+[connection signal="text_changed" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/TabNameContainer/TabNameEdit" to="." method="_on_TabNameEdit_text_changed"]
 [connection signal="text_changed" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CompoundNameContainer2/CompoundNameEdit" to="." method="_on_CompoundNameEdit_text_changed"]
 [connection signal="text_changed" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/ISNameContainer/ISNameEdit" to="." method="_on_ISNameEdit_text_changed"]
 [connection signal="text_changed" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/ISAbbreviationContainer2/ISAbbreviationEdit" to="." method="_on_ISAbbreviationEdit_text_changed"]
