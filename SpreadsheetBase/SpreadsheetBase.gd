@@ -5,6 +5,7 @@ onready var row_container = $RowContainer
 var all_labels: Array = []
 var all_rows: Array = []
 var all_columns: Array = []
+var all_columns_data: Array = []
 
 var label_min_size: Vector2 = Vector2(100,20)
 
@@ -12,9 +13,13 @@ var label_min_size: Vector2 = Vector2(100,20)
 
 func _ready():
 	Signals.connect("data_received", self, "on_receiving_data")
+	Signals.connect("calculation_info_needed", self, "on_calculation_info_needed")
 
 
 func on_receiving_data(data: Array) -> void:
+	delete_old_spreadsheet()
+
+
 	var column_number: int = data[1].size()
 	prepare_column_array(column_number)
 	
@@ -23,9 +28,20 @@ func on_receiving_data(data: Array) -> void:
 
 	fancy_layout()
 
+
+func delete_old_spreadsheet() -> void:
+	all_labels.clear()
+	all_columns.clear()
+	all_rows.clear()
+	for child in row_container.get_children():
+		child.queue_free()
+
+
+
 func prepare_column_array(column_number) -> void:
 	for n in column_number:
 		all_columns.append([])
+		all_columns_data.append([])
 
 
 func insert_line_to_spreadsheet(line) -> void:
@@ -33,6 +49,8 @@ func insert_line_to_spreadsheet(line) -> void:
 	for element_index in line.size():
 		var current_label: Label = instance_new_element_label(line_parent, element_index)
 		display_value_on_label(current_label, line[element_index])
+		all_columns_data[element_index].append(line[element_index])
+	print(all_columns_data)
 
 
 func display_value_on_label(current_label, element) -> void:
@@ -100,3 +118,7 @@ func fancy_layout() -> void:
 func set_first_column_right() -> void:
 	for entry_label in all_columns[0]:
 		entry_label.align = 0
+
+
+func on_calculation_info_needed() -> void:
+	Signals.emit_signal("send_sample_data_for_calculation", all_columns_data)

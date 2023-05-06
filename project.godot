@@ -50,6 +50,7 @@ config/icon="res://icon.png"
 [autoload]
 
 Signals="*res://Globals/Signals.gd"
+CalculationManager="*res://Calculations/CalculationManager.gd"
 
 [display]
 

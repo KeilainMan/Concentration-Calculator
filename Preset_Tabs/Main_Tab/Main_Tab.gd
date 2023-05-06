@@ -25,18 +25,20 @@ var tab_properties: Array = [
 
 enum column_selection_mode {
 	DIRECTLY_AFTER_SAMPLE,
-	AFTER_ALL_SAMPLES,
+	#AFTER_ALL_SAMPLES,
 }
 
 var column_selection_mode_label: Array = [
 	"directly after sample",
-	"after all samples (same order)",
+	#"after all samples (same order)",
 ]
 
 func _ready():
 	name = "Main"
 	
 	add_items_for_selection_button()
+	
+	Signals.connect("calculation_info_needed", self, "on_calculation_info_needed")
 
 
 func add_items_for_selection_button() -> void:
@@ -79,6 +81,9 @@ func update_line_edits() -> void:
 	extraction_volume_edit.text = str(extraction_volume)
 	masses_column_edit.text = masses_column_name
 
+
+func on_calculation_info_needed() -> void:
+	Signals.emit_signal("send_general_data_for_calculation", [extraction_volume, masses_column_name, column_selection_button.get_selected()])
 
 
 ###########################
