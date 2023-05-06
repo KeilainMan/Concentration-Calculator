@@ -1,6 +1,7 @@
 extends Tabs
 class_name InternalStandardTab
 
+onready var tab_name_edit = $Spacer/HBoxContainer/LeftSpace/VBoxContainer/TabNameContainer/TabNameEdit
 onready var compound_name_edit = $Spacer/HBoxContainer/LeftSpace/VBoxContainer/CompoundNameContainer2/CompoundNameEdit
 onready var is_name_edit = $Spacer/HBoxContainer/LeftSpace/VBoxContainer/ISNameContainer/ISNameEdit
 onready var is_abbreviation_edit = $Spacer/HBoxContainer/LeftSpace/VBoxContainer/ISAbbreviationContainer2/ISAbbreviationEdit
@@ -32,9 +33,11 @@ var tab_properties: Array = [
 
 
 func _ready():
-	pass
+	Signals.connect("calculation_info_needed", self, "on_calculation_info_needed")
+
 
 func _on_TabNameEdit_text_changed(new_text):
+	print("changed")
 	tab_name = new_text
 	name = new_text
 	tab_properties[1] = new_text
@@ -81,6 +84,8 @@ func set_up_values() -> void:
 
 
 func update_line_edits() -> void:
+	tab_name_edit.text = tab_name
+	name = tab_name
 	compound_name_edit.text = compound_name
 	is_name_edit.text = is_name
 	is_concentration_edit.text = str(is_concentration)
@@ -89,13 +94,10 @@ func update_line_edits() -> void:
 	column_name_edit.text = column_name
 
 
+func on_calculation_info_needed() -> void:
+	Signals.emit_signal("send_is_data_for_calculation", [tab_class, column_name, is_concentration, response_factor])
+
 ########################################
-
-#func set_tab_name(new_name: String) -> void:
-#	tab_name = new_name
-#	name = new_name
-#	tab_properties[1] = new_name
-
 
 func set_tab_properties(new_properties: Array) -> void:
 	tab_properties = new_properties

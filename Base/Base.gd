@@ -14,6 +14,8 @@ onready var new_tab_button = $VBoxContainer/TopPartMenueContainer/HBoxContainer/
 onready var new_tab_pop_up_menu = $NewTabPopUpMenu
 onready var preset_save_dialog = $PresetSaveDialog
 onready var preset_load_dialog = $PresetLoadDialog
+onready var calculate_button = $VBoxContainer/TopPartMenueContainer/HBoxContainer/CalculateButton
+onready var file_save_dialog = $FileSaveDialog
 
 
 
@@ -23,6 +25,7 @@ enum main_popup_menue_items {
 	NEW_PRESET,
 	LOAD_PRESET,
 	SAVE_PRESET,
+	CLOSE_PRESET
 }
 
 var main_popup_menue_item_label: Array = [
@@ -30,6 +33,7 @@ var main_popup_menue_item_label: Array = [
 	"New preset",
 	"Load preset",
 	"Save preset",
+	"Close preset"
 ]
 
 enum new_tab_popup_menu_items {
@@ -66,7 +70,8 @@ func add_new_tab_popup_menu_items() -> void:
 	
 	
 func _on_FileDialog_file_selected(path) -> void:
-	#print(path)
+	file_content.clear()
+	
 	var file: File = File.new()
 	file.open(path, File.READ)
 	
@@ -91,7 +96,10 @@ func _on_MainPopUpMenu_id_pressed(id: int) -> void:
 		preset_load_dialog.popup()
 	if id == main_popup_menue_items.SAVE_PRESET:
 		preset_save_dialog.popup()
-
+	if id == main_popup_menue_items.CLOSE_PRESET:
+		delete_all_tabs()
+		new_tab_button.hide()
+		calculate_button.hide()
 
 
 func setup_new_preset() -> void:
@@ -112,6 +120,8 @@ func create_new_preset() -> void:
 	instance_new_tab(main_tab)
 	
 	new_tab_button.show()
+	calculate_button.show()
+
 
 func instance_new_tab(tab: PackedScene, tab_properties: Array = []) -> void:
 	var new_tab: Tabs = tab.instance()
@@ -180,9 +190,20 @@ func _on_PresetLoadDialog_file_selected(path):
 
 func load_preset(tab_properties: Array) -> void:
 	for props in tab_properties:
-		print(props)
 		if props[0] == "MAIN":
 			instance_new_tab(main_tab, props)
 		elif props[0] == "INTERNAL_STANDARD":
 			instance_new_tab(is_tab, props)
+	
+	new_tab_button.show()
+	calculate_button.show()
 
+
+func _on_CalculateButton_pressed() -> void:
+	file_save_dialog.popup()
+
+
+func _on_FileSaveDialog_file_selected(path):
+	if !path.ends_with(".txt"):
+		path = path + ".txt"
+	Signals.emit_signal("path_for_calculation_selected", path)
