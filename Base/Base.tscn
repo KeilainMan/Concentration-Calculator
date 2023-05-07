@@ -19,15 +19,15 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="TopPartMenueContainer" type="MarginContainer" parent="VBoxContainer"]
-margin_right = 1024.0
+margin_right = 1600.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 0, 50 )
 size_flags_horizontal = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/TopPartMenueContainer"]
-margin_right = 1024.0
+margin_right = 1600.0
 margin_bottom = 50.0
-custom_constants/separation = 413
+custom_constants/separation = 702
 
 [node name="MenueButton" type="Button" parent="VBoxContainer/TopPartMenueContainer/HBoxContainer"]
 margin_right = 56.0
@@ -37,37 +37,37 @@ align = 0
 
 [node name="NewTabButton" type="Button" parent="VBoxContainer/TopPartMenueContainer/HBoxContainer"]
 visible = false
-margin_left = 469.0
-margin_right = 535.0
+margin_left = 758.0
+margin_right = 824.0
 margin_bottom = 50.0
 text = "New Tab"
 align = 0
 
 [node name="CalculateButton" type="Button" parent="VBoxContainer/TopPartMenueContainer/HBoxContainer"]
 visible = false
-margin_left = 469.0
-margin_right = 543.0
+margin_left = 758.0
+margin_right = 832.0
 margin_bottom = 50.0
 text = "Calculate!"
 align = 0
 
 [node name="ActionMenueContainer" type="HBoxContainer" parent="VBoxContainer"]
 margin_top = 54.0
-margin_right = 1024.0
-margin_bottom = 600.0
+margin_right = 1600.0
+margin_bottom = 960.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="SpreadsheetBase" parent="VBoxContainer/ActionMenueContainer" instance=ExtResource( 2 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 510.0
-margin_bottom = 546.0
+margin_right = 798.0
+margin_bottom = 906.0
 
 [node name="TabContainer" type="TabContainer" parent="VBoxContainer/ActionMenueContainer"]
-margin_left = 514.0
-margin_right = 1024.0
-margin_bottom = 546.0
+margin_left = 802.0
+margin_right = 1600.0
+margin_bottom = 906.0
 size_flags_horizontal = 3
 tab_align = 0
 drag_to_rearrange_enabled = true
@@ -101,10 +101,10 @@ Press OK to discard it.  "
 dialog_autowrap = true
 
 [node name="NewTabPopUpMenu" type="PopupMenu" parent="."]
-margin_left = 519.0
-margin_top = 47.0
-margin_right = 591.0
-margin_bottom = 67.0
+margin_left = 755.0
+margin_top = 48.0
+margin_right = 827.0
+margin_bottom = 68.0
 
 [node name="PresetSaveDialog" type="FileDialog" parent="."]
 margin_left = 12.0

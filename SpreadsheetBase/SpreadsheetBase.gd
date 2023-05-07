@@ -32,6 +32,7 @@ func on_receiving_data(data: Array) -> void:
 func delete_old_spreadsheet() -> void:
 	all_labels.clear()
 	all_columns.clear()
+	all_columns_data.clear()
 	all_rows.clear()
 	for child in row_container.get_children():
 		child.queue_free()

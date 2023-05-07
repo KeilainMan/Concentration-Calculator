@@ -45,6 +45,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Concentration Calculator"
+run/main_scene="res://Base/Base.tscn"
 config/icon="res://icon.png"
 
 [autoload]
@@ -54,6 +55,8 @@ CalculationManager="*res://Calculations/CalculationManager.gd"
 
 [display]
 
+window/size/width=1600
+window/size/height=960
 window/stretch/aspect="expand"
 
 [gui]
