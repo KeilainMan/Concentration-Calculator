@@ -1,5 +1,7 @@
 extends Control
 
+onready var linear_regression: Script = preload("res://LinearRegression.cs")
+
 onready var main_tab: PackedScene = preload("res://Preset_Tabs/Main_Tab/Main_Tab.tscn")
 onready var main_tab_resource: Script = preload("res://Preset_Tabs/Main_Tab/Main_Tab_Resource.gd")
 onready var is_tab: PackedScene = preload("res://Preset_Tabs/Internal_Standard_Tab/Internal_Standard_Tab.tscn")
@@ -53,6 +55,9 @@ var file_content: Array = []
 func _ready() -> void:
 	add_main_popup_menue_items()
 	add_new_tab_popup_menu_items()
+
+	var lr_script = linear_regression.new()
+	add_child(lr_script)
 
 
 func add_main_popup_menue_items() -> void:
