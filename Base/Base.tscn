@@ -126,7 +126,6 @@ mode = 3
 access = 2
 
 [node name="FileSaveDialog" type="FileDialog" parent="."]
-visible = true
 margin_right = 475.0
 margin_bottom = 238.0
 popup_exclusive = true

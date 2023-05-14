@@ -1,0 +1,47 @@
+{
+  "format": 1,
+  "restore": {
+    "D:\\Godot\\Concentration Calculator\\Concentration Calculator.csproj": {}
+  },
+  "projects": {
+    "D:\\Godot\\Concentration Calculator\\Concentration Calculator.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Godot\\Concentration Calculator\\Concentration Calculator.csproj",
+        "projectName": "Concentration Calculator",
+        "projectPath": "D:\\Godot\\Concentration Calculator\\Concentration Calculator.csproj",
+        "packagesPath": "C:\\Users\\osset\\.nuget\\packages\\",
+        "outputPath": "D:\\Godot\\Concentration Calculator\\.mono\\temp\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\osset\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net472"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net472": {
+            "targetAlias": "net472",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net472": {
+          "targetAlias": "net472",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

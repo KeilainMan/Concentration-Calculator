@@ -1,0 +1,9 @@
+D:\Godot\Concentration Calculator\.mono\temp\bin\Debug\Concentration Calculator.dll
+D:\Godot\Concentration Calculator\.mono\temp\bin\Debug\Concentration Calculator.pdb
+D:\Godot\Concentration Calculator\.mono\temp\obj\Debug\Concentration Calculator.csproj.AssemblyReference.cache
+D:\Godot\Concentration Calculator\.mono\temp\obj\Debug\Concentration Calculator.GeneratedMSBuildEditorConfig.editorconfig
+D:\Godot\Concentration Calculator\.mono\temp\obj\Debug\Concentration Calculator.AssemblyInfoInputs.cache
+D:\Godot\Concentration Calculator\.mono\temp\obj\Debug\Concentration Calculator.AssemblyInfo.cs
+D:\Godot\Concentration Calculator\.mono\temp\obj\Debug\Concentration Calculator.csproj.CoreCompileInputs.cache
+D:\Godot\Concentration Calculator\.mono\temp\obj\Debug\Concentration Calculator.dll
+D:\Godot\Concentration Calculator\.mono\temp\obj\Debug\Concentration Calculator.pdb
