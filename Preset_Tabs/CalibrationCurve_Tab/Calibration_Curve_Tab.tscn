@@ -1,0 +1,244 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Preset_Tabs/CalibrationCurve_Tab/Calibration_Curve_Tab.gd" type="Script" id=1]
+
+[node name="CCTab" type="Tabs"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+
+[node name="Spacer" type="MarginContainer" parent="."]
+margin_left = 15.0
+margin_top = 15.0
+margin_right = 924.0
+margin_bottom = 585.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Spacer"]
+margin_right = 909.0
+margin_bottom = 570.0
+
+[node name="LeftSpace" type="MarginContainer" parent="Spacer/HBoxContainer"]
+margin_right = 452.0
+margin_bottom = 570.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Spacer/HBoxContainer/LeftSpace"]
+margin_right = 452.0
+margin_bottom = 570.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TabNameContainer" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer"]
+margin_right = 452.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+
+[node name="Description" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/TabNameContainer"]
+margin_right = 203.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_vertical = 7
+text = "Tab Name"
+valign = 1
+
+[node name="TabNameEdit" type="LineEdit" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/TabNameContainer"]
+margin_left = 207.0
+margin_right = 411.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+align = 1
+placeholder_text = "insert tab name"
+
+[node name="Unit" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/TabNameContainer"]
+margin_left = 415.0
+margin_right = 452.0
+margin_bottom = 24.0
+size_flags_vertical = 1
+text = "ng/ml"
+align = 1
+valign = 1
+percent_visible = 0.0
+
+[node name="CompoundNameContainer2" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer"]
+margin_top = 28.0
+margin_right = 452.0
+margin_bottom = 52.0
+size_flags_horizontal = 3
+
+[node name="Description" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CompoundNameContainer2"]
+margin_right = 203.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_vertical = 7
+text = "Compound Name"
+valign = 1
+
+[node name="CompoundNameEdit" type="LineEdit" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CompoundNameContainer2"]
+margin_left = 207.0
+margin_right = 411.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+align = 1
+placeholder_text = "insert compound name"
+
+[node name="Unit" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CompoundNameContainer2"]
+margin_left = 415.0
+margin_right = 452.0
+margin_bottom = 24.0
+size_flags_vertical = 1
+text = "ng/ml"
+align = 1
+valign = 1
+percent_visible = 0.0
+
+[node name="ColumnNameContainer" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer"]
+margin_top = 56.0
+margin_right = 452.0
+margin_bottom = 80.0
+size_flags_horizontal = 3
+
+[node name="Description" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/ColumnNameContainer"]
+margin_right = 203.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_vertical = 7
+text = "Column Name"
+valign = 1
+
+[node name="ColumnNameEdit" type="LineEdit" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/ColumnNameContainer"]
+margin_left = 207.0
+margin_right = 411.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+align = 1
+placeholder_text = "insert column name"
+
+[node name="Unit" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/ColumnNameContainer"]
+margin_left = 415.0
+margin_right = 452.0
+margin_bottom = 24.0
+size_flags_vertical = 1
+text = "ng/ml"
+align = 1
+valign = 1
+percent_visible = 0.0
+
+[node name="CurveConcentrationsContainer" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer"]
+margin_top = 84.0
+margin_right = 452.0
+margin_bottom = 108.0
+size_flags_horizontal = 3
+
+[node name="Description" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationsContainer"]
+margin_right = 203.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_vertical = 7
+text = "Curve Concentrations"
+valign = 1
+
+[node name="CurveConcentrationEdit" type="LineEdit" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationsContainer"]
+margin_left = 207.0
+margin_right = 411.0
+margin_bottom = 24.0
+hint_tooltip = "Please insert your known concentrations from lowest to biggest, seperated through a comma."
+size_flags_horizontal = 3
+size_flags_vertical = 3
+align = 1
+placeholder_text = "insert concentrations"
+
+[node name="Unit" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationsContainer"]
+margin_left = 415.0
+margin_right = 452.0
+margin_bottom = 24.0
+size_flags_vertical = 1
+text = "ng/ml"
+align = 1
+valign = 1
+
+[node name="CurveRowsContainer" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer"]
+margin_top = 112.0
+margin_right = 452.0
+margin_bottom = 136.0
+size_flags_horizontal = 3
+
+[node name="Description" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveRowsContainer"]
+margin_right = 203.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_vertical = 7
+text = "Curve Rows"
+valign = 1
+
+[node name="CurveRowsEdit" type="LineEdit" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveRowsContainer"]
+margin_left = 207.0
+margin_right = 411.0
+margin_bottom = 24.0
+hint_tooltip = "Please insert the rownumbers where the known concentrations are. The lowest row number should match the lowest concentration."
+size_flags_horizontal = 3
+size_flags_vertical = 3
+align = 1
+placeholder_text = "insert rows"
+
+[node name="Unit" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveRowsContainer"]
+margin_left = 415.0
+margin_right = 452.0
+margin_bottom = 24.0
+size_flags_vertical = 1
+text = "ng/ml"
+align = 1
+valign = 1
+percent_visible = 0.0
+
+[node name="CurveStyleContainer" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer"]
+margin_top = 140.0
+margin_right = 452.0
+margin_bottom = 160.0
+size_flags_horizontal = 3
+
+[node name="Description" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveStyleContainer"]
+margin_right = 203.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+size_flags_vertical = 7
+text = "Curve Style"
+valign = 1
+
+[node name="CurveStyleButton" type="OptionButton" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveStyleContainer"]
+margin_left = 207.0
+margin_right = 411.0
+margin_bottom = 20.0
+hint_tooltip = "Please insert the rownumbers where the known concentrations are. The lowest row number should match the lowest concentration."
+size_flags_horizontal = 3
+size_flags_vertical = 3
+align = 1
+
+[node name="Unit" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveStyleContainer"]
+margin_left = 415.0
+margin_right = 452.0
+margin_bottom = 20.0
+size_flags_vertical = 1
+text = "ng/ml"
+align = 1
+valign = 1
+percent_visible = 0.0
+
+[node name="RightSpace" type="MarginContainer" parent="Spacer/HBoxContainer"]
+margin_left = 456.0
+margin_right = 909.0
+margin_bottom = 570.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[connection signal="text_changed" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/TabNameContainer/TabNameEdit" to="." method="_on_TabNameEdit_text_changed"]
+[connection signal="text_changed" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CompoundNameContainer2/CompoundNameEdit" to="." method="_on_CompoundNameEdit_text_changed"]
+[connection signal="text_changed" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/ColumnNameContainer/ColumnNameEdit" to="." method="_on_ColumnNameEdit_text_changed"]
+[connection signal="text_changed" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationsContainer/CurveConcentrationEdit" to="." method="_on_CurveConcentrationEdit_text_changed"]
+[connection signal="text_changed" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveRowsContainer/CurveRowsEdit" to="." method="_on_CurveRowsEdit_text_changed"]
+[connection signal="item_selected" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveStyleContainer/CurveStyleButton" to="." method="_on_CurveStyleButton_item_selected"]

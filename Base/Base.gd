@@ -1,11 +1,11 @@
 extends Control
 
-onready var linear_regression: Script = preload("res://LinearRegression.cs")
 
 onready var main_tab: PackedScene = preload("res://Preset_Tabs/Main_Tab/Main_Tab.tscn")
 onready var main_tab_resource: Script = preload("res://Preset_Tabs/Main_Tab/Main_Tab_Resource.gd")
 onready var is_tab: PackedScene = preload("res://Preset_Tabs/Internal_Standard_Tab/Internal_Standard_Tab.tscn")
 onready var is_tab_resource: Script = preload("res://Preset_Tabs/Internal_Standard_Tab/Internal_Standard_Resource.gd")
+onready var cc_tab: PackedScene = preload("res://Preset_Tabs/CalibrationCurve_Tab/Calibration_Curve_Tab.tscn")
 onready var preset_saver_resource: Script = preload("res://Presets/PresetSaver.gd")
 
 onready var file_open_dialog = $FileOpenDialog
@@ -56,8 +56,12 @@ func _ready() -> void:
 	add_main_popup_menue_items()
 	add_new_tab_popup_menu_items()
 
-	var lr_script = linear_regression.new()
-	add_child(lr_script)
+	var x = [300437, 581449, 1359270, 2220774, 4328906]
+	var y = [10, 20, 40, 80, 160]
+	#var regression_params: Array = LinearRegression.PerformLinearRegressionWithIntercept(x, y)
+	#print(regression_params)
+	LinearRegressionCalculator.perform_linear_regression(x, y, true)
+#	LinearRegressionCalculator.perform_linear_regression(x, y, false)
 
 
 func add_main_popup_menue_items() -> void:
@@ -157,7 +161,7 @@ func _on_NewTabPopUpMenu_id_pressed(id: int) -> void:
 	if id == new_tab_popup_menu_items.INTERNAL_STANDARD_TAB:
 		instance_new_tab(is_tab)
 	if id == new_tab_popup_menu_items.CALIBRATION_CURVE_TAB:
-		pass
+		instance_new_tab(cc_tab)
 
 
 func _on_PresetSaveDialog_file_selected(path):
@@ -199,6 +203,8 @@ func load_preset(tab_properties: Array) -> void:
 			instance_new_tab(main_tab, props)
 		elif props[0] == "INTERNAL_STANDARD":
 			instance_new_tab(is_tab, props)
+		elif props[0] == "CALIBRATION_CURVE":
+			instance_new_tab(cc_tab, props)
 	
 	new_tab_button.show()
 	calculate_button.show()
