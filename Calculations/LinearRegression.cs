@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Diagnostics;
 
-public partial class LinearRegression : Node
+public class LinearRegression : Node
 {
 	// Declare member variables here. Examples:
 	// private int a = 2;
@@ -12,6 +12,7 @@ public partial class LinearRegression : Node
 	public override void _Ready()
 	{
         GD.Print("C# Script active");
+    
         var xValues = new double[]
                         {
                                 300437, 581449, 1359270, 2220774, 4328906
@@ -22,22 +23,22 @@ public partial class LinearRegression : Node
                             };
 
         double rSquared, intercept, slope;
-        PerformLinearRegressionWithIntercept(xValues, yValues, out rSquared, out intercept, out slope);
-        GD.Print($"R-squared = {rSquared}");
-        GD.Print($"Intercept = {intercept}");
-        GD.Print($"Slope = {slope}");
+        //PerformLinearRegressionWithIntercept(xValues, yValues, out rSquared, out intercept, out slope);
+       // GD.Print($"R-squared = {rSquared}");
+       // GD.Print($"Intercept = {intercept}");
+        //GD.Print($"Slope = {slope}");
 
-        var predictedValue = (slope * 2017) + intercept;
-        GD.Print($"Prediction for 2017: {predictedValue}");
+        //var predictedValue = (slope * 2017) + intercept;
+       // GD.Print($"Prediction for 2017: {predictedValue}");
 
 
-        PerformLinearRegressionWithoutIntercept(xValues, yValues, out rSquared, out intercept, out slope);
-        GD.Print($"R-squared = {rSquared}");
-        GD.Print($"Intercept = {intercept}");
-        GD.Print($"Slope = {slope}");
+        //PerformLinearRegressionWithoutIntercept(xValues, yValues, out rSquared, out intercept, out slope);
+        //GD.Print($"R-squared = {rSquared}");
+        //GD.Print($"Intercept = {intercept}");
+        //GD.Print($"Slope = {slope}");
 
-        var predictedValue2 = (slope * 2017) + intercept;
-        GD.Print($"Prediction for 2017: {predictedValue}");
+        //var predictedValue2 = (slope * 2017) + intercept;
+        //GD.Print($"Prediction for 2017: {predictedValue}");
 	}
 
         /// <summary>
@@ -49,12 +50,12 @@ public partial class LinearRegression : Node
         /// <param name="yIntercept">The y-intercept value of the line (i.e. y = ax + b, yIntercept is b).</param>
         /// <param name="slope">The slop of the line (i.e. y = ax + b, slope is a).</param>
 
-    public void PerformLinearRegressionWithIntercept(
+    public double[] PerformLinearRegressionWithIntercept(
         double[] xVals,
-        double[] yVals,
-        out double rSquared,
-        out double yIntercept,
-        out double slope)
+        double[] yVals)
+        //out double rSquared,
+        //out double yIntercept,
+        //out double slope)
     {
         if (xVals.Length != yVals.Length)
         {
@@ -66,6 +67,10 @@ public partial class LinearRegression : Node
         double sumOfXSq = 0;
         double sumOfYSq = 0;
         double sumCodeviates = 0;
+
+        double rSquared = 0;
+        double yIntercept = 0;
+        double slope = 0;
 
         for (var i = 0; i < xVals.Length; i++)
         {
@@ -93,6 +98,13 @@ public partial class LinearRegression : Node
         rSquared = dblR * dblR;
         yIntercept = meanY - ((sCo / ssX) * meanX);
         slope = sCo / ssX;
+
+        double[] Params = new double[3];
+        Params[0] = slope;
+        Params[1] = yIntercept;
+        Params[2] = rSquared;
+
+        return Params;
     }
 
     public void PerformLinearRegressionWithoutIntercept(

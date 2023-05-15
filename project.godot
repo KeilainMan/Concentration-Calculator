@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Tabs",
+"class": "CalibrationCurveTab",
+"language": "GDScript",
+"path": "res://Preset_Tabs/CalibrationCurve_Tab/Calibration_Curve_Tab.gd"
+}, {
 "base": "Resource",
 "class": "InternalStandardResource",
 "language": "GDScript",
@@ -35,6 +40,7 @@ _global_script_classes=[ {
 "path": "res://Presets/PresetSaver.gd"
 } ]
 _global_script_class_icons={
+"CalibrationCurveTab": "",
 "InternalStandardResource": "",
 "InternalStandardTab": "",
 "MainTab": "",
@@ -52,6 +58,7 @@ config/icon="res://icon.png"
 
 Signals="*res://Globals/Signals.gd"
 CalculationManager="*res://Calculations/CalculationManager.gd"
+LinearRegressionCalculator="*res://Calculations/LinearRegressionCalculator.gd"
 
 [display]
 
