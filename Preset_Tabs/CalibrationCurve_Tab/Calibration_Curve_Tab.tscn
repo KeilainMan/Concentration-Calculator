@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Preset_Tabs/CalibrationCurve_Tab/Calibration_Curve_Tab.gd" type="Script" id=1]
+[ext_resource path="res://addons/graph_2d/graph_2d.gd" type="Script" id=2]
 
 [node name="CCTab" type="Tabs"]
 anchor_right = 1.0
@@ -228,6 +229,66 @@ text = "ng/ml"
 align = 1
 valign = 1
 percent_visible = 0.0
+
+[node name="PlaceHolder" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer"]
+margin_top = 164.0
+margin_right = 452.0
+margin_bottom = 178.0
+size_flags_horizontal = 3
+
+[node name="Description" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/PlaceHolder"]
+margin_right = 203.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+size_flags_vertical = 7
+valign = 1
+
+[node name="CurveStyleButton" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/PlaceHolder"]
+margin_left = 207.0
+margin_right = 411.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+align = 1
+
+[node name="Unit" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/PlaceHolder"]
+margin_left = 415.0
+margin_right = 452.0
+margin_bottom = 14.0
+size_flags_vertical = 1
+text = "ng/ml"
+align = 1
+valign = 1
+percent_visible = 0.0
+
+[node name="CenterContainer" type="Control" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer"]
+margin_top = 182.0
+margin_right = 452.0
+margin_bottom = 570.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Graph2D" type="Control" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CenterContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 20.0
+margin_top = 20.0
+margin_right = -20.0
+margin_bottom = -20.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 2 )
+background_color = Color( 0.184314, 0.184314, 0.184314, 1 )
+x_axis_min_value = 0.0
+x_axis_max_value = 10.0
+x_axis_grad_number = 11
+x_axis_label = ""
+y_axis_min_value = 0.0
+y_axis_max_value = 1.0
+y_axis_grad_number = 7
+y_axis_label = ""
+grid_horizontal_visible = false
+grid_vertical_visible = false
 
 [node name="RightSpace" type="MarginContainer" parent="Spacer/HBoxContainer"]
 margin_left = 456.0

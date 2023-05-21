@@ -26,6 +26,7 @@ func on_receiving_data(data: Array) -> void:
 	for line in data:
 		insert_line_to_spreadsheet(line)
 
+	DataManager.set_current_data_sorted_in_columns(all_columns_data)
 	fancy_layout()
 
 
@@ -51,6 +52,7 @@ func insert_line_to_spreadsheet(line) -> void:
 		var current_label: Label = instance_new_element_label(line_parent, element_index)
 		display_value_on_label(current_label, line[element_index])
 		all_columns_data[element_index].append(line[element_index])
+		
 	print(all_columns_data)
 
 
