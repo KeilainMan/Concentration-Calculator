@@ -7,6 +7,7 @@ onready var column_name_edit = $Spacer/HBoxContainer/LeftSpace/VBoxContainer/Col
 onready var curve_concentration_edit = $Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationsContainer/CurveConcentrationEdit
 onready var curve_rows_edit = $Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveRowsContainer/CurveRowsEdit
 onready var curve_style_button = $Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveStyleContainer/CurveStyleButton
+onready var graph_2d = $Spacer/HBoxContainer/LeftSpace/VBoxContainer/CenterContainer/Graph2D
 
 
 var tab_class: String = "CALIBRATION_CURVE"
@@ -39,6 +40,7 @@ var curve_styles_labels: Array = [
 
 func _ready():
 	Signals.connect("calculation_info_needed", self, "on_calculation_info_needed")
+	Signals.connect("data_updated", self, "_on_data_updated")
 	add_items_for_curve_style_button()
 
 
@@ -71,6 +73,8 @@ func _on_CurveConcentrationEdit_text_changed(new_text):
 	for number in split:
 		curve_concentrations.append(float(number))
 	tab_properties[4] = curve_concentrations
+	_update_graph()
+	print("New Curve Concentration Text")
 
 
 func _on_CurveRowsEdit_text_changed(new_text):
@@ -79,12 +83,14 @@ func _on_CurveRowsEdit_text_changed(new_text):
 	for number in split:
 		curve_rows.append(int(number))
 	tab_properties[5] = curve_rows
-
+	_update_graph()
+	print("New Curve Row Text")
 
 func _on_CurveStyleButton_item_selected(index):
 	curve_style = index
 	tab_properties[6] = curve_style
-
+	_update_graph()
+	print("New Curve Style selected")
 
 
 func set_up_values() -> void:
@@ -104,6 +110,7 @@ func update_line_edits() -> void:
 	curve_concentration_edit.text = transform_to_string(curve_concentrations)
 	curve_rows_edit.text = transform_to_string(curve_rows)
 	curve_style_button._select_int(curve_style)
+	_update_graph()
 
 
 func transform_to_string(curve_concentrations: Array) -> String:
@@ -119,6 +126,44 @@ func transform_to_string(curve_concentrations: Array) -> String:
 func on_calculation_info_needed() -> void:
 	print(typeof(curve_concentrations[0]), " ", typeof(curve_rows[0]))
 	Signals.emit_signal("send_cc_data_for_calculation", [tab_class, column_name, curve_concentrations, curve_rows, curve_style])
+
+########################################
+
+func _update_graph() -> void:
+	var y_axis_values: Array = curve_concentrations
+	var x_axis_values: Array = DataManager.find_calibration_curve_values(column_name, curve_rows)
+	
+	graph_2d.set_orig_points([x_axis_values, y_axis_values])
+	
+	var lr_parameters: Array = []
+	var curve_id: String
+	
+	if x_axis_values.size() > 2 and y_axis_values.size() > 2:
+		lr_parameters.append_array(LinearRegressionCalculator.perform_linear_regression(x_axis_values, y_axis_values, curve_style))
+		if lr_parameters.empty():
+			return
+		if curve_style == curve_styles.INTERCEPT:
+			curve_id = "y = " + str(lr_parameters[0]) + "x " + str(lr_parameters[1]) + ", R^2: " + str(lr_parameters[2])
+		else:
+			curve_id = "y = " + str(lr_parameters[0]) + "x, R^2: " + str(lr_parameters[2])
+
+		graph_2d.remove_all_curves()
+		
+		var plot_id = graph_2d.add_curve(curve_id, Color.azure, 1.0)
+		for x in range(0,x_axis_values.max(),x_axis_values.max()/50):
+			var y1: float = lr_parameters[0] * x
+			graph_2d.add_point(plot_id, Vector2(x, y1))
+			
+			graph_2d.set_y_axis_max_value(y_axis_values.max())
+			graph_2d.set_y_axis_label("Concentration in ng/ml")
+
+			graph_2d.set_x_axis_max_value(x_axis_values.max())
+			graph_2d.set_x_axis_label("Area")
+
+
+func _on_data_updated() -> void:
+	_update_graph()
+
 
 ########################################
 

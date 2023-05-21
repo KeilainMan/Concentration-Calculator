@@ -14,6 +14,7 @@ func _ready():
 func perform_linear_regression(x_data: Array, y_data: Array, intercept_flag: int) -> Array:
 	if !x_data.size() == y_data.size():
 		print("Unequal x and y datapoints!")
+		return []
 	
 	var regression_params: Array = []
 	
@@ -46,7 +47,7 @@ func linear_regression_without_intercept(x_data: Array, y_data: Array) -> Array:
 		
 	var r_Squared: float = sum_codeviates_sq / (sum_of_x_sq * sum_of_y_sq)
 	var y_Intercept: float = 0.0
-	var slope: float = (sum_codeviates / sum_of_x_sq) * 100000
+	var slope: float = (sum_codeviates / sum_of_x_sq)# * 100000
 	
 	return [slope, y_Intercept, r_Squared]
 		
