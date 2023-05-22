@@ -52,7 +52,8 @@ func start_calculation_process(save_file_path: String) -> void:
 	results.insert(0, sample_data[0])
 	var results_transposed: Array = transpose_results(results)
 	save_file(save_file_path, results_transposed)
-	Signals.emit_signal("calculation_completed")
+#	Signals.emit_signal("calculation_completed")
+	clear_data()
 
 
 func transpose_results(result: Array) -> Array:
@@ -88,7 +89,7 @@ func find_compound_and_is_column(sample_compound_column_name: String, is_column_
 	
 	for compound_column_index in sample_data.size():
 		if sample_data[compound_column_index][0] == sample_compound_column_name:
-			compound_and_is_column.append(sample_data[compound_column_index].duplicate(true))
+			compound_and_is_column.append(sample_data[compound_column_index])
 			if general_data[2] == 0 and is_column_flag:
 				compound_and_is_column.append(sample_data[compound_column_index + 1])
 			else:
@@ -155,6 +156,14 @@ func save_file(save_file_path: String, result: Array) -> void:
 		new_file.store_csv_line(line, "	")
 	
 	new_file.close()
+
+
+func clear_data() -> void:
+	sample_data.clear()
+	general_data.clear()
+	is_data.clear()
+	cc_data.clear()
+	results.clear()
 
 
 #####################################################################
