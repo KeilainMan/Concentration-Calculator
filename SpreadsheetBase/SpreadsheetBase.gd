@@ -124,4 +124,4 @@ func set_first_column_right() -> void:
 
 
 func on_calculation_info_needed() -> void:
-	Signals.emit_signal("send_sample_data_for_calculation", all_columns_data)
+	Signals.emit_signal("send_sample_data_for_calculation", all_columns_data.duplicate(true))

@@ -58,6 +58,7 @@ var new_tab_popup_menu_item_label: Array = [
 
 
 var file_content: Array = []
+var last_opened_preset_path: String = ""
 
 ##BUILD UP###########################################
 
@@ -66,7 +67,7 @@ func _ready() -> void:
 	add_new_tab_popup_menu_items()
 	
 	create_or_load_quick_preset_safe()
-
+#	Signals.connect("calculation_completed", self, "_on_calculation_completed")
 
 func add_main_popup_menue_items() -> void:
 	var index: int = 0
@@ -109,6 +110,7 @@ func _on_FileDialog_file_selected(path) -> void:
 	#print(file_content)
 	Signals.emit_signal("data_received", file_content)
 	file.close()
+
 
 ##MAIN MENU############################################
 
@@ -217,6 +219,7 @@ func _on_PresetLoadDialog_file_selected(path) -> void:
 
 
 func load_preset(path: String) -> void:
+	last_opened_preset_path = path
 	var preset_save: Resource = load(path)
 	var tab_properties: Array = preset_save.all_tab_properties.duplicate()#get_all_tab_properties()
 
@@ -288,6 +291,9 @@ func _on_FileSaveDialog_file_selected(path):
 		path = path + ".txt"
 	Signals.emit_signal("path_for_calculation_selected", path)
 
+
+func _on_calculation_completed() -> void:
+	load_preset(last_opened_preset_path)
 
 
 

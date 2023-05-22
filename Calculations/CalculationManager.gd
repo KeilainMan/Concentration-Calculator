@@ -25,7 +25,7 @@ func on_path_for_calculation_selected(save_file_path: String) -> void:
 func start_calculation_process(save_file_path: String) -> void:
 	Signals.emit_signal("calculation_info_needed")
 	print("In need for Information")
-	yield(get_tree().create_timer(0.15), "timeout")
+	#yield(get_tree().create_timer(0.15), "timeout")
 	
 	print("calculating...")
 	var masses_column: Array = find_masses_column()
@@ -52,6 +52,7 @@ func start_calculation_process(save_file_path: String) -> void:
 	results.insert(0, sample_data[0])
 	var results_transposed: Array = transpose_results(results)
 	save_file(save_file_path, results_transposed)
+	Signals.emit_signal("calculation_completed")
 
 
 func transpose_results(result: Array) -> Array:
@@ -87,7 +88,7 @@ func find_compound_and_is_column(sample_compound_column_name: String, is_column_
 	
 	for compound_column_index in sample_data.size():
 		if sample_data[compound_column_index][0] == sample_compound_column_name:
-			compound_and_is_column.append(sample_data[compound_column_index])
+			compound_and_is_column.append(sample_data[compound_column_index].duplicate(true))
 			if general_data[2] == 0 and is_column_flag:
 				compound_and_is_column.append(sample_data[compound_column_index + 1])
 			else:

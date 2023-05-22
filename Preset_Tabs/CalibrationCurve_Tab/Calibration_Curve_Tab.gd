@@ -132,7 +132,7 @@ func on_calculation_info_needed() -> void:
 func _update_graph() -> void:
 	var y_axis_values: Array = curve_concentrations
 	var x_axis_values: Array = DataManager.find_calibration_curve_values(column_name, curve_rows)
-	
+	print(x_axis_values, y_axis_values)
 	graph_2d.set_orig_points([x_axis_values, y_axis_values])
 	
 	var lr_parameters: Array = []

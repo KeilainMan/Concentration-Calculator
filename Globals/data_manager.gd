@@ -33,4 +33,4 @@ func set_current_data_sorted_in_columns( new_data: Array) -> void:
 
 
 func get_current_data_sorted_in_columns() -> Array:
-	return current_data_sorted_in_columns
+	return current_data_sorted_in_columns.duplicate(true)
