@@ -1,12 +1,16 @@
 extends Control
 
 
+var quick_preset_save: Resource
+const QUICK_PRESET_SAVE_PATH: String = "user://quick_preset_save.tres"
+
 onready var main_tab: PackedScene = preload("res://Preset_Tabs/Main_Tab/Main_Tab.tscn")
 onready var main_tab_resource: Script = preload("res://Preset_Tabs/Main_Tab/Main_Tab_Resource.gd")
 onready var is_tab: PackedScene = preload("res://Preset_Tabs/Internal_Standard_Tab/Internal_Standard_Tab.tscn")
 onready var is_tab_resource: Script = preload("res://Preset_Tabs/Internal_Standard_Tab/Internal_Standard_Resource.gd")
 onready var cc_tab: PackedScene = preload("res://Preset_Tabs/CalibrationCurve_Tab/Calibration_Curve_Tab.tscn")
 onready var preset_saver_resource: Script = preload("res://Presets/PresetSaver.gd")
+onready var quick_preset_save_resource: Script = preload("res://UI_Elements/QuickPreset/QuickPresetSave.gd")
 
 onready var file_open_dialog = $FileOpenDialog
 onready var main_popup_menu = $MainPopUpMenu
@@ -18,6 +22,8 @@ onready var preset_save_dialog = $PresetSaveDialog
 onready var preset_load_dialog = $PresetLoadDialog
 onready var calculate_button = $VBoxContainer/TopPartMenueContainer/HBoxContainer/CalculateButton
 onready var file_save_dialog = $FileSaveDialog
+onready var quick_preset_dialog = $QuickPresetDialog
+onready var quick_preset_pop_up_menu = $QuickPresetPopUpMenu
 
 
 
@@ -27,7 +33,8 @@ enum main_popup_menue_items {
 	NEW_PRESET,
 	LOAD_PRESET,
 	SAVE_PRESET,
-	CLOSE_PRESET
+	CLOSE_PRESET,
+	ADD_TO_QUICK_PRESET
 }
 
 var main_popup_menue_item_label: Array = [
@@ -35,7 +42,8 @@ var main_popup_menue_item_label: Array = [
 	"New preset",
 	"Load preset",
 	"Save preset",
-	"Close preset"
+	"Close preset",
+	"Add to quick presets"
 ]
 
 enum new_tab_popup_menu_items {
@@ -51,17 +59,13 @@ var new_tab_popup_menu_item_label: Array = [
 
 var file_content: Array = []
 
+##BUILD UP###########################################
 
 func _ready() -> void:
 	add_main_popup_menue_items()
 	add_new_tab_popup_menu_items()
-
-	var x = [300437, 581449, 1359270, 2220774, 4328906]
-	var y = [10, 20, 40, 80, 160]
-	#var regression_params: Array = LinearRegression.PerformLinearRegressionWithIntercept(x, y)
-	#print(regression_params)
-	LinearRegressionCalculator.perform_linear_regression(x, y, true)
-#	LinearRegressionCalculator.perform_linear_regression(x, y, false)
+	
+	create_or_load_quick_preset_safe()
 
 
 func add_main_popup_menue_items() -> void:
@@ -76,8 +80,22 @@ func add_new_tab_popup_menu_items() -> void:
 	for item in new_tab_popup_menu_items.keys():
 		new_tab_pop_up_menu.add_item(new_tab_popup_menu_item_label[index], new_tab_popup_menu_items.get(item))
 		index += 1
+
+func update_quick_preset_popup_menu() -> void:
+	quick_preset_pop_up_menu.clear()
+	var preset_info: Array = quick_preset_save.get_preset_info()
 	
-	
+	for preset in preset_info:
+		var slices: PoolStringArray = preset.get("path").rsplit("/")
+		var slices2: Array = Array(slices)
+		var file_name: String = slices2.back()
+		
+		quick_preset_pop_up_menu.add_item(file_name, preset.get("id", -100))
+		
+
+
+##LOAD DATA FILE########################################
+
 func _on_FileDialog_file_selected(path) -> void:
 	file_content.clear()
 	
@@ -90,7 +108,9 @@ func _on_FileDialog_file_selected(path) -> void:
 #	var split_content = content.split("	")
 	#print(file_content)
 	Signals.emit_signal("data_received", file_content)
+	file.close()
 
+##MAIN MENU############################################
 
 func _on_MenueButton_pressed():
 	main_popup_menu.popup()
@@ -109,7 +129,11 @@ func _on_MainPopUpMenu_id_pressed(id: int) -> void:
 		delete_all_tabs()
 		new_tab_button.hide()
 		calculate_button.hide()
+	if id == main_popup_menue_items.ADD_TO_QUICK_PRESET:
+		quick_preset_dialog.popup()
 
+
+##CREATE NEW PRESETS###################################
 
 func setup_new_preset() -> void:
 	var is_preset_open: bool = check_for_open_preset()
@@ -145,6 +169,7 @@ func instance_new_tab(tab: PackedScene, tab_properties: Array = []) -> void:
 func delete_all_tabs() -> void:
 	for child in tab_container.get_children():
 		child.queue_free()
+	return
 
 
 func check_for_open_preset() -> bool:
@@ -164,7 +189,9 @@ func _on_NewTabPopUpMenu_id_pressed(id: int) -> void:
 		instance_new_tab(cc_tab)
 
 
-func _on_PresetSaveDialog_file_selected(path):
+##SAVE PRESET###############################################
+
+func _on_PresetSaveDialog_file_selected(path) -> void:
 	var new_preset_saver: Resource = preset_saver_resource.new()
 	var all_current_preset_properties: Array = gather_all_tab_properties()
 	new_preset_saver.set_all_tab_properties(all_current_preset_properties)
@@ -173,7 +200,6 @@ func _on_PresetSaveDialog_file_selected(path):
 		path = path + ".tres"
 	
 	ResourceSaver.save(path, new_preset_saver, ResourceSaver.FLAG_BUNDLE_RESOURCES)
-	print("everything saved")
 
 
 func gather_all_tab_properties() -> Array:
@@ -183,21 +209,21 @@ func gather_all_tab_properties() -> Array:
 	return all_properties
 
 
-func _on_PresetLoadDialog_file_selected(path):
-	if !path.ends_with(".tres"):
-		preset_load_dialog.popup()
-		print("wrong file format")
+##LOAD PRESET ###############################################
+func _on_PresetLoadDialog_file_selected(path) -> void:
+	if !is_file_a_valid_preset(path):
+		return
+	load_preset(path)
+
+
+func load_preset(path: String) -> void:
 	var preset_save: Resource = load(path)
 	var tab_properties: Array = preset_save.all_tab_properties.duplicate()#get_all_tab_properties()
 
 	if tab_properties.empty():
-		print("Preset empty!")
-	else:
-		delete_all_tabs()
-		load_preset(tab_properties)
-
-
-func load_preset(tab_properties: Array) -> void:
+		return
+		
+	delete_all_tabs()
 	for props in tab_properties:
 		if props[0] == "MAIN":
 			instance_new_tab(main_tab, props)
@@ -210,6 +236,49 @@ func load_preset(tab_properties: Array) -> void:
 	calculate_button.show()
 
 
+func is_file_a_valid_preset(path: String) -> bool:
+	if !path.ends_with(".tres"):
+		preset_load_dialog.popup()
+		return false
+		
+	var preset_save: Resource = load(path)
+	if !preset_save.get("all_tab_properties"):
+		preset_load_dialog.popup()
+		return false
+	return true
+
+
+func create_or_load_quick_preset_safe() -> void:
+	if ResourceLoader.exists(QUICK_PRESET_SAVE_PATH):
+		quick_preset_save = load(QUICK_PRESET_SAVE_PATH)#QuickPresetSave.load_save()
+		update_quick_preset_popup_menu()
+	else:
+		quick_preset_save = quick_preset_save_resource.new()
+
+
+func _on_QuickPresets_pressed() -> void:
+	quick_preset_pop_up_menu.popup()
+
+
+func _on_QuickPresetDialog_file_selected(path) -> void:
+	if !is_file_a_valid_preset(path):
+		return
+	quick_preset_save.add_preset_path(path)
+	update_quick_preset_popup_menu()
+	ResourceSaver.save(QUICK_PRESET_SAVE_PATH, quick_preset_save, ResourceSaver.FLAG_BUNDLE_RESOURCES)
+
+
+func _on_QuickPresetPopUpMenu_id_pressed(id) -> void:
+	var preset_infos: Array = quick_preset_save.get_preset_info()
+	
+	for preset in preset_infos:
+#		print("id clicked: ", id, "preset id: ", preset.get("id"))
+		if preset.get("id") == id:
+			load_preset(preset.get("path"))
+
+
+##CALCULATION PROCESS#############################################
+
 func _on_CalculateButton_pressed() -> void:
 	file_save_dialog.popup()
 
@@ -218,3 +287,11 @@ func _on_FileSaveDialog_file_selected(path):
 	if !path.ends_with(".txt"):
 		path = path + ".txt"
 	Signals.emit_signal("path_for_calculation_selected", path)
+
+
+
+
+
+
+
+
