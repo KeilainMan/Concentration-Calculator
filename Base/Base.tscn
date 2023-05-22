@@ -27,26 +27,42 @@ size_flags_horizontal = 3
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/TopPartMenueContainer"]
 margin_right = 1600.0
 margin_bottom = 50.0
-custom_constants/separation = 702
+custom_constants/separation = 2
 
 [node name="MenueButton" type="Button" parent="VBoxContainer/TopPartMenueContainer/HBoxContainer"]
-margin_right = 56.0
+margin_right = 48.0
 margin_bottom = 50.0
-text = "Menue"
+text = "Menu"
 align = 0
 
+[node name="QuickPresets" type="Button" parent="VBoxContainer/TopPartMenueContainer/HBoxContainer"]
+margin_left = 50.0
+margin_right = 151.0
+margin_bottom = 50.0
+text = "Quick Presets"
+
+[node name="Placeholder1" type="MarginContainer" parent="VBoxContainer/TopPartMenueContainer/HBoxContainer"]
+margin_left = 153.0
+margin_right = 803.0
+margin_bottom = 50.0
+size_flags_horizontal = 3
+
 [node name="NewTabButton" type="Button" parent="VBoxContainer/TopPartMenueContainer/HBoxContainer"]
-visible = false
-margin_left = 758.0
-margin_right = 824.0
+margin_left = 805.0
+margin_right = 871.0
 margin_bottom = 50.0
 text = "New Tab"
 align = 0
 
+[node name="Placeholder2" type="MarginContainer" parent="VBoxContainer/TopPartMenueContainer/HBoxContainer"]
+margin_left = 873.0
+margin_right = 1524.0
+margin_bottom = 50.0
+size_flags_horizontal = 3
+
 [node name="CalculateButton" type="Button" parent="VBoxContainer/TopPartMenueContainer/HBoxContainer"]
-visible = false
-margin_left = 758.0
-margin_right = 832.0
+margin_left = 1526.0
+margin_right = 1600.0
 margin_bottom = 50.0
 text = "Calculate!"
 align = 0
@@ -133,7 +149,25 @@ window_title = "Save calculation File"
 resizable = true
 access = 2
 
+[node name="QuickPresetDialog" type="FileDialog" parent="."]
+margin_left = -2.0
+margin_top = 21.0
+margin_right = 485.0
+margin_bottom = 426.0
+popup_exclusive = true
+window_title = "Open a File or Directory"
+resizable = true
+mode = 3
+access = 2
+
+[node name="QuickPresetPopUpMenu" type="PopupMenu" parent="."]
+margin_left = 47.0
+margin_top = 47.0
+margin_right = 154.0
+margin_bottom = 67.0
+
 [connection signal="pressed" from="VBoxContainer/TopPartMenueContainer/HBoxContainer/MenueButton" to="." method="_on_MenueButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/TopPartMenueContainer/HBoxContainer/QuickPresets" to="." method="_on_QuickPresets_pressed"]
 [connection signal="pressed" from="VBoxContainer/TopPartMenueContainer/HBoxContainer/NewTabButton" to="." method="_on_NewTabButton_pressed"]
 [connection signal="pressed" from="VBoxContainer/TopPartMenueContainer/HBoxContainer/CalculateButton" to="." method="_on_CalculateButton_pressed"]
 [connection signal="file_selected" from="FileOpenDialog" to="." method="_on_FileDialog_file_selected"]
@@ -143,3 +177,5 @@ access = 2
 [connection signal="file_selected" from="PresetSaveDialog" to="." method="_on_PresetSaveDialog_file_selected"]
 [connection signal="file_selected" from="PresetLoadDialog" to="." method="_on_PresetLoadDialog_file_selected"]
 [connection signal="file_selected" from="FileSaveDialog" to="." method="_on_FileSaveDialog_file_selected"]
+[connection signal="file_selected" from="QuickPresetDialog" to="." method="_on_QuickPresetDialog_file_selected"]
+[connection signal="id_pressed" from="QuickPresetPopUpMenu" to="." method="_on_QuickPresetPopUpMenu_id_pressed"]
