@@ -1,13 +1,8 @@
 extends Node
 
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
 
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
+func _ready() -> void:
 	pass # Replace with function body.
 
 
@@ -23,9 +18,9 @@ func perform_linear_regression(x_data: Array, y_data: Array, intercept_flag: int
 	else:
 		regression_params.append_array(linear_regression_with_intercept(x_data, y_data))
 	
-	print("Slope: " , stepify(regression_params[0], 0.0000000001))
-	print("YIntercept: ", stepify(regression_params[1], 0.0000000001))
-	print("R-Squared: ", stepify(regression_params[2], 0.0000000001))
+#	print("Slope: " , stepify(regression_params[0], 0.0000000001))
+#	print("YIntercept: ", stepify(regression_params[1], 0.0000000001))
+#	print("R-Squared: ", stepify(regression_params[2], 0.0000000001))
 	
 	return regression_params
 
@@ -39,7 +34,6 @@ func linear_regression_without_intercept(x_data: Array, y_data: Array) -> Array:
 	for n in x_data.size():
 		var x = x_data[n]
 		var y = y_data[n]
-		print(typeof(x), " ", typeof(y))
 		sum_of_x_sq += x * x
 		sum_of_y_sq += y * y
 		sum_codeviates += x * y

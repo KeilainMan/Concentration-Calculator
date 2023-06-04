@@ -8,6 +8,9 @@
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 1 )
+debug = true
+file_path = "D:/Godot/Concentration Calculator/Test_Data/TestDataCC.txt"
+preset_path = "D:/Godot/Concentration Calculator/Presets/PAOx.tres"
 
 [node name="Bg" type="TextureRect" parent="."]
 modulate = Color( 0.490196, 0.490196, 0.490196, 1 )
@@ -77,14 +80,17 @@ size_flags_vertical = 3
 [node name="SpreadsheetBase" parent="VBoxContainer/ActionMenueContainer" instance=ExtResource( 2 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 798.0
+margin_right = 957.0
 margin_bottom = 906.0
+size_flags_stretch_ratio = 1.5
 
 [node name="TabContainer" type="TabContainer" parent="VBoxContainer/ActionMenueContainer"]
-margin_left = 802.0
+margin_left = 961.0
 margin_right = 1600.0
 margin_bottom = 906.0
+grow_horizontal = 2
 size_flags_horizontal = 3
+size_flags_vertical = 3
 tab_align = 0
 drag_to_rearrange_enabled = true
 
