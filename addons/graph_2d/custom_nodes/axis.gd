@@ -7,7 +7,6 @@ var vert_grad: Array # [[px: Vector2, text: String], ...]
 var hor_grad: Array
 var x_label: String
 var y_label: String
-var original_points: Array # [pos: Vector1, pos: Vector2...]
 
 var _x_label = Label.new()
 var _y_label = Label.new()
@@ -42,17 +41,3 @@ func _draw() -> void:
 	draw_line(hor_grad.front()[0], hor_grad.back()[0], Color.white)
 	_x_label.text = x_label
 	_x_label.rect_position = Vector2((bottomright.x + topleft.x)/2, bottomright.y + 20)
-	
-	
-
-	var orig_point_position: Array = []
-	for axis_relative in original_points:
-
-		var x_position: float = ((bottomright.x - topleft.x) * axis_relative.x) + topleft.x
-		var y_position: float = bottomright.y - ((bottomright.y - topleft.y) * axis_relative.y)
-		orig_point_position.append(Vector2(x_position, y_position))
-	# draw given points
-	for point_pos in orig_point_position:
-		#draw_set_transform(point_pos, 0, Vector2(1,1))
-		draw_circle(point_pos, 3, Color.orange)
-	

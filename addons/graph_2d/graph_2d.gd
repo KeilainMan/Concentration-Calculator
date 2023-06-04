@@ -20,9 +20,6 @@ var y_axis_grad_number = 7 setget set_y_axis_grad_number
 ## Label on the Y-axis
 var y_axis_label: String = "" setget set_y_axis_label
 
-## Original points used for linear regression [[x1, x2...][y1, y2...]] 
-var orig_points: Array = [[1],[1]] setget set_orig_points
-
 ## background color of graph
 var background_color = Color.black setget set_background_color
 ## Grid visibility
@@ -55,7 +52,7 @@ var _margin = {
 
 ## Public Methods
 
-func add_curve(label = "untitled", color = Color.red, width = 1.0) -> int:
+func add_curve(label = "untitled", color = Color.red, width = 1.0, scatter = false) -> int:
 	
 	var id: int = 0
 	var id_unique = false
@@ -69,24 +66,24 @@ func add_curve(label = "untitled", color = Color.red, width = 1.0) -> int:
 		if id_search == id:
 			id_unique = true
 
-		
 	var curve: Dictionary
 	curve["id"] = id
 	curve["color"] = color
 	curve["width"] = width
 	curve["label"] = label
 	curve["points"] = PoolVector2Array([])
+	curve["scatter"] = scatter
 	_curves.append(curve)
 	
 	var plt = Plot2D.new()
 	plt.name = "Plot%d" % id
 	plt.color = color
 	plt.width = width
+	plt.scatter = scatter
 	_plot_area.add_child(plt)
 	
 	_update_legend()
 	return curve.id
-	
 	
 func clear_curve(id: int) -> void:
 	for curve in _curves:
@@ -96,12 +93,6 @@ func clear_curve(id: int) -> void:
 			plot_node.points_px = PoolVector2Array([])
 			plot_node.update()
 			break
-
-
-func remove_all_curves() -> void:
-	for curve in _curves:
-		remove_curve(curve.id)
-
 
 func remove_curve(id) -> int:
 	if not id is int:
@@ -117,7 +108,12 @@ func remove_curve(id) -> int:
 			return OK
 			
 	return FAILED
-	
+
+
+func remove_all_curves() -> void:
+	for curve in _curves:
+		remove_curve(curve.id)
+
 
 func add_point(id: int, point: Vector2) -> int:
 	for curve in _curves:
@@ -147,7 +143,6 @@ func add_point(id: int, point: Vector2) -> int:
 func add_points(id: int, points: PoolVector2Array):
 	for point in points:
 		add_point(id, point)
-	
 
 func get_points(id: int) -> PoolVector2Array:
 	for plot in _curves:
@@ -273,34 +268,8 @@ func _update_axis() -> void:
 	else:
 		grid.vert_grid = []
 	
-#	var orig_point_position: Array = []
-#	var topleft: Vector2 = vert_grad.front()[0]
-#	var bottomright: Vector2 = hor_grad.back()[0]
-#	for point_index in orig_points[0].size():
-#
-#		var x_value: float = orig_points[0][point_index]
-#		var y_value: float = orig_points[1][point_index]
-#
-#		var x_position: float = ((bottomright.x - topleft.x) * (x_value/x_axis_range)) + bottomright.x
-#		var y_position: float = bottomright.y - ((bottomright.y - topleft.y) * (y_value/y_axis_range))
-#
-#		orig_point_position.append(Vector2(x_position, y_position))
-	
-#	axis.original_points = orig_point_position
-	var relatives:Array = []
-	for point_index in orig_points[0].size():
-		var x_value: float = orig_points[0][point_index]
-		var y_value: float = orig_points[1][point_index]
-
-		var x_relative: float = x_value/x_axis_range
-		var y_relative: float = y_value/y_axis_range
-		relatives.append(Vector2(x_relative,y_relative))
-		
-	axis.original_points = relatives
-	
 	axis.update()
 	grid.update()
-	
 	
 func _update_legend():
 	var legend_array: Array
@@ -319,7 +288,6 @@ func _update_legend():
 	legend.legend_array = legend_array
 	legend.update()
 	
-	
 func _update_plot() -> void:
 	
 	_plot_area.margin_left = _margin.left
@@ -331,7 +299,6 @@ func _update_plot() -> void:
 		var pts_px: PoolVector2Array
 		var pt_px: Vector2
 		for pt in curve.points:
-#			print(rect_size)
 			pt.x = clamp(pt.x, x_axis_min_value, x_axis_max_value)
 			pt.y = clamp(pt.y, y_axis_min_value, y_axis_max_value)
 			pt_px.x = range_lerp(pt.x, x_axis_min_value, x_axis_max_value, 0, _plot_area.rect_size.x)
@@ -341,8 +308,7 @@ func _update_plot() -> void:
 		
 		plt.points_px = pts_px
 		plt.update()
-		
-
+	
 func set_x_axis_min_value(value) -> void:
 	x_axis_min_value = value
 	_update_axis()
@@ -384,10 +350,6 @@ func set_y_axis_label(value) -> void:
 	_update_axis()
 	_update_legend()
 	_update_plot()
-	
-func set_orig_points(new_points: Array) -> void:
-	orig_points.clear()
-	orig_points = new_points
 	
 func set_background_color(value):
 	background_color = value

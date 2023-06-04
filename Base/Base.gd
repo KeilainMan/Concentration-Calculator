@@ -1,5 +1,10 @@
 extends Control
 
+## debug setting
+export var debug: bool = false
+export var file_path: String = ""
+export var preset_path: String = ""
+
 
 var quick_preset_save: Resource
 const QUICK_PRESET_SAVE_PATH: String = "user://quick_preset_save.tres"
@@ -68,6 +73,14 @@ func _ready() -> void:
 	
 	create_or_load_quick_preset_safe()
 #	Signals.connect("calculation_completed", self, "_on_calculation_completed")
+	if debug:
+		start_in_debug()
+
+
+func start_in_debug() -> void:
+	_on_FileDialog_file_selected(file_path)
+	_on_PresetLoadDialog_file_selected(preset_path)
+
 
 func add_main_popup_menue_items() -> void:
 	var index: int = 0
@@ -81,6 +94,7 @@ func add_new_tab_popup_menu_items() -> void:
 	for item in new_tab_popup_menu_items.keys():
 		new_tab_pop_up_menu.add_item(new_tab_popup_menu_item_label[index], new_tab_popup_menu_items.get(item))
 		index += 1
+
 
 func update_quick_preset_popup_menu() -> void:
 	quick_preset_pop_up_menu.clear()
@@ -98,6 +112,7 @@ func update_quick_preset_popup_menu() -> void:
 ##LOAD DATA FILE########################################
 
 func _on_FileDialog_file_selected(path) -> void:
+	print(path)
 	file_content.clear()
 	
 	var file: File = File.new()
@@ -107,8 +122,8 @@ func _on_FileDialog_file_selected(path) -> void:
 		var content = file.get_csv_line("	")
 		file_content.append(content)
 #	var split_content = content.split("	")
-	#print(file_content)
-	Signals.emit_signal("data_received", file_content)
+	DataManager.set_current_data_sorted_in_rows_string(file_content)
+	#Signals.emit_signal("data_received", file_content)
 	file.close()
 
 
@@ -194,6 +209,7 @@ func _on_NewTabPopUpMenu_id_pressed(id: int) -> void:
 ##SAVE PRESET###############################################
 
 func _on_PresetSaveDialog_file_selected(path) -> void:
+	print(path)
 	var new_preset_saver: Resource = preset_saver_resource.new()
 	var all_current_preset_properties: Array = gather_all_tab_properties()
 	new_preset_saver.set_all_tab_properties(all_current_preset_properties)
@@ -213,6 +229,7 @@ func gather_all_tab_properties() -> Array:
 
 ##LOAD PRESET ###############################################
 func _on_PresetLoadDialog_file_selected(path) -> void:
+	print(path)
 	if !is_file_a_valid_preset(path):
 		return
 	load_preset(path)
@@ -275,7 +292,6 @@ func _on_QuickPresetPopUpMenu_id_pressed(id) -> void:
 	var preset_infos: Array = quick_preset_save.get_preset_info()
 	
 	for preset in preset_infos:
-#		print("id clicked: ", id, "preset id: ", preset.get("id"))
 		if preset.get("id") == id:
 			load_preset(preset.get("path"))
 

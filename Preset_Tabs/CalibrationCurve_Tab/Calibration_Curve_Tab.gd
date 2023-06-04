@@ -18,6 +18,8 @@ var curve_concentrations: Array = []
 var curve_rows: Array = []
 var curve_style: int = 0
 
+var all_plot_ids: Array = []
+
 var tab_properties: Array = [
 	tab_class,
 	tab_name,
@@ -124,41 +126,45 @@ func transform_to_string(curve_concentrations: Array) -> String:
 
 
 func on_calculation_info_needed() -> void:
-	print(typeof(curve_concentrations[0]), " ", typeof(curve_rows[0]))
 	Signals.emit_signal("send_cc_data_for_calculation", [tab_class, column_name, curve_concentrations, curve_rows, curve_style])
 
 ########################################
 
 func _update_graph() -> void:
+	for id in all_plot_ids:
+		graph_2d.remove_curve(id)
+	
 	var y_axis_values: Array = curve_concentrations
 	var x_axis_values: Array = DataManager.find_calibration_curve_values(column_name, curve_rows)
-	print(x_axis_values, y_axis_values)
-	graph_2d.set_orig_points([x_axis_values, y_axis_values])
 	
 	var lr_parameters: Array = []
-	var curve_id: String
-	
+	var curve_label: String
 	if x_axis_values.size() > 2 and y_axis_values.size() > 2:
 		lr_parameters.append_array(LinearRegressionCalculator.perform_linear_regression(x_axis_values, y_axis_values, curve_style))
 		if lr_parameters.empty():
+			print("No LR happened")
 			return
 		if curve_style == curve_styles.INTERCEPT:
-			curve_id = "y = " + str(lr_parameters[0]) + "x " + str(lr_parameters[1]) + ", R^2: " + str(lr_parameters[2])
+			curve_label = "y = " + str(lr_parameters[0]) + "x " + str(lr_parameters[1]) + ", R^2: " + str(lr_parameters[2])
 		else:
-			curve_id = "y = " + str(lr_parameters[0]) + "x, R^2: " + str(lr_parameters[2])
+			curve_label = "y = " + str(lr_parameters[0]) + "x, R^2: " + str(lr_parameters[2])
 
-		graph_2d.remove_all_curves()
-		
-		var plot_id = graph_2d.add_curve(curve_id, Color.azure, 1.0)
+		var plot_id = graph_2d.add_curve(curve_label, Color.azure, 1.0)
 		for x in range(0,x_axis_values.max(),x_axis_values.max()/50):
 			var y1: float = lr_parameters[0] * x
 			graph_2d.add_point(plot_id, Vector2(x, y1))
-			
-			graph_2d.set_y_axis_max_value(y_axis_values.max())
-			graph_2d.set_y_axis_label("Concentration in ng/ml")
 
-			graph_2d.set_x_axis_max_value(x_axis_values.max())
-			graph_2d.set_x_axis_label("Area")
+		var scatter_plot_id: int = graph_2d.add_curve("", Color.orange, 3, true)
+		for x_index in x_axis_values.size():
+			graph_2d.add_point(scatter_plot_id, Vector2(x_axis_values[x_index], y_axis_values[x_index]))
+		
+		all_plot_ids.append(plot_id)
+		all_plot_ids.append(scatter_plot_id)
+
+		graph_2d.set_y_axis_max_value(y_axis_values.max())
+		graph_2d.set_y_axis_label("Concentration in ng/ml")
+		graph_2d.set_x_axis_max_value(x_axis_values.max())
+		graph_2d.set_x_axis_label("Area")
 
 
 func _on_data_updated() -> void:

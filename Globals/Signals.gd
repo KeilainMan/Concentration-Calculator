@@ -1,7 +1,7 @@
 extends Node
 
 
-signal data_received(data) #Array
+signal new_data_loaded(data) #Array
 signal data_updated()
 
 signal path_for_calculation_selected(path)
