@@ -1,6 +1,5 @@
 extends Control
 
-var row_header_theme: Resource = preload("res://assets/FontThemes/RowHeaderTheme.tres")
 
 onready var row_container = $RowContainer
 
