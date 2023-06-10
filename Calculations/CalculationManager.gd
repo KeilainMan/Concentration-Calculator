@@ -4,7 +4,7 @@ extends Node
 var sample_data: Array = [] #Array contains Arrays of columns
 var general_data: Array = [] #extraction_volume, masses_column_name, column_selection
 var is_data: Array = [] #Array contains Arrays with structure: tab_class, column_name, is_concentration, response_factor
-var cc_data: Array = [] #Array contains Arrays with structure: tab_class, column_name, curve_concentrations, curve_rows, curve_style
+var cc_data: Array = [] #Array contains Arrays with structure: tab_class, column_name, x_values, y_values, curve_style
 var results: Array = []
 
 
@@ -41,8 +41,8 @@ func start_calculation_process(save_file_path: String) -> void:
 	
 	for compound_array in cc_data:
 		var compound_data: Array = find_compound_and_is_column(compound_array[1], false)
-		var curve_data: Array = prepare_cc_calculation(compound_array[2], compound_array[3], compound_data[0])
-		var curve_properties: Array = LinearRegressionCalculator.perform_linear_regression(curve_data[1], curve_data[0], compound_array[4])
+		#var curve_data: Array = prepare_cc_calculation(compound_array[2], compound_array[3], compound_data[0])
+		var curve_properties: Array = LinearRegressionCalculator.perform_linear_regression(compound_array[2], compound_array[3], compound_array[4])
 		if compound_data.empty() or curve_properties.empty():
 			continue
 		var compound_calculation_results: Array = calc_compound_concentrations_cc(compound_data[0], masses_column, curve_properties[0])

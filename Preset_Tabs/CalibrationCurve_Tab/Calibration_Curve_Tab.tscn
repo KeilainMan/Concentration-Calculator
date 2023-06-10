@@ -6,40 +6,41 @@
 [node name="CCTab" type="Tabs"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-size_flags_horizontal = 3
 script = ExtResource( 1 )
 
 [node name="Spacer" type="MarginContainer" parent="."]
-margin_left = 15.0
-margin_top = 15.0
-margin_right = 924.0
-margin_bottom = 585.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 20.0
+margin_top = 20.0
+margin_right = -20.0
+margin_bottom = -20.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Spacer"]
-margin_right = 909.0
-margin_bottom = 570.0
+margin_right = 1560.0
+margin_bottom = 920.0
 
 [node name="LeftSpace" type="MarginContainer" parent="Spacer/HBoxContainer"]
-margin_right = 452.0
-margin_bottom = 570.0
+margin_right = 1556.0
+margin_bottom = 920.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Spacer/HBoxContainer/LeftSpace"]
-margin_right = 452.0
-margin_bottom = 570.0
+margin_right = 1556.0
+margin_bottom = 920.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="TabNameContainer" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer"]
-margin_right = 452.0
+margin_right = 1556.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 
 [node name="Description" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/TabNameContainer"]
-margin_right = 203.0
+margin_right = 755.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 7
@@ -47,8 +48,8 @@ text = "Tab Name"
 valign = 1
 
 [node name="TabNameEdit" type="LineEdit" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/TabNameContainer"]
-margin_left = 207.0
-margin_right = 411.0
+margin_left = 759.0
+margin_right = 1515.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -56,8 +57,8 @@ align = 1
 placeholder_text = "insert tab name"
 
 [node name="Unit" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/TabNameContainer"]
-margin_left = 415.0
-margin_right = 452.0
+margin_left = 1519.0
+margin_right = 1556.0
 margin_bottom = 24.0
 size_flags_vertical = 1
 text = "ng/ml"
@@ -67,12 +68,12 @@ percent_visible = 0.0
 
 [node name="CompoundNameContainer2" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer"]
 margin_top = 28.0
-margin_right = 452.0
+margin_right = 1556.0
 margin_bottom = 52.0
 size_flags_horizontal = 3
 
 [node name="Description" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CompoundNameContainer2"]
-margin_right = 203.0
+margin_right = 755.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 7
@@ -80,8 +81,8 @@ text = "Compound Name"
 valign = 1
 
 [node name="CompoundNameEdit" type="LineEdit" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CompoundNameContainer2"]
-margin_left = 207.0
-margin_right = 411.0
+margin_left = 759.0
+margin_right = 1515.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -89,8 +90,8 @@ align = 1
 placeholder_text = "insert compound name"
 
 [node name="Unit" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CompoundNameContainer2"]
-margin_left = 415.0
-margin_right = 452.0
+margin_left = 1519.0
+margin_right = 1556.0
 margin_bottom = 24.0
 size_flags_vertical = 1
 text = "ng/ml"
@@ -100,21 +101,21 @@ percent_visible = 0.0
 
 [node name="ColumnNameContainer" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer"]
 margin_top = 56.0
-margin_right = 452.0
+margin_right = 1556.0
 margin_bottom = 80.0
 size_flags_horizontal = 3
 
 [node name="Description" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/ColumnNameContainer"]
-margin_right = 203.0
+margin_right = 755.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 7
-text = "Column Name"
+text = "Column Name*"
 valign = 1
 
 [node name="ColumnNameEdit" type="LineEdit" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/ColumnNameContainer"]
-margin_left = 207.0
-margin_right = 411.0
+margin_left = 759.0
+margin_right = 1515.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -122,8 +123,8 @@ align = 1
 placeholder_text = "insert column name"
 
 [node name="Unit" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/ColumnNameContainer"]
-margin_left = 415.0
-margin_right = 452.0
+margin_left = 1519.0
+margin_right = 1556.0
 margin_bottom = 24.0
 size_flags_vertical = 1
 text = "ng/ml"
@@ -131,90 +132,564 @@ align = 1
 valign = 1
 percent_visible = 0.0
 
-[node name="CurveConcentrationsContainer" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer"]
+[node name="CurveConcentrationTable" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer"]
 margin_top = 84.0
-margin_right = 452.0
+margin_right = 1556.0
 margin_bottom = 108.0
 size_flags_horizontal = 3
 
-[node name="Description" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationsContainer"]
-margin_right = 203.0
+[node name="Description" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable"]
+margin_right = 755.0
+margin_bottom = 24.0
+hint_tooltip = "Set your know concentrations in the first column, e.g. 10.5, and in the second column the row, where to find the area to the concentration. Tick the row you want to consider for calculation."
+mouse_filter = 1
+size_flags_horizontal = 3
+size_flags_vertical = 7
+text = "Curve Concentrations (3 required)*"
+valign = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable"]
+margin_left = 759.0
+margin_right = 1515.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+
+[node name="CurveConcentrationEdit1" type="LineEdit" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable/HBoxContainer"]
+margin_right = 362.0
+margin_bottom = 24.0
+hint_tooltip = "Set your know concentrations in the first column, e.g. 10.5, and in the second column the row, where to find the area to the concentration. Tick the row you want to consider for calculation."
+size_flags_horizontal = 3
+size_flags_vertical = 3
+align = 1
+placeholder_text = "c"
+
+[node name="CurveRowEdit1" type="LineEdit" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable/HBoxContainer"]
+margin_left = 366.0
+margin_right = 728.0
+margin_bottom = 24.0
+hint_tooltip = "Set your know concentrations in the first column, e.g. 10.5, and in the second column the row, where to find the area to the concentration. Tick the row you want to consider for calculation."
+size_flags_horizontal = 3
+size_flags_vertical = 3
+align = 1
+placeholder_text = "row"
+
+[node name="CheckBox1" type="CheckBox" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable/HBoxContainer"]
+margin_left = 732.0
+margin_right = 756.0
+margin_bottom = 24.0
+
+[node name="Unit" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable"]
+margin_left = 1519.0
+margin_right = 1556.0
+margin_bottom = 24.0
+size_flags_vertical = 1
+text = "ng/ml"
+align = 1
+valign = 1
+
+[node name="CurveConcentrationTable2" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer"]
+margin_top = 112.0
+margin_right = 1556.0
+margin_bottom = 136.0
+size_flags_horizontal = 3
+
+[node name="Description" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable2"]
+margin_right = 755.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 7
 text = "Curve Concentrations"
 valign = 1
+percent_visible = 0.0
 
-[node name="CurveConcentrationEdit" type="LineEdit" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationsContainer"]
-margin_left = 207.0
-margin_right = 411.0
+[node name="HBoxContainer" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable2"]
+margin_left = 759.0
+margin_right = 1515.0
 margin_bottom = 24.0
-hint_tooltip = "Please insert your known concentrations from lowest to biggest, seperated through a comma."
+size_flags_horizontal = 3
+
+[node name="CurveConcentrationEdit2" type="LineEdit" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable2/HBoxContainer"]
+margin_right = 362.0
+margin_bottom = 24.0
+hint_tooltip = "Set your know concentrations in the first column, e.g. 10.5, and in the second column the row, where to find the area to the concentration. Tick the row you want to consider for calculation."
 size_flags_horizontal = 3
 size_flags_vertical = 3
 align = 1
-placeholder_text = "insert concentrations"
+placeholder_text = "c"
 
-[node name="Unit" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationsContainer"]
-margin_left = 415.0
-margin_right = 452.0
+[node name="CurveRowEdit2" type="LineEdit" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable2/HBoxContainer"]
+margin_left = 366.0
+margin_right = 728.0
+margin_bottom = 24.0
+hint_tooltip = "Set your know concentrations in the first column, e.g. 10.5, and in the second column the row, where to find the area to the concentration. Tick the row you want to consider for calculation."
+size_flags_horizontal = 3
+size_flags_vertical = 3
+align = 1
+placeholder_text = "row"
+
+[node name="CheckBox2" type="CheckBox" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable2/HBoxContainer"]
+margin_left = 732.0
+margin_right = 756.0
+margin_bottom = 24.0
+
+[node name="Unit" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable2"]
+margin_left = 1519.0
+margin_right = 1556.0
 margin_bottom = 24.0
 size_flags_vertical = 1
 text = "ng/ml"
 align = 1
 valign = 1
 
-[node name="CurveRowsContainer" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer"]
-margin_top = 112.0
-margin_right = 452.0
-margin_bottom = 136.0
+[node name="CurveConcentrationTable3" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer"]
+margin_top = 140.0
+margin_right = 1556.0
+margin_bottom = 164.0
 size_flags_horizontal = 3
 
-[node name="Description" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveRowsContainer"]
-margin_right = 203.0
+[node name="Description" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable3"]
+margin_right = 755.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 7
-text = "Curve Rows"
-valign = 1
-
-[node name="CurveRowsEdit" type="LineEdit" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveRowsContainer"]
-margin_left = 207.0
-margin_right = 411.0
-margin_bottom = 24.0
-hint_tooltip = "Please insert the rownumbers where the known concentrations are. The lowest row number should match the lowest concentration."
-size_flags_horizontal = 3
-size_flags_vertical = 3
-align = 1
-placeholder_text = "insert rows"
-
-[node name="Unit" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveRowsContainer"]
-margin_left = 415.0
-margin_right = 452.0
-margin_bottom = 24.0
-size_flags_vertical = 1
-text = "ng/ml"
-align = 1
+text = "Curve Concentrations"
 valign = 1
 percent_visible = 0.0
 
+[node name="HBoxContainer" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable3"]
+margin_left = 759.0
+margin_right = 1515.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+
+[node name="CurveConcentrationEdit3" type="LineEdit" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable3/HBoxContainer"]
+margin_right = 362.0
+margin_bottom = 24.0
+hint_tooltip = "Set your know concentrations in the first column, e.g. 10.5, and in the second column the row, where to find the area to the concentration. Tick the row you want to consider for calculation."
+size_flags_horizontal = 3
+size_flags_vertical = 3
+align = 1
+placeholder_text = "c"
+
+[node name="CurveRowEdit3" type="LineEdit" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable3/HBoxContainer"]
+margin_left = 366.0
+margin_right = 728.0
+margin_bottom = 24.0
+hint_tooltip = "Set your know concentrations in the first column, e.g. 10.5, and in the second column the row, where to find the area to the concentration. Tick the row you want to consider for calculation."
+size_flags_horizontal = 3
+size_flags_vertical = 3
+align = 1
+placeholder_text = "row"
+
+[node name="CheckBox3" type="CheckBox" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable3/HBoxContainer"]
+margin_left = 732.0
+margin_right = 756.0
+margin_bottom = 24.0
+
+[node name="Unit" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable3"]
+margin_left = 1519.0
+margin_right = 1556.0
+margin_bottom = 24.0
+size_flags_vertical = 1
+text = "ng/ml"
+align = 1
+valign = 1
+
+[node name="CurveConcentrationTable4" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer"]
+margin_top = 168.0
+margin_right = 1556.0
+margin_bottom = 192.0
+size_flags_horizontal = 3
+
+[node name="Description" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable4"]
+margin_right = 755.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_vertical = 7
+text = "Curve Concentrations"
+valign = 1
+percent_visible = 0.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable4"]
+margin_left = 759.0
+margin_right = 1515.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+
+[node name="CurveConcentrationEdit4" type="LineEdit" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable4/HBoxContainer"]
+margin_right = 362.0
+margin_bottom = 24.0
+hint_tooltip = "Set your know concentrations in the first column, e.g. 10.5, and in the second column the row, where to find the area to the concentration. Tick the row you want to consider for calculation."
+size_flags_horizontal = 3
+size_flags_vertical = 3
+align = 1
+placeholder_text = "c"
+
+[node name="CurveRowEdit4" type="LineEdit" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable4/HBoxContainer"]
+margin_left = 366.0
+margin_right = 728.0
+margin_bottom = 24.0
+hint_tooltip = "Set your know concentrations in the first column, e.g. 10.5, and in the second column the row, where to find the area to the concentration. Tick the row you want to consider for calculation."
+size_flags_horizontal = 3
+size_flags_vertical = 3
+align = 1
+placeholder_text = "row"
+
+[node name="CheckBox4" type="CheckBox" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable4/HBoxContainer"]
+margin_left = 732.0
+margin_right = 756.0
+margin_bottom = 24.0
+
+[node name="Unit" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable4"]
+margin_left = 1519.0
+margin_right = 1556.0
+margin_bottom = 24.0
+size_flags_vertical = 1
+text = "ng/ml"
+align = 1
+valign = 1
+
+[node name="CurveConcentrationTable5" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer"]
+margin_top = 196.0
+margin_right = 1556.0
+margin_bottom = 220.0
+size_flags_horizontal = 3
+
+[node name="Description" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable5"]
+margin_right = 755.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_vertical = 7
+text = "Curve Concentrations"
+valign = 1
+percent_visible = 0.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable5"]
+margin_left = 759.0
+margin_right = 1515.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+
+[node name="CurveConcentrationEdit5" type="LineEdit" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable5/HBoxContainer"]
+margin_right = 362.0
+margin_bottom = 24.0
+hint_tooltip = "Set your know concentrations in the first column, e.g. 10.5, and in the second column the row, where to find the area to the concentration. Tick the row you want to consider for calculation."
+size_flags_horizontal = 3
+size_flags_vertical = 3
+align = 1
+placeholder_text = "c"
+
+[node name="CurveRowEdit5" type="LineEdit" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable5/HBoxContainer"]
+margin_left = 366.0
+margin_right = 728.0
+margin_bottom = 24.0
+hint_tooltip = "Set your know concentrations in the first column, e.g. 10.5, and in the second column the row, where to find the area to the concentration. Tick the row you want to consider for calculation."
+size_flags_horizontal = 3
+size_flags_vertical = 3
+align = 1
+placeholder_text = "row"
+
+[node name="CheckBox5" type="CheckBox" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable5/HBoxContainer"]
+margin_left = 732.0
+margin_right = 756.0
+margin_bottom = 24.0
+
+[node name="Unit" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable5"]
+margin_left = 1519.0
+margin_right = 1556.0
+margin_bottom = 24.0
+size_flags_vertical = 1
+text = "ng/ml"
+align = 1
+valign = 1
+
+[node name="CurveConcentrationTable6" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer"]
+margin_top = 224.0
+margin_right = 1556.0
+margin_bottom = 248.0
+size_flags_horizontal = 3
+
+[node name="Description" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable6"]
+margin_right = 755.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_vertical = 7
+text = "Curve Concentrations"
+valign = 1
+percent_visible = 0.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable6"]
+margin_left = 759.0
+margin_right = 1515.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+
+[node name="CurveConcentrationEdit6" type="LineEdit" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable6/HBoxContainer"]
+margin_right = 362.0
+margin_bottom = 24.0
+hint_tooltip = "Set your know concentrations in the first column, e.g. 10.5, and in the second column the row, where to find the area to the concentration. Tick the row you want to consider for calculation."
+size_flags_horizontal = 3
+size_flags_vertical = 3
+align = 1
+placeholder_text = "c"
+
+[node name="CurveRowEdit6" type="LineEdit" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable6/HBoxContainer"]
+margin_left = 366.0
+margin_right = 728.0
+margin_bottom = 24.0
+hint_tooltip = "Set your know concentrations in the first column, e.g. 10.5, and in the second column the row, where to find the area to the concentration. Tick the row you want to consider for calculation."
+size_flags_horizontal = 3
+size_flags_vertical = 3
+align = 1
+placeholder_text = "row"
+
+[node name="CheckBox6" type="CheckBox" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable6/HBoxContainer"]
+margin_left = 732.0
+margin_right = 756.0
+margin_bottom = 24.0
+
+[node name="Unit" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable6"]
+margin_left = 1519.0
+margin_right = 1556.0
+margin_bottom = 24.0
+size_flags_vertical = 1
+text = "ng/ml"
+align = 1
+valign = 1
+
+[node name="CurveConcentrationTable7" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer"]
+margin_top = 252.0
+margin_right = 1556.0
+margin_bottom = 276.0
+size_flags_horizontal = 3
+
+[node name="Description" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable7"]
+margin_right = 755.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_vertical = 7
+text = "Curve Concentrations"
+valign = 1
+percent_visible = 0.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable7"]
+margin_left = 759.0
+margin_right = 1515.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+
+[node name="CurveConcentrationEdit7" type="LineEdit" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable7/HBoxContainer"]
+margin_right = 362.0
+margin_bottom = 24.0
+hint_tooltip = "Set your know concentrations in the first column, e.g. 10.5, and in the second column the row, where to find the area to the concentration. Tick the row you want to consider for calculation."
+size_flags_horizontal = 3
+size_flags_vertical = 3
+align = 1
+placeholder_text = "c"
+
+[node name="CurveRowEdit7" type="LineEdit" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable7/HBoxContainer"]
+margin_left = 366.0
+margin_right = 728.0
+margin_bottom = 24.0
+hint_tooltip = "Set your know concentrations in the first column, e.g. 10.5, and in the second column the row, where to find the area to the concentration. Tick the row you want to consider for calculation."
+size_flags_horizontal = 3
+size_flags_vertical = 3
+align = 1
+placeholder_text = "row"
+
+[node name="CheckBox7" type="CheckBox" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable7/HBoxContainer"]
+margin_left = 732.0
+margin_right = 756.0
+margin_bottom = 24.0
+
+[node name="Unit" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable7"]
+margin_left = 1519.0
+margin_right = 1556.0
+margin_bottom = 24.0
+size_flags_vertical = 1
+text = "ng/ml"
+align = 1
+valign = 1
+
+[node name="CurveConcentrationTable8" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer"]
+margin_top = 280.0
+margin_right = 1556.0
+margin_bottom = 304.0
+size_flags_horizontal = 3
+
+[node name="Description" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable8"]
+margin_right = 755.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_vertical = 7
+text = "Curve Concentrations"
+valign = 1
+percent_visible = 0.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable8"]
+margin_left = 759.0
+margin_right = 1515.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+
+[node name="CurveConcentrationEdit8" type="LineEdit" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable8/HBoxContainer"]
+margin_right = 362.0
+margin_bottom = 24.0
+hint_tooltip = "Set your know concentrations in the first column, e.g. 10.5, and in the second column the row, where to find the area to the concentration. Tick the row you want to consider for calculation."
+size_flags_horizontal = 3
+size_flags_vertical = 3
+align = 1
+placeholder_text = "c"
+
+[node name="CurveRowEdit8" type="LineEdit" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable8/HBoxContainer"]
+margin_left = 366.0
+margin_right = 728.0
+margin_bottom = 24.0
+hint_tooltip = "Set your know concentrations in the first column, e.g. 10.5, and in the second column the row, where to find the area to the concentration. Tick the row you want to consider for calculation."
+size_flags_horizontal = 3
+size_flags_vertical = 3
+align = 1
+placeholder_text = "row"
+
+[node name="CheckBox8" type="CheckBox" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable8/HBoxContainer"]
+margin_left = 732.0
+margin_right = 756.0
+margin_bottom = 24.0
+
+[node name="Unit" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable8"]
+margin_left = 1519.0
+margin_right = 1556.0
+margin_bottom = 24.0
+size_flags_vertical = 1
+text = "ng/ml"
+align = 1
+valign = 1
+
+[node name="CurveConcentrationTable9" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer"]
+margin_top = 308.0
+margin_right = 1556.0
+margin_bottom = 332.0
+size_flags_horizontal = 3
+
+[node name="Description" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable9"]
+margin_right = 755.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_vertical = 7
+text = "Curve Concentrations"
+valign = 1
+percent_visible = 0.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable9"]
+margin_left = 759.0
+margin_right = 1515.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+
+[node name="CurveConcentrationEdit9" type="LineEdit" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable9/HBoxContainer"]
+margin_right = 362.0
+margin_bottom = 24.0
+hint_tooltip = "Set your know concentrations in the first column, e.g. 10.5, and in the second column the row, where to find the area to the concentration. Tick the row you want to consider for calculation."
+size_flags_horizontal = 3
+size_flags_vertical = 3
+align = 1
+placeholder_text = "c"
+
+[node name="CurveRowEdit9" type="LineEdit" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable9/HBoxContainer"]
+margin_left = 366.0
+margin_right = 728.0
+margin_bottom = 24.0
+hint_tooltip = "Set your know concentrations in the first column, e.g. 10.5, and in the second column the row, where to find the area to the concentration. Tick the row you want to consider for calculation."
+size_flags_horizontal = 3
+size_flags_vertical = 3
+align = 1
+placeholder_text = "row"
+
+[node name="CheckBox9" type="CheckBox" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable9/HBoxContainer"]
+margin_left = 732.0
+margin_right = 756.0
+margin_bottom = 24.0
+
+[node name="Unit" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable9"]
+margin_left = 1519.0
+margin_right = 1556.0
+margin_bottom = 24.0
+size_flags_vertical = 1
+text = "ng/ml"
+align = 1
+valign = 1
+
+[node name="CurveConcentrationTable10" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer"]
+margin_top = 336.0
+margin_right = 1556.0
+margin_bottom = 360.0
+size_flags_horizontal = 3
+
+[node name="Description" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable10"]
+margin_right = 755.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_vertical = 7
+text = "Curve Concentrations"
+valign = 1
+percent_visible = 0.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable10"]
+margin_left = 759.0
+margin_right = 1515.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+
+[node name="CurveConcentrationEdit10" type="LineEdit" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable10/HBoxContainer"]
+margin_right = 362.0
+margin_bottom = 24.0
+hint_tooltip = "Set your know concentrations in the first column, e.g. 10.5, and in the second column the row, where to find the area to the concentration. Tick the row you want to consider for calculation."
+size_flags_horizontal = 3
+size_flags_vertical = 3
+align = 1
+placeholder_text = "c"
+
+[node name="CurveRowEdit10" type="LineEdit" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable10/HBoxContainer"]
+margin_left = 366.0
+margin_right = 728.0
+margin_bottom = 24.0
+hint_tooltip = "Set your know concentrations in the first column, e.g. 10.5, and in the second column the row, where to find the area to the concentration. Tick the row you want to consider for calculation."
+size_flags_horizontal = 3
+size_flags_vertical = 3
+align = 1
+placeholder_text = "row"
+
+[node name="CheckBox10" type="CheckBox" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable10/HBoxContainer"]
+margin_left = 732.0
+margin_right = 756.0
+margin_bottom = 24.0
+
+[node name="Unit" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable10"]
+margin_left = 1519.0
+margin_right = 1556.0
+margin_bottom = 24.0
+size_flags_vertical = 1
+text = "ng/ml"
+align = 1
+valign = 1
+
 [node name="CurveStyleContainer" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer"]
-margin_top = 140.0
-margin_right = 452.0
-margin_bottom = 160.0
+margin_top = 364.0
+margin_right = 1556.0
+margin_bottom = 384.0
 size_flags_horizontal = 3
 
 [node name="Description" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveStyleContainer"]
-margin_right = 203.0
+margin_right = 755.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 size_flags_vertical = 7
-text = "Curve Style"
+text = "Curve Style*"
 valign = 1
 
 [node name="CurveStyleButton" type="OptionButton" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveStyleContainer"]
-margin_left = 207.0
-margin_right = 411.0
+margin_left = 759.0
+margin_right = 1515.0
 margin_bottom = 20.0
 hint_tooltip = "Please insert the rownumbers where the known concentrations are. The lowest row number should match the lowest concentration."
 size_flags_horizontal = 3
@@ -222,8 +697,8 @@ size_flags_vertical = 3
 align = 1
 
 [node name="Unit" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveStyleContainer"]
-margin_left = 415.0
-margin_right = 452.0
+margin_left = 1519.0
+margin_right = 1556.0
 margin_bottom = 20.0
 size_flags_vertical = 1
 text = "ng/ml"
@@ -232,29 +707,29 @@ valign = 1
 percent_visible = 0.0
 
 [node name="PlaceHolder" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer"]
-margin_top = 164.0
-margin_right = 452.0
-margin_bottom = 178.0
+margin_top = 388.0
+margin_right = 1556.0
+margin_bottom = 402.0
 size_flags_horizontal = 3
 
 [node name="Description" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/PlaceHolder"]
-margin_right = 203.0
+margin_right = 755.0
 margin_bottom = 14.0
 size_flags_horizontal = 3
 size_flags_vertical = 7
 valign = 1
 
 [node name="CurveStyleButton" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/PlaceHolder"]
-margin_left = 207.0
-margin_right = 411.0
+margin_left = 759.0
+margin_right = 1515.0
 margin_bottom = 14.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 align = 1
 
 [node name="Unit" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/PlaceHolder"]
-margin_left = 415.0
-margin_right = 452.0
+margin_left = 1519.0
+margin_right = 1556.0
 margin_bottom = 14.0
 size_flags_vertical = 1
 text = "ng/ml"
@@ -263,9 +738,9 @@ valign = 1
 percent_visible = 0.0
 
 [node name="CenterContainer" type="Control" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer"]
-margin_top = 182.0
-margin_right = 452.0
-margin_bottom = 570.0
+margin_top = 406.0
+margin_right = 1556.0
+margin_bottom = 920.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -292,15 +767,42 @@ grid_horizontal_visible = false
 grid_vertical_visible = false
 
 [node name="RightSpace" type="MarginContainer" parent="Spacer/HBoxContainer"]
-margin_left = 456.0
-margin_right = 909.0
-margin_bottom = 570.0
-size_flags_horizontal = 3
+margin_left = 1560.0
+margin_right = 1560.0
+margin_bottom = 920.0
 size_flags_vertical = 3
 
 [connection signal="text_changed" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/TabNameContainer/TabNameEdit" to="." method="_on_TabNameEdit_text_changed"]
 [connection signal="text_changed" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CompoundNameContainer2/CompoundNameEdit" to="." method="_on_CompoundNameEdit_text_changed"]
 [connection signal="text_changed" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/ColumnNameContainer/ColumnNameEdit" to="." method="_on_ColumnNameEdit_text_changed"]
-[connection signal="text_changed" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationsContainer/CurveConcentrationEdit" to="." method="_on_CurveConcentrationEdit_text_changed"]
-[connection signal="text_changed" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveRowsContainer/CurveRowsEdit" to="." method="_on_CurveRowsEdit_text_changed"]
+[connection signal="text_changed" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable/HBoxContainer/CurveConcentrationEdit1" to="." method="_on_CurveConcentrationEdit1_text_changed"]
+[connection signal="text_changed" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable/HBoxContainer/CurveRowEdit1" to="." method="_on_CurveRowEdit1_text_changed"]
+[connection signal="pressed" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable/HBoxContainer/CheckBox1" to="." method="_on_CheckBox1_pressed"]
+[connection signal="text_changed" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable2/HBoxContainer/CurveConcentrationEdit2" to="." method="_on_CurveConcentrationEdit2_text_changed"]
+[connection signal="text_changed" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable2/HBoxContainer/CurveRowEdit2" to="." method="_on_CurveRowEdit2_text_changed"]
+[connection signal="pressed" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable2/HBoxContainer/CheckBox2" to="." method="_on_CheckBox2_pressed"]
+[connection signal="text_changed" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable3/HBoxContainer/CurveConcentrationEdit3" to="." method="_on_CurveConcentrationEdit3_text_changed"]
+[connection signal="text_changed" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable3/HBoxContainer/CurveRowEdit3" to="." method="_on_CurveRowEdit3_text_changed"]
+[connection signal="pressed" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable3/HBoxContainer/CheckBox3" to="." method="_on_CheckBox3_pressed"]
+[connection signal="text_changed" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable4/HBoxContainer/CurveConcentrationEdit4" to="." method="_on_CurveConcentrationEdit4_text_changed"]
+[connection signal="text_changed" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable4/HBoxContainer/CurveRowEdit4" to="." method="_on_CurveRowEdit4_text_changed"]
+[connection signal="pressed" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable4/HBoxContainer/CheckBox4" to="." method="_on_CheckBox4_pressed"]
+[connection signal="text_changed" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable5/HBoxContainer/CurveConcentrationEdit5" to="." method="_on_CurveConcentrationEdit5_text_changed"]
+[connection signal="text_changed" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable5/HBoxContainer/CurveRowEdit5" to="." method="_on_CurveRowEdit5_text_changed"]
+[connection signal="pressed" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable5/HBoxContainer/CheckBox5" to="." method="_on_CheckBox5_pressed"]
+[connection signal="text_changed" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable6/HBoxContainer/CurveConcentrationEdit6" to="." method="_on_CurveConcentrationEdit6_text_changed"]
+[connection signal="text_changed" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable6/HBoxContainer/CurveRowEdit6" to="." method="_on_CurveRowEdit6_text_changed"]
+[connection signal="pressed" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable6/HBoxContainer/CheckBox6" to="." method="_on_CheckBox6_pressed"]
+[connection signal="text_changed" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable7/HBoxContainer/CurveConcentrationEdit7" to="." method="_on_CurveConcentrationEdit7_text_changed"]
+[connection signal="text_changed" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable7/HBoxContainer/CurveRowEdit7" to="." method="_on_CurveRowEdit7_text_changed"]
+[connection signal="pressed" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable7/HBoxContainer/CheckBox7" to="." method="_on_CheckBox7_pressed"]
+[connection signal="text_changed" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable8/HBoxContainer/CurveConcentrationEdit8" to="." method="_on_CurveConcentrationEdit8_text_changed"]
+[connection signal="text_changed" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable8/HBoxContainer/CurveRowEdit8" to="." method="_on_CurveRowEdit8_text_changed"]
+[connection signal="pressed" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable8/HBoxContainer/CheckBox8" to="." method="_on_CheckBox8_pressed"]
+[connection signal="text_changed" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable9/HBoxContainer/CurveConcentrationEdit9" to="." method="_on_CurveConcentrationEdit9_text_changed"]
+[connection signal="text_changed" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable9/HBoxContainer/CurveRowEdit9" to="." method="_on_CurveRowEdit9_text_changed"]
+[connection signal="pressed" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable9/HBoxContainer/CheckBox9" to="." method="_on_CheckBox9_pressed"]
+[connection signal="text_changed" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable10/HBoxContainer/CurveConcentrationEdit10" to="." method="_on_CurveConcentrationEdit10_text_changed"]
+[connection signal="text_changed" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable10/HBoxContainer/CurveRowEdit10" to="." method="_on_CurveRowEdit10_text_changed"]
+[connection signal="pressed" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveConcentrationTable10/HBoxContainer/CheckBox10" to="." method="_on_CheckBox10_pressed"]
 [connection signal="item_selected" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CurveStyleContainer/CurveStyleButton" to="." method="_on_CurveStyleButton_item_selected"]
