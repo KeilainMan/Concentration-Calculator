@@ -43,6 +43,11 @@ _global_script_classes=[ {
 "class": "QuickPresetSave",
 "language": "GDScript",
 "path": "res://UI_Elements/QuickPreset/QuickPresetSave.gd"
+}, {
+"base": "Tabs",
+"class": "SpeadsheetTab",
+"language": "GDScript",
+"path": "res://SpreadsheetBase/SpreadsheetTab.gd"
 } ]
 _global_script_class_icons={
 "CalibrationCurveTab": "",
@@ -51,7 +56,8 @@ _global_script_class_icons={
 "MainTab": "",
 "MainTabResource": "",
 "PresetSaver": "",
-"QuickPresetSave": ""
+"QuickPresetSave": "",
+"SpeadsheetTab": ""
 }
 
 [application]
@@ -66,6 +72,8 @@ Signals="*res://Globals/Signals.gd"
 CalculationManager="*res://Calculations/CalculationManager.gd"
 LinearRegressionCalculator="*res://Calculations/LinearRegressionCalculator.gd"
 DataManager="*res://Globals/data_manager.gd"
+DataPorter="*res://Globals/DataPorter.cs"
+PopUpManager="*res://Globals/PopUpManager.gd"
 
 [display]
 

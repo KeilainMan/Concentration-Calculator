@@ -119,39 +119,13 @@ func _on_ColumnNameEdit_text_changed(new_text):
 	tab_properties[3] = new_text
 
 
-#func _on_CurveConcentrationEdit_text_changed(new_text):
-#	curve_concentrations.clear()
-#	var split: PoolStringArray = curve_concentration_edit.text.rsplit(",")
-#	for number in split:
-#		curve_concentrations.append(float(number))
-#	tab_properties[4] = curve_concentrations
-#	_update_graph()
-#	print("New Curve Concentration Text")
-#
-#
-#func _on_CurveRowsEdit_text_changed(new_text):
-#	curve_rows.clear()
-#	var split: PoolStringArray = new_text.rsplit(",")
-#	for number in split:
-#		curve_rows.append(int(number))
-#	tab_properties[5] = curve_rows
-#	_update_graph()
-#	print("New Curve Row Text")
-#
-#
-#func _on_CurveStyleButton_item_selected(index):
-#	curve_style = index
-#	tab_properties[6] = curve_style
-#	_update_graph()
-#	print("New Curve Style selected")
-#
-#
-#
-#
-#
-#
-#
-#
+func _on_CurveStyleButton_item_selected(index):
+	curve_style = index
+	tab_properties[6] = curve_style
+	_update_graph()
+	print("New Curve Style selected")
+
+
 func set_up_values() -> void:
 	if tab_properties.size() == 8:
 		tab_name = tab_properties[1]
@@ -180,16 +154,6 @@ func _update_cc_table() -> void:
 		all_cc_curve_tick_buttons[index].pressed = curve_ticks[index]
 
 
-#func transform_to_string(curve_concentrations: Array) -> String:
-#	var curve_conc_string: String = ""
-#	for number_index in curve_concentrations.size():
-#		if number_index == 0:
-#			curve_conc_string += String(curve_concentrations[number_index])
-#		else:
-#			curve_conc_string += ", " + String(curve_concentrations[number_index])
-#	return curve_conc_string
-
-
 func on_calculation_info_needed() -> void:
 	var values: Array = gather_valid_x_and_y_values()
 	Signals.emit_signal("send_cc_data_for_calculation", [tab_class, column_name, values[0], values[1], curve_style])
@@ -201,6 +165,7 @@ func _update_graph() -> void:
 		graph_2d.remove_curve(id)
 	
 	var values: Array = gather_valid_x_and_y_values()
+	print(values)
 	var x_axis_values: Array = values[0]
 	var y_axis_values: Array = values[1]
 
@@ -252,11 +217,13 @@ func gather_valid_x_and_y_values() -> Array:
 
 
 func _on_data_updated() -> void:
+	print("data updated")
 	_update_graph()
 
 
 #########################################
-#
+
+
 func set_tab_properties(new_properties: Array) -> void:
 	tab_properties = new_properties
 	set_up_values()
@@ -265,16 +232,6 @@ func set_tab_properties(new_properties: Array) -> void:
 
 func get_tab_properties() -> Array:
 	return tab_properties
-
-
-
-
-
-
-
-
-
-
 
 
 ## Concentration Table Functions ##################

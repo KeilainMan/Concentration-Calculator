@@ -9,36 +9,38 @@ tab_close_display_policy = 1
 script = ExtResource( 1 )
 
 [node name="Spacer" type="MarginContainer" parent="."]
-margin_left = 15.0
-margin_top = 15.0
-margin_right = 924.0
-margin_bottom = 585.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 20.0
+margin_top = 20.0
+margin_right = -20.0
+margin_bottom = -20.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Spacer"]
-margin_right = 909.0
-margin_bottom = 570.0
+margin_right = 1560.0
+margin_bottom = 920.0
 
 [node name="LeftSpace" type="MarginContainer" parent="Spacer/HBoxContainer"]
-margin_right = 452.0
-margin_bottom = 570.0
+margin_right = 1560.0
+margin_bottom = 920.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Spacer/HBoxContainer/LeftSpace"]
-margin_right = 452.0
-margin_bottom = 570.0
+margin_right = 1560.0
+margin_bottom = 920.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="SeriesNameContainer" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer"]
-margin_right = 452.0
+margin_right = 1560.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 
 [node name="Description" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/SeriesNameContainer"]
-margin_right = 203.0
+margin_right = 757.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 7
@@ -46,8 +48,8 @@ text = "Series Name"
 valign = 1
 
 [node name="SeriesNameEdit" type="LineEdit" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/SeriesNameContainer"]
-margin_left = 207.0
-margin_right = 411.0
+margin_left = 761.0
+margin_right = 1519.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -55,8 +57,8 @@ align = 1
 placeholder_text = "insert series name"
 
 [node name="Unit" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/SeriesNameContainer"]
-margin_left = 415.0
-margin_right = 452.0
+margin_left = 1523.0
+margin_right = 1560.0
 margin_bottom = 24.0
 size_flags_vertical = 1
 text = "ng/ml"
@@ -64,33 +66,67 @@ align = 1
 valign = 1
 percent_visible = 0.0
 
-[node name="CompoundClassContainer" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer"]
+[node name="SeriesInfoContainer" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer"]
 margin_top = 28.0
-margin_right = 452.0
+margin_right = 1560.0
 margin_bottom = 52.0
 size_flags_horizontal = 3
 
-[node name="Description" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CompoundClassContainer"]
-margin_right = 203.0
+[node name="Description" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/SeriesInfoContainer"]
+margin_right = 757.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 7
-text = "Compound Class"
+text = "Series Info"
 valign = 1
 
-[node name="CompoundClassEdit" type="LineEdit" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CompoundClassContainer"]
-margin_left = 207.0
-margin_right = 411.0
+[node name="SeriesInfoEdit" type="LineEdit" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/SeriesInfoContainer"]
+margin_left = 761.0
+margin_right = 1519.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 align = 1
-placeholder_text = "Insert Compound Class"
+placeholder_text = "Insert info, e.g. compound class"
 
-[node name="Unit" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CompoundClassContainer"]
-margin_left = 415.0
-margin_right = 452.0
+[node name="Unit" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/SeriesInfoContainer"]
+margin_left = 1523.0
+margin_right = 1560.0
 margin_bottom = 24.0
+size_flags_vertical = 1
+text = "ng/ml"
+align = 1
+valign = 1
+percent_visible = 0.0
+
+[node name="ExtractionVolumeSelectionContainer2" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer"]
+margin_top = 56.0
+margin_right = 1560.0
+margin_bottom = 76.0
+size_flags_horizontal = 3
+
+[node name="Description" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/ExtractionVolumeSelectionContainer2"]
+margin_right = 757.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+size_flags_vertical = 7
+text = "Do you have varying extraction volumes?*"
+valign = 1
+
+[node name="ExtraktionVolumeSelectionButton" type="OptionButton" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/ExtractionVolumeSelectionContainer2"]
+margin_left = 761.0
+margin_right = 1519.0
+margin_bottom = 20.0
+hint_tooltip = "Choose Input Mode 1 if you have all data in one sheet and aligned compound sample area and internal standard area in that order respectivle. Choose Input Mode 2 if you have each compound on another sheet."
+size_flags_horizontal = 3
+text = "Yes"
+items = [ "Yes", null, false, 0, null, "No", null, false, 1, null ]
+selected = 0
+
+[node name="Unit" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/ExtractionVolumeSelectionContainer2"]
+margin_left = 1523.0
+margin_right = 1560.0
+margin_bottom = 20.0
 size_flags_vertical = 1
 text = "ng/ml"
 align = 1
@@ -98,163 +134,97 @@ valign = 1
 percent_visible = 0.0
 
 [node name="ExtractionVolumeContainer" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer"]
-margin_top = 56.0
-margin_right = 452.0
-margin_bottom = 80.0
+margin_top = 80.0
+margin_right = 1560.0
+margin_bottom = 104.0
 size_flags_horizontal = 3
 
 [node name="Description" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/ExtractionVolumeContainer"]
-margin_right = 203.0
+margin_right = 757.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 7
-text = "Extraction Volume"
+text = "Extraction Volume*"
 valign = 1
 
 [node name="ExtractionVolumeEdit" type="LineEdit" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/ExtractionVolumeContainer"]
-margin_left = 207.0
-margin_right = 411.0
+margin_left = 761.0
+margin_right = 1519.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 align = 1
-placeholder_text = "insert extraction volume"
+placeholder_text = "insert extraction volume, e.g. 1.0"
 
 [node name="Unit" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/ExtractionVolumeContainer"]
-margin_left = 415.0
-margin_right = 452.0
+margin_left = 1523.0
+margin_right = 1560.0
 margin_bottom = 24.0
 size_flags_vertical = 1
 text = "     ml"
 align = 1
 valign = 1
 
-[node name="MassesColumnContainer" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer"]
-margin_top = 84.0
-margin_right = 452.0
-margin_bottom = 108.0
-size_flags_horizontal = 3
-
-[node name="Description" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/MassesColumnContainer"]
-margin_right = 203.0
-margin_bottom = 24.0
-hint_tooltip = "Insert the internal standard concentration in ng/ml "
-size_flags_horizontal = 3
-size_flags_vertical = 7
-text = "Masses Column"
-valign = 1
-
-[node name="MassesColumnEdit" type="LineEdit" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/MassesColumnContainer"]
-margin_left = 207.0
-margin_right = 411.0
-margin_bottom = 24.0
-hint_tooltip = "Insert the internal standard concentration in ng/ml "
-size_flags_horizontal = 3
-size_flags_vertical = 3
-align = 1
-placeholder_text = "insert masses column name"
-
-[node name="Unit" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/MassesColumnContainer"]
-margin_left = 415.0
-margin_right = 452.0
-margin_bottom = 24.0
-hint_tooltip = "Insert the internal standard concentration in ng/ml "
-size_flags_vertical = 1
-text = "ng/ml"
-align = 1
-valign = 1
-percent_visible = 0.0
-
-[node name="ResponseFactorContainer" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer"]
-visible = false
-margin_top = 112.0
-margin_right = 452.0
-margin_bottom = 136.0
-
-[node name="Description" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/ResponseFactorContainer"]
-margin_right = 203.0
-margin_bottom = 24.0
-size_flags_horizontal = 3
-size_flags_vertical = 1
-text = "Response Factor"
-valign = 1
-
-[node name="ISResponseFactorEdit" type="LineEdit" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/ResponseFactorContainer"]
-margin_left = 207.0
-margin_right = 411.0
-margin_bottom = 24.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-align = 1
-placeholder_text = "insert factor"
-
-[node name="Unit" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/ResponseFactorContainer"]
-margin_left = 415.0
-margin_right = 452.0
-margin_bottom = 24.0
-size_flags_vertical = 1
-text = "ng/ml"
-align = 1
-valign = 1
-percent_visible = 0.0
-
-[node name="ColumnNameContainer" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer"]
-visible = false
-margin_top = 112.0
-margin_right = 452.0
-margin_bottom = 136.0
-size_flags_horizontal = 3
-
-[node name="Description" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/ColumnNameContainer"]
-margin_right = 203.0
-margin_bottom = 24.0
-size_flags_horizontal = 3
-size_flags_vertical = 7
-text = "Column Name"
-valign = 1
-
-[node name="ColumnNameEdit" type="LineEdit" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/ColumnNameContainer"]
-margin_left = 207.0
-margin_right = 411.0
-margin_bottom = 24.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-align = 1
-placeholder_text = "insert column name"
-
-[node name="Unit" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/ColumnNameContainer"]
-margin_left = 415.0
-margin_right = 452.0
-margin_bottom = 24.0
-size_flags_vertical = 1
-text = "ng/ml"
-align = 1
-valign = 1
-percent_visible = 0.0
-
-[node name="ColumnSelectionContainer" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer"]
-margin_top = 112.0
-margin_right = 452.0
+[node name="ExtractionVolumeColumnNameContainer" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer"]
+margin_top = 108.0
+margin_right = 1560.0
 margin_bottom = 132.0
 size_flags_horizontal = 3
 
-[node name="Description" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/ColumnSelectionContainer"]
-margin_right = 203.0
+[node name="Description" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/ExtractionVolumeColumnNameContainer"]
+margin_right = 757.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_vertical = 7
+text = "Extraction Volume Column Name*"
+valign = 1
+
+[node name="ExtractionVolumeColumnNameEdit" type="LineEdit" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/ExtractionVolumeColumnNameContainer"]
+margin_left = 761.0
+margin_right = 1519.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+align = 1
+placeholder_text = "insert extraction volume column name, e.g. volume"
+
+[node name="Unit" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/ExtractionVolumeColumnNameContainer"]
+margin_left = 1523.0
+margin_right = 1560.0
+margin_bottom = 24.0
+size_flags_vertical = 1
+text = "     ml"
+align = 1
+valign = 1
+percent_visible = 0.0
+
+[node name="NormalizationSelectionContainer" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer"]
+margin_top = 136.0
+margin_right = 1560.0
+margin_bottom = 156.0
+size_flags_horizontal = 3
+
+[node name="Description" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/NormalizationSelectionContainer"]
+margin_right = 757.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 size_flags_vertical = 7
-text = "IS Column positions"
+text = "Do you want to normalize (weight in mg)?*"
 valign = 1
 
-[node name="ColumnSelectionButton" type="OptionButton" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/ColumnSelectionContainer"]
-margin_left = 207.0
-margin_right = 411.0
+[node name="NormalizationSelectionButton" type="OptionButton" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/NormalizationSelectionContainer"]
+margin_left = 761.0
+margin_right = 1519.0
 margin_bottom = 20.0
+hint_tooltip = "Choose Input Mode 1 if you have all data in one sheet and aligned compound sample area and internal standard area in that order respectivle. Choose Input Mode 2 if you have each compound on another sheet."
 size_flags_horizontal = 3
+text = "Yes"
+items = [ "Yes", null, false, 0, null, "No", null, false, 1, null ]
+selected = 0
 
-[node name="Unit" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/ColumnSelectionContainer"]
-margin_left = 415.0
-margin_right = 452.0
+[node name="Unit" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/NormalizationSelectionContainer"]
+margin_left = 1523.0
+margin_right = 1560.0
 margin_bottom = 20.0
 size_flags_vertical = 1
 text = "ng/ml"
@@ -262,14 +232,259 @@ align = 1
 valign = 1
 percent_visible = 0.0
 
-[node name="RightSpace" type="MarginContainer" parent="Spacer/HBoxContainer"]
-margin_left = 456.0
-margin_right = 909.0
-margin_bottom = 570.0
+[node name="NormalizerColumnNameContainer" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer"]
+margin_top = 160.0
+margin_right = 1560.0
+margin_bottom = 184.0
+size_flags_horizontal = 3
+
+[node name="Description" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/NormalizerColumnNameContainer"]
+margin_right = 757.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_vertical = 7
+text = "Normalizer Column Name*"
+valign = 1
+
+[node name="NormalizerColumnNameEdit" type="LineEdit" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/NormalizerColumnNameContainer"]
+margin_left = 761.0
+margin_right = 1519.0
+margin_bottom = 24.0
+hint_tooltip = "Insert the internal standard concentration in ng/ml "
 size_flags_horizontal = 3
 size_flags_vertical = 3
+align = 1
+placeholder_text = "insert masses column name, e.g. weight"
+
+[node name="Unit" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/NormalizerColumnNameContainer"]
+margin_left = 1523.0
+margin_right = 1560.0
+margin_bottom = 24.0
+hint_tooltip = "Insert the internal standard concentration in ng/ml "
+size_flags_vertical = 1
+text = "ng/ml"
+align = 1
+valign = 1
+percent_visible = 0.0
+
+[node name="InputModeContainer" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer"]
+margin_top = 188.0
+margin_right = 1560.0
+margin_bottom = 208.0
+size_flags_horizontal = 3
+
+[node name="Description" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/InputModeContainer"]
+margin_right = 757.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+size_flags_vertical = 7
+text = "Input Mode*"
+valign = 1
+
+[node name="InputModeSelectionButton" type="OptionButton" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/InputModeContainer"]
+margin_left = 761.0
+margin_right = 1519.0
+margin_bottom = 20.0
+hint_tooltip = "Choose Input Mode 1 if you have all data in one sheet and aligned compound sample area and internal standard area in that order respectivle. Choose Input Mode 2 if you have each compound on another sheet."
+size_flags_horizontal = 3
+text = "Input Mode 1"
+items = [ "Input Mode 1", null, false, 0, null, "Input Mode 2", null, false, 1, null ]
+selected = 0
+
+[node name="Unit" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/InputModeContainer"]
+margin_left = 1523.0
+margin_right = 1560.0
+margin_bottom = 20.0
+size_flags_vertical = 1
+text = "ng/ml"
+align = 1
+valign = 1
+percent_visible = 0.0
+
+[node name="SampleNameColumnContainer" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer"]
+margin_top = 212.0
+margin_right = 1560.0
+margin_bottom = 236.0
+size_flags_horizontal = 3
+
+[node name="Description" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/SampleNameColumnContainer"]
+margin_right = 757.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_vertical = 7
+text = "Sample Name Column*"
+valign = 1
+
+[node name="SampleNameColumnEdit" type="LineEdit" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/SampleNameColumnContainer"]
+margin_left = 761.0
+margin_right = 1519.0
+margin_bottom = 24.0
+hint_tooltip = "Insert the internal standard concentration in ng/ml "
+size_flags_horizontal = 3
+size_flags_vertical = 3
+align = 1
+placeholder_text = "insert column number, e.g. 1"
+
+[node name="Unit" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/SampleNameColumnContainer"]
+margin_left = 1523.0
+margin_right = 1560.0
+margin_bottom = 24.0
+hint_tooltip = "Insert the internal standard concentration in ng/ml "
+size_flags_vertical = 1
+text = "ng/ml"
+align = 1
+valign = 1
+percent_visible = 0.0
+
+[node name="SampleNameSheetNameContainer" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer"]
+margin_top = 240.0
+margin_right = 1560.0
+margin_bottom = 264.0
+size_flags_horizontal = 3
+
+[node name="Description" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/SampleNameSheetNameContainer"]
+margin_right = 757.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_vertical = 7
+text = "Sample Name Sheet*"
+valign = 1
+
+[node name="SampleNameSheetNameEdit" type="LineEdit" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/SampleNameSheetNameContainer"]
+margin_left = 761.0
+margin_right = 1519.0
+margin_bottom = 24.0
+hint_tooltip = "Insert the internal standard concentration in ng/ml "
+size_flags_horizontal = 3
+size_flags_vertical = 3
+align = 1
+placeholder_text = "insert sheet number, e.g. 1"
+
+[node name="Unit" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/SampleNameSheetNameContainer"]
+margin_left = 1523.0
+margin_right = 1560.0
+margin_bottom = 24.0
+hint_tooltip = "Insert the internal standard concentration in ng/ml "
+size_flags_vertical = 1
+text = "ng/ml"
+align = 1
+valign = 1
+percent_visible = 0.0
+
+[node name="SampleAreaColumnContainer" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer"]
+margin_top = 268.0
+margin_right = 1560.0
+margin_bottom = 292.0
+size_flags_horizontal = 3
+
+[node name="Description" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/SampleAreaColumnContainer"]
+margin_right = 757.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_vertical = 7
+text = "Sample Area Column*"
+valign = 1
+
+[node name="SampleAreaColumnEdit" type="LineEdit" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/SampleAreaColumnContainer"]
+margin_left = 761.0
+margin_right = 1519.0
+margin_bottom = 24.0
+hint_tooltip = "Insert the internal standard concentration in ng/ml "
+size_flags_horizontal = 3
+size_flags_vertical = 3
+align = 1
+placeholder_text = "insert column number, e.g. 1"
+
+[node name="Unit" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/SampleAreaColumnContainer"]
+margin_left = 1523.0
+margin_right = 1560.0
+margin_bottom = 24.0
+hint_tooltip = "Insert the internal standard concentration in ng/ml "
+size_flags_vertical = 1
+text = "ng/ml"
+align = 1
+valign = 1
+percent_visible = 0.0
+
+[node name="InternalStandardAreaColumnContainer" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer"]
+margin_top = 296.0
+margin_right = 1560.0
+margin_bottom = 320.0
+size_flags_horizontal = 3
+
+[node name="Description" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/InternalStandardAreaColumnContainer"]
+margin_right = 757.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_vertical = 7
+text = "Internal Standard Area Column*"
+valign = 1
+
+[node name="InternalStandardAreaColumnEdit" type="LineEdit" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/InternalStandardAreaColumnContainer"]
+margin_left = 761.0
+margin_right = 1519.0
+margin_bottom = 24.0
+hint_tooltip = "Insert the internal standard concentration in ng/ml "
+size_flags_horizontal = 3
+size_flags_vertical = 3
+align = 1
+placeholder_text = "insert column number, e.g. 1"
+
+[node name="Unit" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/InternalStandardAreaColumnContainer"]
+margin_left = 1523.0
+margin_right = 1560.0
+margin_bottom = 24.0
+hint_tooltip = "Insert the internal standard concentration in ng/ml "
+size_flags_vertical = 1
+text = "ng/ml"
+align = 1
+valign = 1
+percent_visible = 0.0
+
+[node name="HeaderSelectionContainer" type="HBoxContainer" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer"]
+margin_top = 324.0
+margin_right = 1560.0
+margin_bottom = 344.0
+size_flags_horizontal = 3
+
+[node name="Description" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/HeaderSelectionContainer"]
+margin_right = 757.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+size_flags_vertical = 7
+text = "Is there a header?*"
+valign = 1
+
+[node name="HeaderSelectionButton" type="OptionButton" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/HeaderSelectionContainer"]
+margin_left = 761.0
+margin_right = 1519.0
+margin_bottom = 20.0
+hint_tooltip = "On \"Yes\" the first row is excluded form calculations."
+size_flags_horizontal = 3
+text = "Yes"
+items = [ "Yes", null, false, 0, null, "No", null, false, 1, null ]
+selected = 0
+
+[node name="Unit" type="Label" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/HeaderSelectionContainer"]
+margin_left = 1523.0
+margin_right = 1560.0
+margin_bottom = 20.0
+size_flags_vertical = 1
+text = "ng/ml"
+align = 1
+valign = 1
+percent_visible = 0.0
 
 [connection signal="text_changed" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/SeriesNameContainer/SeriesNameEdit" to="." method="_on_SeriesNameEdit_text_changed"]
-[connection signal="text_changed" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CompoundClassContainer/CompoundClassEdit" to="." method="_on_CompoundClassEdit_text_changed"]
+[connection signal="text_changed" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/SeriesInfoContainer/SeriesInfoEdit" to="." method="_on_SeriesInfoEdit_text_changed"]
+[connection signal="item_selected" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/ExtractionVolumeSelectionContainer2/ExtraktionVolumeSelectionButton" to="." method="_on_ExtraktionVolumeSelectionButton_item_selected"]
 [connection signal="text_changed" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/ExtractionVolumeContainer/ExtractionVolumeEdit" to="." method="_on_ExtractionVolumeEdit_text_changed"]
-[connection signal="text_changed" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/MassesColumnContainer/MassesColumnEdit" to="." method="_on_MassesColumnEdit_text_changed"]
+[connection signal="text_changed" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/ExtractionVolumeColumnNameContainer/ExtractionVolumeColumnNameEdit" to="." method="_on_ExtractionVolumeColumnNameEdit_text_changed"]
+[connection signal="item_selected" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/NormalizationSelectionContainer/NormalizationSelectionButton" to="." method="_on_NormalizationSelectionButton_item_selected"]
+[connection signal="text_changed" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/NormalizerColumnNameContainer/NormalizerColumnNameEdit" to="." method="_on_NormalizerColumnNameEdit_text_changed"]
+[connection signal="item_selected" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/InputModeContainer/InputModeSelectionButton" to="." method="_on_InputModeSelectionButton_item_selected"]
+[connection signal="text_changed" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/SampleNameColumnContainer/SampleNameColumnEdit" to="." method="_on_SampleNameColumnEdit_text_changed"]
+[connection signal="text_changed" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/SampleNameSheetNameContainer/SampleNameSheetNameEdit" to="." method="_on_SampleNameSheetNameEdit_text_changed"]
+[connection signal="text_changed" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/SampleAreaColumnContainer/SampleAreaColumnEdit" to="." method="_on_SampleAreaColumnEdit_text_changed"]
+[connection signal="text_changed" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/InternalStandardAreaColumnContainer/InternalStandardAreaColumnEdit" to="." method="_on_InternalStandardAreaColumnEdit_text_changed"]
+[connection signal="item_selected" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/HeaderSelectionContainer/HeaderSelectionButton" to="." method="_on_HeaderSelectionButton_item_selected"]

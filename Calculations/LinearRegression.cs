@@ -14,7 +14,7 @@ public class LinearRegression : Node
         GD.Print("C# Script active");
     
         var xValues = new double[]
-                        {
+                            {
                                 300437, 581449, 1359270, 2220774, 4328906
                             };
         var yValues = new double[]

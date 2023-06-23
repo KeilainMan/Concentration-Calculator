@@ -7,3 +7,22 @@ D:\Godot\Concentration Calculator\.mono\temp\obj\Debug\Concentration Calculator.
 D:\Godot\Concentration Calculator\.mono\temp\obj\Debug\Concentration Calculator.csproj.CoreCompileInputs.cache
 D:\Godot\Concentration Calculator\.mono\temp\obj\Debug\Concentration Calculator.dll
 D:\Godot\Concentration Calculator\.mono\temp\obj\Debug\Concentration Calculator.pdb
+D:\Godot\Concentration Calculator\.mono\temp\bin\Debug\Enums.NET.dll
+D:\Godot\Concentration Calculator\.mono\temp\bin\Debug\MathNet.Numerics.dll
+D:\Godot\Concentration Calculator\.mono\temp\bin\Debug\Microsoft.IO.RecyclableMemoryStream.dll
+D:\Godot\Concentration Calculator\.mono\temp\bin\Debug\Newtonsoft.Json.dll
+D:\Godot\Concentration Calculator\.mono\temp\bin\Debug\NPOI.OOXML.dll
+D:\Godot\Concentration Calculator\.mono\temp\bin\Debug\NPOI.OpenXml4Net.dll
+D:\Godot\Concentration Calculator\.mono\temp\bin\Debug\NPOI.OpenXmlFormats.dll
+D:\Godot\Concentration Calculator\.mono\temp\bin\Debug\NPOI.dll
+D:\Godot\Concentration Calculator\.mono\temp\bin\Debug\BouncyCastle.Crypto.dll
+D:\Godot\Concentration Calculator\.mono\temp\bin\Debug\ICSharpCode.SharpZipLib.dll
+D:\Godot\Concentration Calculator\.mono\temp\bin\Debug\SixLabors.Fonts.dll
+D:\Godot\Concentration Calculator\.mono\temp\bin\Debug\SixLabors.ImageSharp.dll
+D:\Godot\Concentration Calculator\.mono\temp\bin\Debug\System.Buffers.dll
+D:\Godot\Concentration Calculator\.mono\temp\bin\Debug\System.Memory.dll
+D:\Godot\Concentration Calculator\.mono\temp\bin\Debug\System.Numerics.Vectors.dll
+D:\Godot\Concentration Calculator\.mono\temp\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+D:\Godot\Concentration Calculator\.mono\temp\bin\Debug\System.Text.Encoding.CodePages.dll
+D:\Godot\Concentration Calculator\.mono\temp\bin\Debug\System.ValueTuple.dll
+D:\Godot\Concentration Calculator\.mono\temp\obj\Debug\Concentration Calculator.csproj.CopyComplete

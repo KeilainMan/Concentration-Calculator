@@ -5,7 +5,6 @@ export var debug: bool = false
 export var file_path: String = ""
 export var preset_path: String = ""
 
-
 var quick_preset_save: Resource
 const QUICK_PRESET_SAVE_PATH: String = "user://quick_preset_save.tres"
 
@@ -29,6 +28,7 @@ onready var calculate_button = $VBoxContainer/TopPartMenueContainer/HBoxContaine
 onready var file_save_dialog = $FileSaveDialog
 onready var quick_preset_dialog = $QuickPresetDialog
 onready var quick_preset_pop_up_menu = $QuickPresetPopUpMenu
+onready var popup_layer: CanvasLayer = $PopupLayer
 
 
 
@@ -72,6 +72,7 @@ func _ready() -> void:
 	add_new_tab_popup_menu_items()
 	
 	create_or_load_quick_preset_safe()
+	PopUpManager.set_popup_parent_node(popup_layer)
 #	Signals.connect("calculation_completed", self, "_on_calculation_completed")
 	if debug:
 		start_in_debug()
@@ -113,18 +114,7 @@ func update_quick_preset_popup_menu() -> void:
 
 func _on_FileDialog_file_selected(path) -> void:
 	print(path)
-	file_content.clear()
-	
-	var file: File = File.new()
-	file.open(path, File.READ)
-	
-	while file.get_position() < file.get_len():
-		var content = file.get_csv_line("	")
-		file_content.append(content)
-#	var split_content = content.split("	")
-	DataManager.set_current_data_sorted_in_rows_string(file_content)
-	#Signals.emit_signal("data_received", file_content)
-	file.close()
+	DataManager.set_file_path(path)
 
 
 ##MAIN MENU############################################
