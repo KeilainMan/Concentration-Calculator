@@ -16,7 +16,7 @@ var compound_name: String = ""
 var is_name: String = ""
 var is_abbreviation: String = ""
 var is_concentration: float = 0.0
-var response_factor: int = 1
+var response_factor: float = 1
 var column_name: String = ""
 
 var tab_properties: Array = [
@@ -64,8 +64,8 @@ func _on_ISConcentrationEdit_text_changed(new_text):
 
 
 func _on_ISResponseFactorEdit_text_changed(new_text):
-	response_factor = int(new_text)
-	tab_properties[6] = int(new_text)
+	response_factor = float(new_text)
+	tab_properties[6] = float(new_text)
 
 
 func _on_ColumnNameEdit_text_changed(new_text):

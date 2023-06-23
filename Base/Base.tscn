@@ -10,7 +10,7 @@ anchor_bottom = 1.0
 script = ExtResource( 1 )
 debug = true
 file_path = "D:/Godot/Concentration Calculator/Test_Data/TestDataCC.txt"
-preset_path = "D:/Godot/Concentration Calculator/Presets/PAOx.tres"
+preset_path = "D:/Godot/Concentration Calculator/Presets/PAOx_input_mode_1.tres"
 
 [node name="Bg" type="TextureRect" parent="."]
 modulate = Color( 0.490196, 0.490196, 0.490196, 1 )
@@ -46,11 +46,12 @@ text = "Quick Presets"
 
 [node name="Placeholder1" type="MarginContainer" parent="VBoxContainer/TopPartMenueContainer/HBoxContainer"]
 margin_left = 153.0
-margin_right = 803.0
+margin_right = 875.0
 margin_bottom = 50.0
 size_flags_horizontal = 3
 
 [node name="NewTabButton" type="Button" parent="VBoxContainer/TopPartMenueContainer/HBoxContainer"]
+visible = false
 margin_left = 805.0
 margin_right = 871.0
 margin_bottom = 50.0
@@ -58,12 +59,13 @@ text = "New Tab"
 align = 0
 
 [node name="Placeholder2" type="MarginContainer" parent="VBoxContainer/TopPartMenueContainer/HBoxContainer"]
-margin_left = 873.0
-margin_right = 1524.0
+margin_left = 877.0
+margin_right = 1600.0
 margin_bottom = 50.0
 size_flags_horizontal = 3
 
 [node name="CalculateButton" type="Button" parent="VBoxContainer/TopPartMenueContainer/HBoxContainer"]
+visible = false
 margin_left = 1526.0
 margin_right = 1600.0
 margin_bottom = 50.0
@@ -78,8 +80,6 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="SpreadsheetBase" parent="VBoxContainer/ActionMenueContainer" instance=ExtResource( 2 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
 margin_right = 957.0
 margin_bottom = 906.0
 size_flags_stretch_ratio = 1.5
@@ -104,6 +104,7 @@ window_title = "Open a File or Directory"
 resizable = true
 mode = 3
 access = 2
+filters = PoolStringArray( "*.txt", "*.xlsx", "*.xls" )
 
 [node name="MainPopUpMenu" type="PopupMenu" parent="."]
 margin_top = 43.0
@@ -146,6 +147,7 @@ window_title = "Open a File or Directory"
 resizable = true
 mode = 3
 access = 2
+filters = PoolStringArray( "*.tres", "*.res" )
 
 [node name="FileSaveDialog" type="FileDialog" parent="."]
 margin_right = 475.0
@@ -165,12 +167,15 @@ window_title = "Open a File or Directory"
 resizable = true
 mode = 3
 access = 2
+filters = PoolStringArray( "*.tres", "*.res" )
 
 [node name="QuickPresetPopUpMenu" type="PopupMenu" parent="."]
 margin_left = 47.0
 margin_top = 47.0
 margin_right = 154.0
 margin_bottom = 67.0
+
+[node name="PopupLayer" type="CanvasLayer" parent="."]
 
 [connection signal="pressed" from="VBoxContainer/TopPartMenueContainer/HBoxContainer/MenueButton" to="." method="_on_MenueButton_pressed"]
 [connection signal="pressed" from="VBoxContainer/TopPartMenueContainer/HBoxContainer/QuickPresets" to="." method="_on_QuickPresets_pressed"]
