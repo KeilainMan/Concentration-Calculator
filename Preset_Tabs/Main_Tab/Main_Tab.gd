@@ -191,6 +191,9 @@ func update_line_edits() -> void:
 	sample_area_column_edit.text = str(sample_area_column)
 	internal_standard_area_column_edit.text = str(internal_standard_area_column)
 	header_selection_button._select_int(header)
+	extraktion_volume_selection_button.emit_signal("item_selected", varying_extraction_volumes)
+	normalization_selection_button.emit_signal("item_selected", normalization)
+	input_mode_selection_button.emit_signal("item_selected", input_mode)
 	Signals.emit_signal("sample_area_column_changed", sample_area_column)
 
 

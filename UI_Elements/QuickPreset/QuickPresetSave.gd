@@ -10,7 +10,12 @@ export var preset_info: Array = [] setget set_preset_info, get_preset_info# [{"i
 
 
 func add_preset_path(new_path: String) -> void:
-	print("add path to quick presets save")
+	print("add path to quick presets save: ", new_path)
+	if !preset_info.empty():
+		print("presets not emtpy")
+		for preset in preset_info:
+			if preset.get("path") == new_path:
+				return
 	var new_dict: Dictionary = {
 		"id": preset_info.size(),
 		"path": new_path

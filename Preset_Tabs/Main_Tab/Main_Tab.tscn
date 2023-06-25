@@ -110,7 +110,7 @@ margin_right = 757.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 size_flags_vertical = 7
-text = "Do you have varying extraction volumes?*"
+text = "Varying extraction volumes?*"
 valign = 1
 
 [node name="ExtraktionVolumeSelectionButton" type="OptionButton" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/ExtractionVolumeSelectionContainer2"]
@@ -209,7 +209,7 @@ margin_right = 757.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 size_flags_vertical = 7
-text = "Do you want to normalize (weight in mg)?*"
+text = "Normalization (weight in mg)?*"
 valign = 1
 
 [node name="NormalizationSelectionButton" type="OptionButton" parent="Spacer/HBoxContainer/LeftSpace/VBoxContainer/NormalizationSelectionContainer"]

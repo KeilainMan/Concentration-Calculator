@@ -17,20 +17,17 @@ onready var preset_saver_resource: Script = preload("res://Presets/PresetSaver.g
 onready var quick_preset_save_resource: Script = preload("res://UI_Elements/QuickPreset/QuickPresetSave.gd")
 
 onready var file_open_dialog = $FileOpenDialog
-onready var main_popup_menu = $MainPopUpMenu
+onready var main_menu_button: MenuButton = $VBoxContainer/TextureRect/TopPartMenueContainer/HBoxContainer/MenuButton
+onready var quick_presets_button: MenuButton = $VBoxContainer/TextureRect/TopPartMenueContainer/HBoxContainer/QuickPresetsButton
 onready var tab_container = $VBoxContainer/ActionMenueContainer/TabContainer
 onready var new_preset_warning_dialog = $NewPresetWarningDialog
-onready var new_tab_button = $VBoxContainer/TopPartMenueContainer/HBoxContainer/NewTabButton
-onready var new_tab_pop_up_menu = $NewTabPopUpMenu
+onready var new_tab_button: MenuButton = $VBoxContainer/TextureRect/TopPartMenueContainer/HBoxContainer/NewTabButton
 onready var preset_save_dialog = $PresetSaveDialog
 onready var preset_load_dialog = $PresetLoadDialog
-onready var calculate_button = $VBoxContainer/TopPartMenueContainer/HBoxContainer/CalculateButton
+onready var calculate_button = $VBoxContainer/TextureRect/TopPartMenueContainer/HBoxContainer/CalculateButton
 onready var file_save_dialog = $FileSaveDialog
 onready var quick_preset_dialog = $QuickPresetDialog
-onready var quick_preset_pop_up_menu = $QuickPresetPopUpMenu
 onready var popup_layer: CanvasLayer = $PopupLayer
-
-
 
 
 enum main_popup_menue_items {
@@ -43,9 +40,9 @@ enum main_popup_menue_items {
 }
 
 var main_popup_menue_item_label: Array = [
-	"Open file",
+	"Open sample file",
 	"New preset",
-	"Load preset",
+	"Open preset",
 	"Save preset",
 	"Close preset",
 	"Add to quick presets"
@@ -68,11 +65,15 @@ var last_opened_preset_path: String = ""
 ##BUILD UP###########################################
 
 func _ready() -> void:
-	add_main_popup_menue_items()
+	add_main_popup_menu_items()
 	add_new_tab_popup_menu_items()
 	
 	create_or_load_quick_preset_safe()
 	PopUpManager.set_popup_parent_node(popup_layer)
+	
+	main_menu_button.get_popup().connect("id_pressed", self, "_on_MainPopUpMenu_id_pressed")
+	quick_presets_button.get_popup().connect("id_pressed", self, "_on_QuickPresetPopUpMenu_id_pressed")
+	new_tab_button.get_popup().connect("id_pressed", self, "_on_NewTabPopUpMenu_id_pressed")
 #	Signals.connect("calculation_completed", self, "_on_calculation_completed")
 	if debug:
 		start_in_debug()
@@ -83,22 +84,22 @@ func start_in_debug() -> void:
 	_on_PresetLoadDialog_file_selected(preset_path)
 
 
-func add_main_popup_menue_items() -> void:
+func add_main_popup_menu_items() -> void:
 	var index: int = 0
 	for item in main_popup_menue_items.keys():
-		main_popup_menu.add_item(main_popup_menue_item_label[index], main_popup_menue_items.get(item))
+		main_menu_button.get_popup().add_item(main_popup_menue_item_label[index], main_popup_menue_items.get(item))
 		index += 1
 
 
 func add_new_tab_popup_menu_items() -> void:
 	var index: int = 0
 	for item in new_tab_popup_menu_items.keys():
-		new_tab_pop_up_menu.add_item(new_tab_popup_menu_item_label[index], new_tab_popup_menu_items.get(item))
+		new_tab_button.get_popup().add_item(new_tab_popup_menu_item_label[index], new_tab_popup_menu_items.get(item))
 		index += 1
 
 
 func update_quick_preset_popup_menu() -> void:
-	quick_preset_pop_up_menu.clear()
+	quick_presets_button.get_popup().clear()
 	var preset_info: Array = quick_preset_save.get_preset_info()
 	
 	for preset in preset_info:
@@ -106,7 +107,7 @@ func update_quick_preset_popup_menu() -> void:
 		var slices2: Array = Array(slices)
 		var file_name: String = slices2.back()
 		
-		quick_preset_pop_up_menu.add_item(file_name, preset.get("id", -100))
+		quick_presets_button.get_popup().add_item(file_name, preset.get("id", -100))
 		
 
 
@@ -119,8 +120,8 @@ func _on_FileDialog_file_selected(path) -> void:
 
 ##MAIN MENU############################################
 
-func _on_MenueButton_pressed():
-	main_popup_menu.popup()
+#func _on_MenueButton_pressed():
+#	main_popup_menu.popup()
 
 
 func _on_MainPopUpMenu_id_pressed(id: int) -> void:
@@ -183,10 +184,6 @@ func check_for_open_preset() -> bool:
 	if tab_container.get_child_count() == 0:
 		return false
 	else: return true
-
-
-func _on_NewTabButton_pressed() -> void:
-	new_tab_pop_up_menu.popup()
 
 
 func _on_NewTabPopUpMenu_id_pressed(id: int) -> void:
@@ -266,10 +263,6 @@ func create_or_load_quick_preset_safe() -> void:
 		quick_preset_save = quick_preset_save_resource.new()
 
 
-func _on_QuickPresets_pressed() -> void:
-	quick_preset_pop_up_menu.popup()
-
-
 func _on_QuickPresetDialog_file_selected(path) -> void:
 	if !is_file_a_valid_preset(path):
 		return
@@ -278,7 +271,7 @@ func _on_QuickPresetDialog_file_selected(path) -> void:
 	ResourceSaver.save(QUICK_PRESET_SAVE_PATH, quick_preset_save, ResourceSaver.FLAG_BUNDLE_RESOURCES)
 
 
-func _on_QuickPresetPopUpMenu_id_pressed(id) -> void:
+func _on_QuickPresetPopUpMenu_id_pressed(id: int) -> void:
 	var preset_infos: Array = quick_preset_save.get_preset_info()
 	
 	for preset in preset_infos:
@@ -307,3 +300,8 @@ func _on_calculation_completed() -> void:
 
 
 
+
+
+func _on_Base_gui_input(event: InputEvent) -> void:
+	if event.is_action_pressed("calculate"):
+		print("CALCULATE!")

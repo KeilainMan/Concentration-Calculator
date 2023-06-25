@@ -1,8 +1,16 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Base/Base.gd" type="Script" id=1]
 [ext_resource path="res://SpreadsheetBase/SpreadsheetBase.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/themes/common_button_theme.tres" type="Theme" id=3]
+[ext_resource path="res://assets/themes/calculator_button_theme.tres" type="Theme" id=4]
 [ext_resource path="res://assets/bg_grey.jpg" type="Texture" id=5]
+[ext_resource path="res://assets/icons/calculator50x.png" type="Texture" id=6]
+[ext_resource path="res://assets/icons/menu50x.png" type="Texture" id=7]
+[ext_resource path="res://assets/icons/quick_presets.png" type="Texture" id=8]
+[ext_resource path="res://assets/icons/new_tab.png" type="Texture" id=9]
+[ext_resource path="res://assets/themes/tab_container_theme.tres" type="Theme" id=10]
+[ext_resource path="res://assets/themes/file_dialog_theme.tres" type="Theme" id=11]
 
 [node name="Base" type="Control"]
 anchor_right = 1.0
@@ -21,59 +29,72 @@ texture = ExtResource( 5 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="TopPartMenueContainer" type="MarginContainer" parent="VBoxContainer"]
+[node name="TextureRect" type="ColorRect" parent="VBoxContainer"]
 margin_right = 1600.0
-margin_bottom = 50.0
-rect_min_size = Vector2( 0, 50 )
+margin_bottom = 70.0
+rect_min_size = Vector2( 0, 70 )
+size_flags_horizontal = 3
+color = Color( 0.262745, 0.262745, 0.262745, 1 )
+
+[node name="TopPartMenueContainer" type="MarginContainer" parent="VBoxContainer/TextureRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = 10.0
+margin_right = -10.0
+margin_bottom = -10.0
+rect_min_size = Vector2( 0, 49.859 )
 size_flags_horizontal = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/TopPartMenueContainer"]
-margin_right = 1600.0
-margin_bottom = 50.0
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/TextureRect/TopPartMenueContainer"]
+margin_right = 1580.0
+margin_bottom = 56.0
 custom_constants/separation = 2
 
-[node name="MenueButton" type="Button" parent="VBoxContainer/TopPartMenueContainer/HBoxContainer"]
-margin_right = 48.0
-margin_bottom = 50.0
-text = "Menu"
+[node name="MenuButton" type="MenuButton" parent="VBoxContainer/TextureRect/TopPartMenueContainer/HBoxContainer"]
+margin_right = 56.0
+margin_bottom = 56.0
+hint_tooltip = "Open main menu"
+theme = ExtResource( 3 )
+icon = ExtResource( 7 )
+flat = false
+
+[node name="QuickPresetsButton" type="MenuButton" parent="VBoxContainer/TextureRect/TopPartMenueContainer/HBoxContainer"]
+margin_left = 58.0
+margin_right = 114.0
+margin_bottom = 56.0
+hint_tooltip = "Gives quick access to often used presets."
+theme = ExtResource( 3 )
+icon = ExtResource( 8 )
+flat = false
+
+[node name="NewTabButton" type="MenuButton" parent="VBoxContainer/TextureRect/TopPartMenueContainer/HBoxContainer"]
+margin_left = 116.0
+margin_right = 172.0
+margin_bottom = 56.0
+theme = ExtResource( 3 )
+icon = ExtResource( 9 )
+flat = false
 align = 0
 
-[node name="QuickPresets" type="Button" parent="VBoxContainer/TopPartMenueContainer/HBoxContainer"]
-margin_left = 50.0
-margin_right = 151.0
-margin_bottom = 50.0
-text = "Quick Presets"
-
-[node name="Placeholder1" type="MarginContainer" parent="VBoxContainer/TopPartMenueContainer/HBoxContainer"]
-margin_left = 153.0
-margin_right = 875.0
-margin_bottom = 50.0
+[node name="Placeholder2" type="MarginContainer" parent="VBoxContainer/TextureRect/TopPartMenueContainer/HBoxContainer"]
+margin_left = 174.0
+margin_right = 1580.0
+margin_bottom = 56.0
 size_flags_horizontal = 3
 
-[node name="NewTabButton" type="Button" parent="VBoxContainer/TopPartMenueContainer/HBoxContainer"]
+[node name="CalculateButton" type="Button" parent="VBoxContainer/TextureRect/TopPartMenueContainer/HBoxContainer"]
 visible = false
-margin_left = 805.0
-margin_right = 871.0
-margin_bottom = 50.0
-text = "New Tab"
-align = 0
-
-[node name="Placeholder2" type="MarginContainer" parent="VBoxContainer/TopPartMenueContainer/HBoxContainer"]
-margin_left = 877.0
-margin_right = 1600.0
-margin_bottom = 50.0
-size_flags_horizontal = 3
-
-[node name="CalculateButton" type="Button" parent="VBoxContainer/TopPartMenueContainer/HBoxContainer"]
-visible = false
-margin_left = 1526.0
-margin_right = 1600.0
-margin_bottom = 50.0
-text = "Calculate!"
+margin_left = 1524.0
+margin_right = 1580.0
+margin_bottom = 56.0
+hint_tooltip = "Start Calculation!"
+theme = ExtResource( 4 )
+icon = ExtResource( 6 )
 align = 0
 
 [node name="ActionMenueContainer" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 54.0
+margin_top = 74.0
 margin_right = 1600.0
 margin_bottom = 960.0
 size_flags_horizontal = 3
@@ -81,16 +102,18 @@ size_flags_vertical = 3
 
 [node name="SpreadsheetBase" parent="VBoxContainer/ActionMenueContainer" instance=ExtResource( 2 )]
 margin_right = 957.0
-margin_bottom = 906.0
+margin_bottom = 886.0
 size_flags_stretch_ratio = 1.5
+theme = ExtResource( 10 )
 
 [node name="TabContainer" type="TabContainer" parent="VBoxContainer/ActionMenueContainer"]
 margin_left = 961.0
 margin_right = 1600.0
-margin_bottom = 906.0
+margin_bottom = 886.0
 grow_horizontal = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme = ExtResource( 10 )
 tab_align = 0
 drag_to_rearrange_enabled = true
 
@@ -99,17 +122,13 @@ margin_left = 161.0
 margin_top = 66.0
 margin_right = 766.0
 margin_bottom = 306.0
+theme = ExtResource( 11 )
 popup_exclusive = true
 window_title = "Open a File or Directory"
 resizable = true
 mode = 3
 access = 2
 filters = PoolStringArray( "*.txt", "*.xlsx", "*.xls" )
-
-[node name="MainPopUpMenu" type="PopupMenu" parent="."]
-margin_top = 43.0
-margin_right = 64.0
-margin_bottom = 63.0
 
 [node name="NewPresetWarningDialog" type="ConfirmationDialog" parent="."]
 margin_left = 159.0
@@ -123,17 +142,12 @@ dialog_text = "There is currently an open preset!
 Press OK to discard it.  "
 dialog_autowrap = true
 
-[node name="NewTabPopUpMenu" type="PopupMenu" parent="."]
-margin_left = 755.0
-margin_top = 48.0
-margin_right = 827.0
-margin_bottom = 68.0
-
 [node name="PresetSaveDialog" type="FileDialog" parent="."]
 margin_left = 12.0
 margin_top = 77.0
 margin_right = 456.0
 margin_bottom = 354.0
+theme = ExtResource( 11 )
 window_title = "Save Preset"
 resizable = true
 
@@ -142,6 +156,7 @@ margin_left = 6.0
 margin_top = 79.0
 margin_right = 456.0
 margin_bottom = 353.0
+theme = ExtResource( 11 )
 popup_exclusive = true
 window_title = "Open a File or Directory"
 resizable = true
@@ -152,6 +167,7 @@ filters = PoolStringArray( "*.tres", "*.res" )
 [node name="FileSaveDialog" type="FileDialog" parent="."]
 margin_right = 475.0
 margin_bottom = 238.0
+theme = ExtResource( 11 )
 popup_exclusive = true
 window_title = "Save calculation File"
 resizable = true
@@ -162,6 +178,7 @@ margin_left = -2.0
 margin_top = 21.0
 margin_right = 485.0
 margin_bottom = 426.0
+theme = ExtResource( 11 )
 popup_exclusive = true
 window_title = "Open a File or Directory"
 resizable = true
@@ -169,24 +186,13 @@ mode = 3
 access = 2
 filters = PoolStringArray( "*.tres", "*.res" )
 
-[node name="QuickPresetPopUpMenu" type="PopupMenu" parent="."]
-margin_left = 47.0
-margin_top = 47.0
-margin_right = 154.0
-margin_bottom = 67.0
-
 [node name="PopupLayer" type="CanvasLayer" parent="."]
 
-[connection signal="pressed" from="VBoxContainer/TopPartMenueContainer/HBoxContainer/MenueButton" to="." method="_on_MenueButton_pressed"]
-[connection signal="pressed" from="VBoxContainer/TopPartMenueContainer/HBoxContainer/QuickPresets" to="." method="_on_QuickPresets_pressed"]
-[connection signal="pressed" from="VBoxContainer/TopPartMenueContainer/HBoxContainer/NewTabButton" to="." method="_on_NewTabButton_pressed"]
-[connection signal="pressed" from="VBoxContainer/TopPartMenueContainer/HBoxContainer/CalculateButton" to="." method="_on_CalculateButton_pressed"]
+[connection signal="gui_input" from="." to="." method="_on_Base_gui_input"]
+[connection signal="pressed" from="VBoxContainer/TextureRect/TopPartMenueContainer/HBoxContainer/CalculateButton" to="." method="_on_CalculateButton_pressed"]
 [connection signal="file_selected" from="FileOpenDialog" to="." method="_on_FileDialog_file_selected"]
-[connection signal="id_pressed" from="MainPopUpMenu" to="." method="_on_MainPopUpMenu_id_pressed"]
 [connection signal="confirmed" from="NewPresetWarningDialog" to="." method="_on_NewPresetWarningDialog_confirmed"]
-[connection signal="id_pressed" from="NewTabPopUpMenu" to="." method="_on_NewTabPopUpMenu_id_pressed"]
 [connection signal="file_selected" from="PresetSaveDialog" to="." method="_on_PresetSaveDialog_file_selected"]
 [connection signal="file_selected" from="PresetLoadDialog" to="." method="_on_PresetLoadDialog_file_selected"]
 [connection signal="file_selected" from="FileSaveDialog" to="." method="_on_FileSaveDialog_file_selected"]
 [connection signal="file_selected" from="QuickPresetDialog" to="." method="_on_QuickPresetDialog_file_selected"]
-[connection signal="id_pressed" from="QuickPresetPopUpMenu" to="." method="_on_QuickPresetPopUpMenu_id_pressed"]
