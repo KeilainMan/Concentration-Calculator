@@ -92,9 +92,10 @@ func find_data_column(column_name: String) -> Array:
 	
 	match current_importfile:
 		importfile.TXT:
-			for col in current_data_sorted_in_columns_string[0]:
-				if column_name == col[0]:
-					data_column.append_array(col)
+			if !current_data_sorted_in_columns_string.empty():
+				for col in current_data_sorted_in_columns_string[0]:
+					if column_name == col[0]:
+						data_column.append_array(col)
 		importfile.XLSX:
 			var sheet_index: int = sheet_names.find(column_name)
 			if sheet_index == - 1:

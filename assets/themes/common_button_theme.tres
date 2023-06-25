@@ -1,0 +1,29 @@
+[gd_resource type="Theme" load_steps=6 format=2]
+
+[ext_resource path="res://assets/themes/common_button_normal_stylebox.tres" type="StyleBox" id=1]
+[ext_resource path="res://assets/themes/common_button_hover_stylebox.tres" type="StyleBox" id=2]
+[ext_resource path="res://assets/fonts/Roboto/Roboto-Medium.ttf" type="DynamicFontData" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+size = 20
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 3 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.227451, 0.227451, 0.227451, 1 )
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color( 0.12549, 0.12549, 0.12549, 1 )
+border_blend = true
+
+[resource]
+Button/styles/hover = ExtResource( 2 )
+Button/styles/normal = ExtResource( 1 )
+PopupMenu/constants/hseparation = 2
+PopupMenu/constants/vseparation = 6
+PopupMenu/fonts/font = SubResource( 1 )
+PopupMenu/styles/hover = ExtResource( 2 )
+PopupMenu/styles/panel = SubResource( 2 )
