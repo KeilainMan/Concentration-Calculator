@@ -34,6 +34,7 @@ var tab_properties: Array = [
 
 func _ready():
 	Signals.connect("calculation_info_needed", self, "on_calculation_info_needed")
+	Signals.emit_signal("can_be_registered_for_summary", self)
 
 
 func _on_TabNameEdit_text_changed(new_text):
@@ -41,11 +42,13 @@ func _on_TabNameEdit_text_changed(new_text):
 	tab_name = new_text
 	name = new_text
 	tab_properties[1] = new_text
+	_on_stat_changed()
 
 
 func _on_CompoundNameEdit_text_changed(new_text):
 	compound_name = new_text
 	tab_properties[2] = new_text
+	_on_stat_changed()
 
 
 func _on_ISNameEdit_text_changed(new_text):
@@ -56,21 +59,25 @@ func _on_ISNameEdit_text_changed(new_text):
 func _on_ISAbbreviationEdit_text_changed(new_text):
 	is_abbreviation = new_text
 	tab_properties[4] = new_text
+	_on_stat_changed()
 
 
 func _on_ISConcentrationEdit_text_changed(new_text):
 	is_concentration = float(new_text)
 	tab_properties[5] = float(new_text)
+	_on_stat_changed()
 
 
 func _on_ISResponseFactorEdit_text_changed(new_text):
 	response_factor = float(new_text)
 	tab_properties[6] = float(new_text)
+	_on_stat_changed()
 
 
 func _on_ColumnNameEdit_text_changed(new_text):
 	column_name = new_text
 	tab_properties[7] = new_text
+	_on_stat_changed()
 
 
 func set_up_values() -> void:
@@ -92,12 +99,28 @@ func update_line_edits() -> void:
 	is_abbreviation_edit.text = is_abbreviation
 	is_response_factor_edit.text = str(response_factor)
 	column_name_edit.text = column_name
+	_on_stat_changed()
 
 
 func on_calculation_info_needed() -> void:
 	Signals.emit_signal("send_is_data_for_calculation", [tab_class, column_name, is_concentration, response_factor])
 
-########################################
+
+###################################################
+## Summary Functions ##
+
+func _on_stat_changed() -> void:
+	var summary_stats: Array = [
+		tab_name,
+		compound_name,
+		is_abbreviation,
+		is_concentration,
+		response_factor,
+		column_name]
+	SummaryManager.update_is_summary(summary_stats)
+
+
+###################################################
 
 func set_tab_properties(new_properties: Array) -> void:
 	tab_properties = new_properties

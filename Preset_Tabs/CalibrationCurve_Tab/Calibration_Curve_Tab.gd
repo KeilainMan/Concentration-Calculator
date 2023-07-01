@@ -55,6 +55,10 @@ var curve_rows: Array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] #ints
 var curve_ticks: Array = [false, false, false, false, false, false, false, false, false, false]
 var curve_style: int = 0
 
+var current_cc_properties: Array = []
+var current_x_values: Array = []
+var current_y_values: Array = []
+
 var all_plot_ids: Array = []
 
 var tab_properties: Array = [
@@ -107,16 +111,19 @@ func _on_TabNameEdit_text_changed(new_text):
 	tab_name = new_text
 	name = new_text
 	tab_properties[1] = new_text
+	_on_stat_changed()
 
 
 func _on_CompoundNameEdit_text_changed(new_text):
 	compound_name = new_text
 	tab_properties[2] = new_text
+	_on_stat_changed()
 
 
 func _on_ColumnNameEdit_text_changed(new_text):
 	column_name = new_text
 	tab_properties[3] = new_text
+	_on_stat_changed()
 
 
 func _on_CurveStyleButton_item_selected(index):
@@ -124,6 +131,7 @@ func _on_CurveStyleButton_item_selected(index):
 	tab_properties[6] = curve_style
 	_update_graph()
 	print("New Curve Style selected")
+	_on_stat_changed()
 
 
 func set_up_values() -> void:
@@ -145,6 +153,7 @@ func update_line_edits() -> void:
 	curve_style_button._select_int(curve_style)
 	_update_cc_table()
 	_update_graph()
+	_on_stat_changed()
 
 
 func _update_cc_table() -> void:
@@ -161,6 +170,7 @@ func on_calculation_info_needed() -> void:
 ########################################
 
 func _update_graph() -> void:
+	current_cc_properties.clear()
 	for id in all_plot_ids:
 		graph_2d.remove_curve(id)
 	
@@ -174,6 +184,7 @@ func _update_graph() -> void:
 
 	if x_axis_values.size() > 2 and y_axis_values.size() > 2:
 		lr_parameters.append_array(LinearRegressionCalculator.perform_linear_regression(x_axis_values, y_axis_values, curve_style))
+		current_cc_properties.append_array(lr_parameters)
 		if lr_parameters.empty():
 			print("No LR happened")
 			return
@@ -198,9 +209,15 @@ func _update_graph() -> void:
 		graph_2d.set_y_axis_label("Concentration in ng/ml")
 		graph_2d.set_x_axis_max_value(x_axis_values.max())
 		graph_2d.set_x_axis_label("Area")
+	
+	_on_stat_changed()
 
 
 func gather_valid_x_and_y_values() -> Array:
+	current_x_values.clear()
+	current_y_values.clear()
+	
+	
 	var x_value_rows: Array = []
 	var y_values: Array = []
 	
@@ -210,6 +227,10 @@ func gather_valid_x_and_y_values() -> Array:
 			y_values.append(curve_concentrations[index])
 	var x_values: Array = DataManager.find_calibration_curve_values(column_name, x_value_rows)
 	var values: Array = []
+	
+	current_x_values = x_values
+	current_y_values = y_values
+	
 	values.append(x_values)
 	values.append(y_values)
 	
@@ -222,7 +243,26 @@ func _on_data_updated() -> void:
 
 
 #########################################
+################################################################################
+## Summary Functions ##
 
+func _on_stat_changed() -> void:
+	var curve_values: Array = []
+	var cs: String = ""
+	for index in current_x_values.size():
+		curve_values.append("( " + String(current_x_values[index]) + " , " + String(current_y_values[index]) + " )")
+
+	var summary_stats: Array = [
+		tab_name,
+		compound_name,
+		column_name,
+		current_cc_properties,
+		curve_values]
+	SummaryManager.update_cc_summary(summary_stats)
+
+
+################################################################################
+##  ##
 
 func set_tab_properties(new_properties: Array) -> void:
 	tab_properties = new_properties

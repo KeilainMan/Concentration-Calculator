@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Base/Base.gd" type="Script" id=1]
 [ext_resource path="res://SpreadsheetBase/SpreadsheetBase.tscn" type="PackedScene" id=2]
@@ -6,11 +6,13 @@
 [ext_resource path="res://assets/themes/calculator_button_theme.tres" type="Theme" id=4]
 [ext_resource path="res://assets/bg_grey.jpg" type="Texture" id=5]
 [ext_resource path="res://assets/icons/calculator50x.png" type="Texture" id=6]
-[ext_resource path="res://assets/icons/menu50x.png" type="Texture" id=7]
-[ext_resource path="res://assets/icons/quick_presets.png" type="Texture" id=8]
+[ext_resource path="res://assets/icons/papers50x.png" type="Texture" id=7]
+[ext_resource path="res://assets/icons/summary50x.png" type="Texture" id=8]
 [ext_resource path="res://assets/icons/new_tab.png" type="Texture" id=9]
 [ext_resource path="res://assets/themes/tab_container_theme.tres" type="Theme" id=10]
 [ext_resource path="res://assets/themes/file_dialog_theme.tres" type="Theme" id=11]
+[ext_resource path="res://assets/icons/home50x.png" type="Texture" id=12]
+[ext_resource path="res://UI_Elements/SummaryDisplay.tscn" type="PackedScene" id=13]
 
 [node name="Base" type="Control"]
 anchor_right = 1.0
@@ -18,7 +20,7 @@ anchor_bottom = 1.0
 script = ExtResource( 1 )
 debug = true
 file_path = "D:/Godot/Concentration Calculator/Test_Data/TestDataCC.txt"
-preset_path = "D:/Godot/Concentration Calculator/Presets/PAOx_input_mode_1.tres"
+preset_path = "D:/Godot/Concentration Calculator/Presets/phytohormones_input_mode_1.tres"
 
 [node name="Bg" type="TextureRect" parent="."]
 modulate = Color( 0.490196, 0.490196, 0.490196, 1 )
@@ -56,7 +58,7 @@ margin_right = 56.0
 margin_bottom = 56.0
 hint_tooltip = "Open main menu"
 theme = ExtResource( 3 )
-icon = ExtResource( 7 )
+icon = ExtResource( 12 )
 flat = false
 
 [node name="QuickPresetsButton" type="MenuButton" parent="VBoxContainer/TextureRect/TopPartMenueContainer/HBoxContainer"]
@@ -65,10 +67,11 @@ margin_right = 114.0
 margin_bottom = 56.0
 hint_tooltip = "Gives quick access to often used presets."
 theme = ExtResource( 3 )
-icon = ExtResource( 8 )
+icon = ExtResource( 7 )
 flat = false
 
 [node name="NewTabButton" type="MenuButton" parent="VBoxContainer/TextureRect/TopPartMenueContainer/HBoxContainer"]
+visible = false
 margin_left = 116.0
 margin_right = 172.0
 margin_bottom = 56.0
@@ -78,10 +81,19 @@ flat = false
 align = 0
 
 [node name="Placeholder2" type="MarginContainer" parent="VBoxContainer/TextureRect/TopPartMenueContainer/HBoxContainer"]
-margin_left = 174.0
+margin_left = 116.0
 margin_right = 1580.0
 margin_bottom = 56.0
 size_flags_horizontal = 3
+
+[node name="SummaryButton" type="Button" parent="VBoxContainer/TextureRect/TopPartMenueContainer/HBoxContainer"]
+visible = false
+margin_left = 1524.0
+margin_right = 1580.0
+margin_bottom = 56.0
+hint_tooltip = "Shows tab summary"
+theme = ExtResource( 3 )
+icon = ExtResource( 8 )
 
 [node name="CalculateButton" type="Button" parent="VBoxContainer/TextureRect/TopPartMenueContainer/HBoxContainer"]
 visible = false
@@ -188,7 +200,13 @@ filters = PoolStringArray( "*.tres", "*.res" )
 
 [node name="PopupLayer" type="CanvasLayer" parent="."]
 
+[node name="SummaryLayer" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="ColorRect" parent="SummaryLayer" instance=ExtResource( 13 )]
+
 [connection signal="gui_input" from="." to="." method="_on_Base_gui_input"]
+[connection signal="pressed" from="VBoxContainer/TextureRect/TopPartMenueContainer/HBoxContainer/SummaryButton" to="." method="_on_SummaryButton_pressed"]
 [connection signal="pressed" from="VBoxContainer/TextureRect/TopPartMenueContainer/HBoxContainer/CalculateButton" to="." method="_on_CalculateButton_pressed"]
 [connection signal="file_selected" from="FileOpenDialog" to="." method="_on_FileDialog_file_selected"]
 [connection signal="confirmed" from="NewPresetWarningDialog" to="." method="_on_NewPresetWarningDialog_confirmed"]

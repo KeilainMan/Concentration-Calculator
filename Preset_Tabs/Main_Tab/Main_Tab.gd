@@ -62,17 +62,19 @@ func _ready():
 	
 	
 	Signals.connect("calculation_info_needed", self, "on_calculation_info_needed")
+	Signals.emit_signal("can_be_registered_for_summary", self)
 
 
 func _on_SeriesNameEdit_text_changed(new_text: String) -> void:
 	series_name = new_text
 	tab_properties[1] = new_text
+	_on_stat_changed()
 
 
 func _on_SeriesInfoEdit_text_changed(new_text: String) -> void:
 	series_info = new_text
 	tab_properties[2] = new_text
-
+	_on_stat_changed()
 
 func _on_ExtraktionVolumeSelectionButton_item_selected(index: int) -> void:
 	varying_extraction_volumes = index
@@ -84,16 +86,19 @@ func _on_ExtraktionVolumeSelectionButton_item_selected(index: int) -> void:
 	else:
 		extraction_volume_column_name_container.hide()
 		extraction_volume_container.show()
+	_on_stat_changed()
 
 
 func _on_ExtractionVolumeEdit_text_changed(new_text: String) -> void:
 	extraction_volume = float(new_text)
 	tab_properties[4] = float(new_text)
+	_on_stat_changed()
 
 
 func _on_ExtractionVolumeColumnNameEdit_text_changed(new_text: String) -> void:
 	extraction_volume_column_name = new_text
 	tab_properties[5] = new_text
+	_on_stat_changed()
 
 
 func _on_NormalizationSelectionButton_item_selected(index: int) -> void:
@@ -104,11 +109,13 @@ func _on_NormalizationSelectionButton_item_selected(index: int) -> void:
 		normalizer_column_name_container.show()
 	else:
 		normalizer_column_name_container.hide()
+	_on_stat_changed()
 
 
 func _on_NormalizerColumnNameEdit_text_changed(new_text: String) -> void:
 	masses_column_name = new_text
 	tab_properties[7] = new_text
+	_on_stat_changed()
 
 
 func _on_InputModeSelectionButton_item_selected(index: int) -> void:
@@ -129,33 +136,38 @@ func _on_InputModeSelectionButton_item_selected(index: int) -> void:
 		header_selection_container.show()
 	else:
 		return
+	_on_stat_changed()
 
 
 func _on_SampleNameColumnEdit_text_changed(new_text: String) -> void:
 	sample_name_column = int(new_text)
 	tab_properties[9] = int(new_text)
-
+	_on_stat_changed()
 
 
 func _on_SampleNameSheetNameEdit_text_changed(new_text):
 	sample_name_sheet_name = new_text
 	tab_properties[10] = new_text
+	_on_stat_changed()
 
 
 func _on_SampleAreaColumnEdit_text_changed(new_text: String) -> void:
 	sample_area_column = int(new_text)
 	tab_properties[11] = int(new_text)
 	Signals.emit_signal("sample_area_column_changed", int(new_text))
+	_on_stat_changed()
 
 
 func _on_InternalStandardAreaColumnEdit_text_changed(new_text: String) -> void:
 	internal_standard_area_column = int(new_text)
 	tab_properties[12] = int(new_text)
+	_on_stat_changed()
 
 
 func _on_HeaderSelectionButton_item_selected(index: int) -> void:
 	header = index
 	tab_properties[13] = index
+	_on_stat_changed()
 
 
 ###########################################
@@ -195,6 +207,7 @@ func update_line_edits() -> void:
 	normalization_selection_button.emit_signal("item_selected", normalization)
 	input_mode_selection_button.emit_signal("item_selected", input_mode)
 	Signals.emit_signal("sample_area_column_changed", sample_area_column)
+	_on_stat_changed()
 
 
 #######################################################
@@ -219,6 +232,42 @@ func assemble_data_for_calculation() -> Array:
 				internal_standard_area_column,
 				header]
 	return data
+
+
+#######################################################
+## Summary Functions ##
+
+func _on_stat_changed() -> void:
+	var vev: String = ""
+	var norm: String = ""
+	var ipm: String = ""
+	
+	if varying_extraction_volumes == 0:
+		vev = "YES"
+	else:
+		vev = "NO"
+	if normalization == 0:
+		norm = "YES"
+	else:
+		norm = "NO"
+	if input_mode == 0:
+		ipm = "Input Mode 1"
+	else:
+		ipm = "Input Mode 2"
+	var summary_stats: Array = [
+		series_name,
+		vev,
+		extraction_volume,
+		extraction_volume_column_name,
+		norm,
+		masses_column_name,
+		ipm,
+		sample_name_column,
+		sample_name_sheet_name,
+		sample_area_column,
+		internal_standard_area_column,
+		header]
+	SummaryManager.update_main_summary(summary_stats)
 
 
 #######################################################

@@ -14,11 +14,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Preset_Tabs/CalibrationCurve_Tab/Calibration_Curve_Tab.gd"
 }, {
-"base": "Resource",
-"class": "InternalStandardResource",
-"language": "GDScript",
-"path": "res://Preset_Tabs/Internal_Standard_Tab/Internal_Standard_Resource.gd"
-}, {
 "base": "Tabs",
 "class": "InternalStandardTab",
 "language": "GDScript",
@@ -28,11 +23,6 @@ _global_script_classes=[ {
 "class": "MainTab",
 "language": "GDScript",
 "path": "res://Preset_Tabs/Main_Tab/Main_Tab.gd"
-}, {
-"base": "Resource",
-"class": "MainTabResource",
-"language": "GDScript",
-"path": "res://Preset_Tabs/Main_Tab/Main_Tab_Resource.gd"
 }, {
 "base": "Resource",
 "class": "PresetSaver",
@@ -51,10 +41,8 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "CalibrationCurveTab": "",
-"InternalStandardResource": "",
 "InternalStandardTab": "",
 "MainTab": "",
-"MainTabResource": "",
 "PresetSaver": "",
 "QuickPresetSave": "",
 "SpeadsheetTab": ""
@@ -74,6 +62,7 @@ LinearRegressionCalculator="*res://Calculations/LinearRegressionCalculator.gd"
 DataManager="*res://Globals/data_manager.gd"
 DataPorter="*res://Globals/DataPorter.cs"
 PopUpManager="*res://Globals/PopUpManager.gd"
+SummaryManager="*res://Globals/summary_manager.gd"
 
 [display]
 
