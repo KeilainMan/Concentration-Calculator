@@ -9,9 +9,7 @@ var quick_preset_save: Resource
 const QUICK_PRESET_SAVE_PATH: String = "user://quick_preset_save.tres"
 
 onready var main_tab: PackedScene = preload("res://Preset_Tabs/Main_Tab/Main_Tab.tscn")
-onready var main_tab_resource: Script = preload("res://Preset_Tabs/Main_Tab/Main_Tab_Resource.gd")
 onready var is_tab: PackedScene = preload("res://Preset_Tabs/Internal_Standard_Tab/Internal_Standard_Tab.tscn")
-onready var is_tab_resource: Script = preload("res://Preset_Tabs/Internal_Standard_Tab/Internal_Standard_Resource.gd")
 onready var cc_tab: PackedScene = preload("res://Preset_Tabs/CalibrationCurve_Tab/Calibration_Curve_Tab.tscn")
 onready var preset_saver_resource: Script = preload("res://Presets/PresetSaver.gd")
 onready var quick_preset_save_resource: Script = preload("res://UI_Elements/QuickPreset/QuickPresetSave.gd")
@@ -24,10 +22,12 @@ onready var new_preset_warning_dialog = $NewPresetWarningDialog
 onready var new_tab_button: MenuButton = $VBoxContainer/TextureRect/TopPartMenueContainer/HBoxContainer/NewTabButton
 onready var preset_save_dialog = $PresetSaveDialog
 onready var preset_load_dialog = $PresetLoadDialog
-onready var calculate_button = $VBoxContainer/TextureRect/TopPartMenueContainer/HBoxContainer/CalculateButton
+onready var summary_button: Button = $VBoxContainer/TextureRect/TopPartMenueContainer/HBoxContainer/SummaryButton
+onready var calculate_button: Button = $VBoxContainer/TextureRect/TopPartMenueContainer/HBoxContainer/CalculateButton
 onready var file_save_dialog = $FileSaveDialog
 onready var quick_preset_dialog = $QuickPresetDialog
 onready var popup_layer: CanvasLayer = $PopupLayer
+onready var summary_layer: CanvasLayer = $SummaryLayer
 
 
 enum main_popup_menue_items {
@@ -61,6 +61,7 @@ var new_tab_popup_menu_item_label: Array = [
 
 var file_content: Array = []
 var last_opened_preset_path: String = ""
+var summary_is_opened: bool = false
 
 ##BUILD UP###########################################
 
@@ -136,6 +137,8 @@ func _on_MainPopUpMenu_id_pressed(id: int) -> void:
 	if id == main_popup_menue_items.CLOSE_PRESET:
 		delete_all_tabs()
 		new_tab_button.hide()
+		summary_button.hide()
+		SummaryManager.clear_summary()
 		calculate_button.hide()
 	if id == main_popup_menue_items.ADD_TO_QUICK_PRESET:
 		quick_preset_dialog.popup()
@@ -161,6 +164,7 @@ func create_new_preset() -> void:
 	instance_new_tab(main_tab)
 	
 	new_tab_button.show()
+	summary_button.show()
 	calculate_button.show()
 
 
@@ -223,6 +227,8 @@ func _on_PresetLoadDialog_file_selected(path) -> void:
 
 
 func load_preset(path: String) -> void:
+	SummaryManager.clear_summary()
+	
 	last_opened_preset_path = path
 	var preset_save: Resource = load(path)
 	var tab_properties: Array = preset_save.all_tab_properties.duplicate()#get_all_tab_properties()
@@ -240,6 +246,7 @@ func load_preset(path: String) -> void:
 			instance_new_tab(cc_tab, props)
 	
 	new_tab_button.show()
+	summary_button.show()
 	calculate_button.show()
 
 
@@ -279,6 +286,20 @@ func _on_QuickPresetPopUpMenu_id_pressed(id: int) -> void:
 			load_preset(preset.get("path"))
 
 
+##SUMMARY#########################################################
+
+func _on_SummaryButton_pressed() -> void:
+	if summary_is_opened:
+		summary_is_opened = false
+	else:
+		summary_is_opened = true
+	if summary_is_opened:
+		summary_layer.show()
+	else:
+		summary_layer.hide()
+
+
+
 ##CALCULATION PROCESS#############################################
 
 func _on_CalculateButton_pressed() -> void:
@@ -300,8 +321,11 @@ func _on_calculation_completed() -> void:
 
 
 
-
-
 func _on_Base_gui_input(event: InputEvent) -> void:
 	if event.is_action_pressed("calculate"):
 		print("CALCULATE!")
+
+
+
+
+	pass # Replace with function body.
