@@ -40,6 +40,7 @@ public class DataPorter : Node
 		Godot.Collections.Array<string> sheetNameArray = ReadSheetNames(currentBook);
 		return sheetNameArray;
 	}
+
 	private IWorkbook ReadWorkbook(string path)
 	{
 		IWorkbook book = null;
@@ -108,18 +109,6 @@ public class DataPorter : Node
 				string cellData = cell.ToString();
 				string cellDataTransformed = cellData.Replace(",", ".");
 				rowData.Add(cellDataTransformed);
-/* 				CellType cellType = cell.CellType;
-				if (cellType == CellType.String)
-				{
-					string cellData = cell.StringCellValue;
-					rowData.Add(cellData);
-				}
-				else if (cellType == CellType.Numeric)
-				{
-					double cellData = cell.NumericCellValue;
-					rowData.Add(cellData.ToString());
-					GD.Print(cellData);
-				} */
 			}
 			dataInRows.Add(rowData);
 		}
@@ -138,6 +127,59 @@ public class DataPorter : Node
 		return sheetNamesArray;
 	}
 
+
+	public void ExportAsXlsx(string path, Godot.Collections.Array<Godot.Collections.Array<Godot.Collections.Array<string>>> data, bool summary)
+	{
+		IWorkbook workbook = new XSSFWorkbook();
+		FileStream fs = new FileStream(path, FileMode.Create, FileAccess.Write);
+
+
+		foreach (Godot.Collections.Array<Godot.Collections.Array<string>> sheet in data)
+        {
+            int sheetIndex = data.IndexOf(sheet);
+			GD.Print("Sheet index: ", sheetIndex);
+            if (sheetIndex == 0)
+			{
+				ISheet resultSheet = workbook.CreateSheet("results");
+				resultSheet = WriteToSheet(resultSheet, sheet);
+				for (int i = 0; i <= 20; i++) resultSheet.AutoSizeColumn(i);
+			}
+			else
+			{
+				ISheet summarySheet = workbook.CreateSheet("summary");
+				summarySheet = WriteToSheet(summarySheet, sheet);
+				for (int i = 0; i <= 20; i++) summarySheet.AutoSizeColumn(i);
+			}
+                
+        }
+		workbook.Write(fs, false);
+
+    }
+
+
+	private ISheet WriteToSheet(ISheet resultSheet, Godot.Collections.Array<Godot.Collections.Array<string>> sheet)
+	{
+		int index = 0;
+		foreach (Godot.Collections.Array<string> row in sheet)
+		{
+			IRow newRow = resultSheet.CreateRow(index);
+			newRow = WriteToRow(newRow, row);
+			index += 1;
+		}
+		return (resultSheet);
+	}
+
+
+	private IRow WriteToRow(IRow resultRow, Godot.Collections.Array<string> row)
+	{
+		foreach (string entry in row)
+		{
+			int entryIndex = row.IndexOf(entry);
+			ICell newCell = resultRow.CreateCell(entryIndex);
+			newCell.SetCellValue(entry);
+		}
+		return (resultRow);
+	}
 }
 
 

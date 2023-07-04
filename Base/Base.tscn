@@ -1,9 +1,8 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Base/Base.gd" type="Script" id=1]
 [ext_resource path="res://SpreadsheetBase/SpreadsheetBase.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/themes/common_button_theme.tres" type="Theme" id=3]
-[ext_resource path="res://assets/themes/calculator_button_theme.tres" type="Theme" id=4]
 [ext_resource path="res://assets/bg_grey.jpg" type="Texture" id=5]
 [ext_resource path="res://assets/icons/calculator50x.png" type="Texture" id=6]
 [ext_resource path="res://assets/icons/papers50x.png" type="Texture" id=7]
@@ -18,9 +17,8 @@
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 1 )
-debug = true
 file_path = "D:/Godot/Concentration Calculator/Test_Data/TestDataCC.txt"
-preset_path = "D:/Godot/Concentration Calculator/Presets/phytohormones_input_mode_1.tres"
+preset_path = "D:/Godot/Concentration Calculator/Presets/PAOx_input_mode_1.tres"
 
 [node name="Bg" type="TextureRect" parent="."]
 modulate = Color( 0.490196, 0.490196, 0.490196, 1 )
@@ -95,15 +93,17 @@ hint_tooltip = "Shows tab summary"
 theme = ExtResource( 3 )
 icon = ExtResource( 8 )
 
-[node name="CalculateButton" type="Button" parent="VBoxContainer/TextureRect/TopPartMenueContainer/HBoxContainer"]
+[node name="CalculateButton" type="MenuButton" parent="VBoxContainer/TextureRect/TopPartMenueContainer/HBoxContainer"]
 visible = false
 margin_left = 1524.0
 margin_right = 1580.0
 margin_bottom = 56.0
 hint_tooltip = "Start Calculation!"
-theme = ExtResource( 4 )
+theme = ExtResource( 3 )
 icon = ExtResource( 6 )
+flat = false
 align = 0
+items = [ "Export as txt", null, 0, false, false, 0, 0, null, "", false, "Export as xlsx", null, 0, false, false, 1, 0, null, "", false, "Export as xlsx (w summary)", null, 0, false, false, 2, 0, null, "", false ]
 
 [node name="ActionMenueContainer" type="HBoxContainer" parent="VBoxContainer"]
 margin_top = 74.0
@@ -176,14 +176,35 @@ mode = 3
 access = 2
 filters = PoolStringArray( "*.tres", "*.res" )
 
-[node name="FileSaveDialog" type="FileDialog" parent="."]
+[node name="FileSaveDialogTxt" type="FileDialog" parent="."]
 margin_right = 475.0
 margin_bottom = 238.0
 theme = ExtResource( 11 )
 popup_exclusive = true
-window_title = "Save calculation File"
+window_title = "Save calculation file as txt"
 resizable = true
 access = 2
+filters = PoolStringArray( "*.txt" )
+
+[node name="FileSaveDialogXlsx" type="FileDialog" parent="."]
+margin_right = 475.0
+margin_bottom = 238.0
+theme = ExtResource( 11 )
+popup_exclusive = true
+window_title = "Save calculation file as xlsx"
+resizable = true
+access = 2
+filters = PoolStringArray( "*.xlsx" )
+
+[node name="FileSaveDialogXlsxWS" type="FileDialog" parent="."]
+margin_right = 475.0
+margin_bottom = 238.0
+theme = ExtResource( 11 )
+popup_exclusive = true
+window_title = "Save calculation file as xlsx with summary"
+resizable = true
+access = 2
+filters = PoolStringArray( "*.xlsx" )
 
 [node name="QuickPresetDialog" type="FileDialog" parent="."]
 margin_left = -2.0
@@ -207,10 +228,11 @@ visible = false
 
 [connection signal="gui_input" from="." to="." method="_on_Base_gui_input"]
 [connection signal="pressed" from="VBoxContainer/TextureRect/TopPartMenueContainer/HBoxContainer/SummaryButton" to="." method="_on_SummaryButton_pressed"]
-[connection signal="pressed" from="VBoxContainer/TextureRect/TopPartMenueContainer/HBoxContainer/CalculateButton" to="." method="_on_CalculateButton_pressed"]
 [connection signal="file_selected" from="FileOpenDialog" to="." method="_on_FileDialog_file_selected"]
 [connection signal="confirmed" from="NewPresetWarningDialog" to="." method="_on_NewPresetWarningDialog_confirmed"]
 [connection signal="file_selected" from="PresetSaveDialog" to="." method="_on_PresetSaveDialog_file_selected"]
 [connection signal="file_selected" from="PresetLoadDialog" to="." method="_on_PresetLoadDialog_file_selected"]
-[connection signal="file_selected" from="FileSaveDialog" to="." method="_on_FileSaveDialog_file_selected"]
+[connection signal="file_selected" from="FileSaveDialogTxt" to="." method="_on_FileSaveDialogTxt_file_selected"]
+[connection signal="file_selected" from="FileSaveDialogXlsx" to="." method="_on_FileSaveDialogXlsx_file_selected"]
+[connection signal="file_selected" from="FileSaveDialogXlsxWS" to="." method="_on_FileSaveDialogXlsxWS_file_selected"]
 [connection signal="file_selected" from="QuickPresetDialog" to="." method="_on_QuickPresetDialog_file_selected"]

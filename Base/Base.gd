@@ -23,8 +23,10 @@ onready var new_tab_button: MenuButton = $VBoxContainer/TextureRect/TopPartMenue
 onready var preset_save_dialog = $PresetSaveDialog
 onready var preset_load_dialog = $PresetLoadDialog
 onready var summary_button: Button = $VBoxContainer/TextureRect/TopPartMenueContainer/HBoxContainer/SummaryButton
-onready var calculate_button: Button = $VBoxContainer/TextureRect/TopPartMenueContainer/HBoxContainer/CalculateButton
-onready var file_save_dialog = $FileSaveDialog
+onready var calculate_button: MenuButton = $VBoxContainer/TextureRect/TopPartMenueContainer/HBoxContainer/CalculateButton
+onready var file_save_dialog_txt: FileDialog = $FileSaveDialogTxt
+onready var file_save_dialog_xlsx: FileDialog = $FileSaveDialogXlsx
+onready var file_save_dialog_xlsx_ws: FileDialog = $FileSaveDialogXlsxWS
 onready var quick_preset_dialog = $QuickPresetDialog
 onready var popup_layer: CanvasLayer = $PopupLayer
 onready var summary_layer: CanvasLayer = $SummaryLayer
@@ -75,6 +77,7 @@ func _ready() -> void:
 	main_menu_button.get_popup().connect("id_pressed", self, "_on_MainPopUpMenu_id_pressed")
 	quick_presets_button.get_popup().connect("id_pressed", self, "_on_QuickPresetPopUpMenu_id_pressed")
 	new_tab_button.get_popup().connect("id_pressed", self, "_on_NewTabPopUpMenu_id_pressed")
+	calculate_button.get_popup().connect("id_pressed", self, "_on_CalculateButton_id_pressed")
 #	Signals.connect("calculation_completed", self, "_on_calculation_completed")
 	if debug:
 		start_in_debug()
@@ -302,14 +305,33 @@ func _on_SummaryButton_pressed() -> void:
 
 ##CALCULATION PROCESS#############################################
 
-func _on_CalculateButton_pressed() -> void:
-	file_save_dialog.popup()
+
+func _on_CalculateButton_id_pressed(id: int) -> void:
+	match id:
+		0:
+			file_save_dialog_txt.popup()
+		1:
+			file_save_dialog_xlsx.popup()
+		2: 
+			file_save_dialog_xlsx_ws.popup()
 
 
-func _on_FileSaveDialog_file_selected(path):
+func _on_FileSaveDialogTxt_file_selected(path: String) -> void:
 	if !path.ends_with(".txt"):
 		path = path + ".txt"
-	Signals.emit_signal("path_for_calculation_selected", path)
+	Signals.emit_signal("path_for_calculation_selected", path, "TXT")
+
+
+func _on_FileSaveDialogXlsx_file_selected(path: String) -> void:
+	if !path.ends_with(".xlsx"):
+		path = path + ".xlsx"
+	Signals.emit_signal("path_for_calculation_selected", path, "XLSX")
+
+
+func _on_FileSaveDialogXlsxWS_file_selected(path: String) -> void:
+	if !path.ends_with(".xlsx"):
+		path = path + ".xlsx"
+	Signals.emit_signal("path_for_calculation_selected", path, "XLSXWS")
 
 
 func _on_calculation_completed() -> void:
@@ -318,14 +340,3 @@ func _on_calculation_completed() -> void:
 
 
 
-
-
-
-func _on_Base_gui_input(event: InputEvent) -> void:
-	if event.is_action_pressed("calculate"):
-		print("CALCULATE!")
-
-
-
-
-	pass # Replace with function body.
