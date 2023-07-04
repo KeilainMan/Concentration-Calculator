@@ -250,14 +250,17 @@ func _on_stat_changed() -> void:
 	var curve_values: Array = []
 	var cs: String = ""
 	for index in current_x_values.size():
-		curve_values.append("( " + String(current_x_values[index]) + " , " + String(current_y_values[index]) + " )")
+		curve_values.append(String(current_x_values[index]) + " | " + String(current_y_values[index]))
 
 	var summary_stats: Array = [
 		tab_name,
 		compound_name,
-		column_name,
-		current_cc_properties,
-		curve_values]
+		column_name]
+		
+	summary_stats.append_array(current_cc_properties)
+	summary_stats.append_array(curve_values)
+
+
 	SummaryManager.update_cc_summary(summary_stats)
 
 

@@ -83,18 +83,18 @@ func update_cc_summary(data: Array) -> void:
 		var col_container: VBoxContainer = VBoxContainer.new()
 		for entry_index in data[column_index].size():
 			var entry = data[column_index][entry_index]
-			if (entry_index == 3 or entry_index == 4) and !column_index == 0 and !column_index == data.size() - 1:
-				for x in data[column_index][entry_index]:
-					entry = x
-					var new_label = Label.new()
-					new_label.text = String(entry)
-					col_container.add_child(new_label)
-					all_labels[column_index].append(new_label)
-			else:
-				var new_label = Label.new()
-				new_label.text = String(entry)
-				col_container.add_child(new_label)
-				all_labels[column_index].append(new_label)
+#			if (entry_index == 3 or entry_index == 4) and !column_index == 0 and !column_index == data.size() - 1:
+#				for x in data[column_index][entry_index]:
+#					entry = x
+#					var new_label = Label.new()
+#					new_label.text = String(entry)
+#					col_container.add_child(new_label)
+#					all_labels[column_index].append(new_label)
+#			else:
+			var new_label = Label.new()
+			new_label.text = String(entry)
+			col_container.add_child(new_label)
+			all_labels[column_index].append(new_label)
 		cc_summary_column_container.add_child(col_container)
 	format_main_summary_labels(all_labels)
 

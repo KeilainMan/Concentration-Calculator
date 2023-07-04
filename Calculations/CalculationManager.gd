@@ -21,13 +21,12 @@ func _ready():
 
 #########################################################################
 ## Starts calculation process ##
-func on_path_for_calculation_selected(save_file_path: String) -> void:
+func on_path_for_calculation_selected(save_file_path: String, identifier: String) -> void:
 	print("Start calculation")
-	start_calculation_process(save_file_path)
-	
+	start_calculation_process(save_file_path, identifier)
 
 
-func start_calculation_process(save_file_path: String) -> void:
+func start_calculation_process(save_file_path: String, identifier: String) -> void:
 	Signals.emit_signal("calculation_info_needed")
 	print("In need for Information")
 	print("calculating...")
@@ -71,9 +70,7 @@ func start_calculation_process(save_file_path: String) -> void:
 	
 	
 	var results_transposed: Array = transpose_results(results)
-	save_file(save_file_path, results_transposed)
-#	Signals.emit_signal("calculation_completed")
-	clear_data()
+	export_results(save_file_path, results_transposed, identifier)
 
 
 func check_if_calculation_is_allowed() -> bool:
@@ -243,9 +240,27 @@ func calc_compound_concentrations_cc(compound_data, masses_column, slope) -> Arr
 	return all_results
 
 
-#####################################################################
+################################################################################
+## Export of Results ##
 
-func save_file(save_file_path: String, result: Array) -> void:
+func export_results(save_file_path: String, results_transposed: Array, identifier: String) -> void:
+	var export_results: Array = []
+	export_results.append(results_transposed)
+	
+	match identifier:
+		"TXT":
+			save_file_as_txt(save_file_path, results_transposed)
+		"XLSX":
+			DataPorter.ExportAsXlsx(save_file_path, export_results, false)
+		"XLSXWS":
+			var summary: Array = SummaryManager.get_export_summary()
+			export_results.append(summary)
+			print("XLSX", export_results)
+			DataPorter.ExportAsXlsx(save_file_path, export_results, true)
+	clear_data()
+
+
+func save_file_as_txt(save_file_path: String, result: Array) -> void:
 	var new_file = File.new()
 	new_file.open(save_file_path, File.WRITE)
 	

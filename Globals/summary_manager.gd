@@ -41,9 +41,11 @@ var custom_cc_tab_summary_first_column: Array = [
 	"Curve Slope",
 	"Curve Intercept",
 	"R^2 Value",
-	"(x,y)"
+	"x | y"
 	]
 var custom_cc_tab_summary_last_column: Array = ["Influences Calculation" ,"No" ,"Yes" ,"Yes" ,"Yes" ,"Yes", "Yes"]
+
+var export_summary: Array = [] setget , get_export_summary
 
 
 func _ready() -> void:
@@ -152,7 +154,59 @@ func clear_registered_tabs() -> void:
 	currently_registered_tabs.clear()
 
 
-# Signal Callbacks #########################################
+################################################################################
+## On Export Functions ##
+
+func build_export_summary() -> void:
+	if !main_summary.empty():
+		var main_summary_transposed: Array = transpose_array(main_summary)
+		export_summary.append_array(main_summary_transposed)
+		export_summary.append([""])
+		
+	if !custom_is_tab_summary.empty():
+		var is_summary_transposed: Array = transpose_array(custom_is_tab_summary)
+		export_summary.append(["Internal Standard Tabs"])
+		export_summary.append_array(is_summary_transposed)
+		export_summary.append([""])
+		
+	if !custom_cc_tab_summary.empty():
+		var cc_summary_transposed: Array = transpose_array(custom_cc_tab_summary)
+		export_summary.append(["Calibration Curve Tabs"])
+		export_summary.append_array(cc_summary_transposed)
+
+
+func transpose_array(summary: Array) -> Array:
+	var max_row_count: int = find_max_row_count(summary)
+	var summary_transposed: Array = []
+	var adjusted_summary: Array = summary
+	
+	for n in max_row_count:
+		summary_transposed.append([])
+	
+	for col in adjusted_summary: #addiert "" damit man auf gleichartige Arrays entstehen
+		if col.size() < max_row_count:
+			var diff: int = max_row_count - col.size()
+			for n in diff:
+				col.append("")
+	
+	for col in adjusted_summary:
+		for entry_index in col.size():
+			summary_transposed[entry_index].append(String(col[entry_index]))
+	
+	return summary_transposed
+
+
+func find_max_row_count(summary: Array) -> int:
+	var max_row_count: int = 0
+	for col in summary:
+		if col.size() > max_row_count:
+			max_row_count = col.size()
+	
+	return max_row_count
+
+
+################################################################################
+## Signal Callbacks ##
 
 func _on_can_be_registered_for_summary(tab: Tabs) -> void:
 	if !currently_registered_tabs.has(tab):
@@ -163,3 +217,10 @@ func _on_can_be_registered_for_summary(tab: Tabs) -> void:
 func _on_summary_panel_isntanced(current_summary_display: ColorRect) -> void:
 	summary_display = current_summary_display
 
+
+################################################################################
+## Setter Getter ##
+
+func get_export_summary() -> Array:
+	build_export_summary()
+	return export_summary
