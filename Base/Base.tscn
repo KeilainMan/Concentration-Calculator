@@ -1,8 +1,9 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Base/Base.gd" type="Script" id=1]
 [ext_resource path="res://SpreadsheetBase/SpreadsheetBase.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/themes/common_button_theme.tres" type="Theme" id=3]
+[ext_resource path="res://assets/icons/close_sample_file50x.png" type="Texture" id=4]
 [ext_resource path="res://assets/bg_grey.jpg" type="Texture" id=5]
 [ext_resource path="res://assets/icons/calculator50x.png" type="Texture" id=6]
 [ext_resource path="res://assets/icons/papers50x.png" type="Texture" id=7]
@@ -13,7 +14,7 @@
 [ext_resource path="res://assets/icons/home50x.png" type="Texture" id=12]
 [ext_resource path="res://UI_Elements/SummaryDisplay.tscn" type="PackedScene" id=13]
 
-[node name="Base" type="Control"]
+[node name="Base" type="Control" groups=["base"]]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 1 )
@@ -78,6 +79,15 @@ icon = ExtResource( 9 )
 flat = false
 align = 0
 
+[node name="CloseSampleFileButton" type="Button" parent="VBoxContainer/TextureRect/TopPartMenueContainer/HBoxContainer"]
+visible = false
+margin_left = 116.0
+margin_right = 172.0
+margin_bottom = 56.0
+hint_tooltip = "Shows tab summary"
+theme = ExtResource( 3 )
+icon = ExtResource( 4 )
+
 [node name="Placeholder2" type="MarginContainer" parent="VBoxContainer/TextureRect/TopPartMenueContainer/HBoxContainer"]
 margin_left = 116.0
 margin_right = 1580.0
@@ -86,8 +96,8 @@ size_flags_horizontal = 3
 
 [node name="SummaryButton" type="Button" parent="VBoxContainer/TextureRect/TopPartMenueContainer/HBoxContainer"]
 visible = false
-margin_left = 1524.0
-margin_right = 1580.0
+margin_left = 1466.0
+margin_right = 1522.0
 margin_bottom = 56.0
 hint_tooltip = "Shows tab summary"
 theme = ExtResource( 3 )
@@ -130,10 +140,10 @@ tab_align = 0
 drag_to_rearrange_enabled = true
 
 [node name="FileOpenDialog" type="FileDialog" parent="."]
-margin_left = 161.0
-margin_top = 66.0
-margin_right = 766.0
-margin_bottom = 306.0
+margin_left = 30.0
+margin_top = 115.0
+margin_right = 678.0
+margin_bottom = 532.0
 theme = ExtResource( 11 )
 popup_exclusive = true
 window_title = "Open a File or Directory"
@@ -155,19 +165,20 @@ Press OK to discard it.  "
 dialog_autowrap = true
 
 [node name="PresetSaveDialog" type="FileDialog" parent="."]
-margin_left = 12.0
-margin_top = 77.0
-margin_right = 456.0
-margin_bottom = 354.0
+margin_left = 33.0
+margin_top = 117.0
+margin_right = 673.0
+margin_bottom = 530.0
 theme = ExtResource( 11 )
 window_title = "Save Preset"
 resizable = true
+access = 2
 
 [node name="PresetLoadDialog" type="FileDialog" parent="."]
-margin_left = 6.0
-margin_top = 79.0
-margin_right = 456.0
-margin_bottom = 353.0
+margin_left = 33.0
+margin_top = 119.0
+margin_right = 673.0
+margin_bottom = 530.0
 theme = ExtResource( 11 )
 popup_exclusive = true
 window_title = "Open a File or Directory"
@@ -177,8 +188,10 @@ access = 2
 filters = PoolStringArray( "*.tres", "*.res" )
 
 [node name="FileSaveDialogTxt" type="FileDialog" parent="."]
-margin_right = 475.0
-margin_bottom = 238.0
+margin_left = 34.0
+margin_top = 121.0
+margin_right = 674.0
+margin_bottom = 531.0
 theme = ExtResource( 11 )
 popup_exclusive = true
 window_title = "Save calculation file as txt"
@@ -187,8 +200,10 @@ access = 2
 filters = PoolStringArray( "*.txt" )
 
 [node name="FileSaveDialogXlsx" type="FileDialog" parent="."]
-margin_right = 475.0
-margin_bottom = 238.0
+margin_left = 36.0
+margin_top = 122.0
+margin_right = 675.0
+margin_bottom = 530.0
 theme = ExtResource( 11 )
 popup_exclusive = true
 window_title = "Save calculation file as xlsx"
@@ -197,8 +212,10 @@ access = 2
 filters = PoolStringArray( "*.xlsx" )
 
 [node name="FileSaveDialogXlsxWS" type="FileDialog" parent="."]
-margin_right = 475.0
-margin_bottom = 238.0
+margin_left = 33.0
+margin_top = 122.0
+margin_right = 676.0
+margin_bottom = 530.0
 theme = ExtResource( 11 )
 popup_exclusive = true
 window_title = "Save calculation file as xlsx with summary"
@@ -207,10 +224,10 @@ access = 2
 filters = PoolStringArray( "*.xlsx" )
 
 [node name="QuickPresetDialog" type="FileDialog" parent="."]
-margin_left = -2.0
-margin_top = 21.0
-margin_right = 485.0
-margin_bottom = 426.0
+margin_left = 30.0
+margin_top = 122.0
+margin_right = 676.0
+margin_bottom = 530.0
 theme = ExtResource( 11 )
 popup_exclusive = true
 window_title = "Open a File or Directory"
@@ -226,7 +243,7 @@ visible = false
 
 [node name="ColorRect" parent="SummaryLayer" instance=ExtResource( 13 )]
 
-[connection signal="gui_input" from="." to="." method="_on_Base_gui_input"]
+[connection signal="pressed" from="VBoxContainer/TextureRect/TopPartMenueContainer/HBoxContainer/CloseSampleFileButton" to="." method="_on_CloseSampleFileButton_pressed"]
 [connection signal="pressed" from="VBoxContainer/TextureRect/TopPartMenueContainer/HBoxContainer/SummaryButton" to="." method="_on_SummaryButton_pressed"]
 [connection signal="file_selected" from="FileOpenDialog" to="." method="_on_FileDialog_file_selected"]
 [connection signal="confirmed" from="NewPresetWarningDialog" to="." method="_on_NewPresetWarningDialog_confirmed"]

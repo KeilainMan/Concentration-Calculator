@@ -77,16 +77,22 @@ enum curve_styles {
 	INTERCEPT,
 }
 
-
-
 var curve_styles_labels: Array = [
 	"origin intercept",
 	"intercept"
 ]
 
+onready var tab_manager
+
+signal preset_tab_tree_exited
+
+
 func _ready():
+	tab_manager = get_tree().get_nodes_in_group("base")[0]
 	Signals.connect("calculation_info_needed", self, "on_calculation_info_needed")
 	Signals.connect("data_updated", self, "_on_data_updated")
+	Signals.emit_signal("can_be_registered_for_summary", self)
+	connect("preset_tab_tree_exited", tab_manager, "_on_preset_tab_tree_exited")
 	
 	add_items_for_curve_style_button()
 	prepare_cc_table_array()
@@ -130,7 +136,6 @@ func _on_CurveStyleButton_item_selected(index):
 	curve_style = index
 	tab_properties[6] = curve_style
 	_update_graph()
-	print("New Curve Style selected")
 	_on_stat_changed()
 
 
@@ -238,7 +243,6 @@ func gather_valid_x_and_y_values() -> Array:
 
 
 func _on_data_updated() -> void:
-	print("data updated")
 	_update_graph()
 
 
@@ -261,7 +265,12 @@ func _on_stat_changed() -> void:
 	summary_stats.append_array(curve_values)
 
 
-	SummaryManager.update_cc_summary(summary_stats)
+	SummaryManager.update_cc_summary(summary_stats, self)
+
+
+
+func _on_CCTab_tree_exited() -> void:
+	emit_signal("preset_tab_tree_exited")
 
 
 ################################################################################
@@ -406,3 +415,7 @@ func _on_CheckBox9_pressed() -> void:
 func _on_CheckBox10_pressed() -> void:
 	curve_ticks[9] = check_box_10.pressed
 	_on_cc_table_changed()
+
+
+
+

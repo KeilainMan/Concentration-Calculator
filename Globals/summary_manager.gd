@@ -2,7 +2,8 @@ extends Node
 
 
 var summary_display: ColorRect
-var currently_registered_tabs: Array = []
+var currently_registered_is_tabs: Array = []
+var currently_registered_cc_tabs: Array = []
 
 var main_summary: Array = []
 var main_summary_first_column: Array = [
@@ -51,6 +52,7 @@ var export_summary: Array = [] setget , get_export_summary
 func _ready() -> void:
 	Signals.connect("can_be_registered_for_summary", self, "_on_can_be_registered_for_summary")
 	Signals.connect("summary_panel_instanced", self, "_on_summary_panel_isntanced")
+	Signals.connect("calculation_completed", self, "_on_calculation_completed")
 
 
 ################################################################################
@@ -93,20 +95,28 @@ func construct_third_main_column(main_summary_data: Array) -> Array:
 ################################################################################
 ## Internal Standard Summary ##
 
-func update_is_summary(summary_stats: Array) -> void:
+func update_is_summary(summary_stats: Array, tab: InternalStandardTab) -> void:
 	custom_is_tab_summary.pop_back()
 	if custom_is_tab_summary.empty():
 		custom_is_tab_summary.append(custom_is_tab_summary_first_column)
 	
-	var tab_index: int = -1
-	for col in custom_is_tab_summary:
-		if col[0] == summary_stats[0]:
-			tab_index = custom_is_tab_summary.find(col)
 	
+	var tab_index: int = currently_registered_is_tabs.find(tab)
 	if tab_index == -1:
-		custom_is_tab_summary.append(summary_stats)
+		return
+	if custom_is_tab_summary.size() - 1 > tab_index:
+		custom_is_tab_summary[tab_index + 1] = summary_stats
 	else:
-		custom_is_tab_summary[tab_index] = summary_stats
+		custom_is_tab_summary.append(summary_stats)
+#	var tab_index: int = -1
+#	for col in custom_is_tab_summary:
+#		if col[0] == summary_stats[0]:
+#			tab_index = custom_is_tab_summary.find(col)
+#
+#	if tab_index == -1:
+#		custom_is_tab_summary.append(summary_stats)
+#	else:
+#		custom_is_tab_summary[tab_index] = summary_stats
 	
 	if !custom_is_tab_summary.has(custom_is_tab_summary_last_column):
 		custom_is_tab_summary.append(custom_is_tab_summary_last_column)
@@ -117,20 +127,18 @@ func update_is_summary(summary_stats: Array) -> void:
 ################################################################################
 ## Calibration Curve Summary ##
 
-func update_cc_summary(summary_stats: Array) -> void:
+func update_cc_summary(summary_stats: Array, tab: CalibrationCurveTab) -> void:
 	custom_cc_tab_summary.pop_back()
 	if custom_cc_tab_summary.empty():
 		custom_cc_tab_summary.append(custom_cc_tab_summary_first_column)
 	
-	var tab_index: int = -1
-	for col in custom_cc_tab_summary:
-		if col[0] == summary_stats[0]:
-			tab_index = custom_cc_tab_summary.find(col)
-	
+	var tab_index: int = currently_registered_cc_tabs.find(tab)
 	if tab_index == -1:
-		custom_cc_tab_summary.append(summary_stats)
+		return
+	if custom_cc_tab_summary.size() - 1 > tab_index:
+		custom_cc_tab_summary[tab_index + 1] = summary_stats
 	else:
-		custom_cc_tab_summary[tab_index] = summary_stats
+		custom_cc_tab_summary.append(summary_stats)
 	
 	if !custom_cc_tab_summary.has(custom_cc_tab_summary_last_column):
 		custom_cc_tab_summary.append(custom_cc_tab_summary_last_column)
@@ -151,7 +159,12 @@ func clear_summary() -> void:
 
 
 func clear_registered_tabs() -> void:
-	currently_registered_tabs.clear()
+	currently_registered_is_tabs.clear()
+	currently_registered_cc_tabs.clear()
+
+
+func clear_export_summary() -> void:
+	export_summary.clear()
 
 
 ################################################################################
@@ -209,13 +222,22 @@ func find_max_row_count(summary: Array) -> int:
 ## Signal Callbacks ##
 
 func _on_can_be_registered_for_summary(tab: Tabs) -> void:
-	if !currently_registered_tabs.has(tab):
-		currently_registered_tabs.append(tab)
+	if tab is CalibrationCurveTab:
+		if !currently_registered_cc_tabs.has(tab):
+			currently_registered_cc_tabs.append(tab)
+	elif tab is InternalStandardTab:
+		if !currently_registered_is_tabs.has(tab):
+			currently_registered_is_tabs.append(tab)
 	else: return
 
 
 func _on_summary_panel_isntanced(current_summary_display: ColorRect) -> void:
 	summary_display = current_summary_display
+	
+
+func _on_calculation_completed() -> void:
+	clear_export_summary()
+
 
 
 ################################################################################

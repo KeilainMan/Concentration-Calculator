@@ -23,3 +23,5 @@ size_flags_vertical = 3
 [node name="RowContainer" type="VBoxContainer" parent="ScrollContainer"]
 size_flags_horizontal = 3
 size_flags_vertical = 3
+
+[connection signal="tree_exited" from="." to="." method="_on_Tabs_tree_exited"]

@@ -34,7 +34,6 @@ func start_calculation_process(save_file_path: String, identifier: String) -> vo
 	
 	
 	if !check_if_calculation_is_allowed():
-		PopUpManager.show_popup(0)
 		return
 		
 	var results: Array = []
@@ -74,7 +73,14 @@ func start_calculation_process(save_file_path: String, identifier: String) -> vo
 
 
 func check_if_calculation_is_allowed() -> bool:
-	if sample_data.empty() or general_info.empty() or (is_info.size() + cc_info.size()) < 1:
+	if sample_data.empty():
+		PopUpManager.show_popup(0)
+		return false
+	elif general_info.empty():
+		PopUpManager.show_popup(1)
+		return false
+	elif is_info.size() + cc_info.size() < 1:
+		PopUpManager.show_popup(2)
 		return false
 	else:
 		return true
@@ -152,7 +158,9 @@ func calculate_calibration_curve_result_column(compound_array: Array, extraction
 	return result_column
 
 
-## IS-Calculation ###################################################
+################################################################################
+## IS-Calculation ##
+
 
 func perform_internal_standard_compound_calculation(compound_column: Array, is_column: Array,  extraction_volume_column: Array, masses_column: Array, is_data: Array) -> Array:
 	var result_column: Array = []
@@ -200,7 +208,9 @@ func calculate_normalized_value_from_raw_value(raw_value: float, mass: float) ->
 	return result
 
 
-#####################################################################
+################################################################################
+## Calibration Curve Calculation ##
+
 
 func perform_calibration_curve_compound_calculation(compound_column: Array, extraction_volume_column: Array, masses_column: Array, slope: float) -> Array:
 	var result_column: Array = []
@@ -230,16 +240,6 @@ func calculate_calibration_curve_method_raw_value(compound_area: float, extracti
 	return result 
 
 
-func calc_compound_concentrations_cc(compound_data, masses_column, slope) -> Array:
-	var all_results: Array = []
-	
-	for entry_index in compound_data.size():
-		var result_in_ng: float = float(compound_data[entry_index]) * (slope) * float(general_info[0])
-		var result_in_ng_pro_g: float = (result_in_ng/float(masses_column[entry_index]))*1000
-		all_results.append(result_in_ng_pro_g)
-	return all_results
-
-
 ################################################################################
 ## Export of Results ##
 
@@ -255,7 +255,6 @@ func export_results(save_file_path: String, results_transposed: Array, identifie
 		"XLSXWS":
 			var summary: Array = SummaryManager.get_export_summary()
 			export_results.append(summary)
-			print("XLSX", export_results)
 			DataPorter.ExportAsXlsx(save_file_path, export_results, true)
 	clear_data()
 
@@ -276,6 +275,8 @@ func clear_data() -> void:
 	is_info.clear()
 	cc_info.clear()
 	results.clear()
+	Signals.emit_signal("calculation_completed")
+	PopUpManager.show_popup(4)
 
 
 #####################################################################

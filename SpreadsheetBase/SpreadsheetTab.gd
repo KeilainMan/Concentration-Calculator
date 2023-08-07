@@ -2,6 +2,8 @@ extends Tabs
 class_name SpeadsheetTab
 
 onready var row_container = $ScrollContainer/RowContainer
+onready var tab_container_parent: TabContainer 
+
 
 var data: Array = [] setget set_data, get_data
 var all_labels: Array = []
@@ -10,6 +12,16 @@ var all_labels_in_columns: Array = []
 
 var label_min_size: Vector2 = Vector2(100,20)
 
+signal sheet_exited_tree
+
+
+func _ready() -> void:
+	tab_container_parent = get_parent()
+	connect("sheet_exited_tree", tab_container_parent, "_on_sheet_exited_tree")
+
+
+################################################################################
+## TABLE SETUP AND INPUT DATA ##
 
 func display_data() -> void:
 	for row_index in data.size():
@@ -52,6 +64,9 @@ func instance_label_for_entry(parent: HBoxContainer, column_index: int) -> Label
 	return new_label
 
 
+################################################################################
+## LAYOUT FUNCTIONS ##
+
 func configure_row_number_labels_layout() -> void:
 	for label in all_row_number_labels:
 		label.rect_min_size = Vector2(20,20)
@@ -79,6 +94,16 @@ func set_first_column_right() -> void:
 		entry_label.align = 0
 
 
+################################################################################
+## TO ORGANIZE SHEET NAMES ##
+
+func _on_Tabs_tree_exited() -> void:
+	emit_signal("sheet_exited_tree")
+
+
+################################################################################
+## SETTER GETTER ##
+
 func set_data(new_data: Array) -> void:
 	data = new_data
 	display_data()
@@ -86,3 +111,6 @@ func set_data(new_data: Array) -> void:
 
 func get_data() -> Array:
 	return data
+
+
+

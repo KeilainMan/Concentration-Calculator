@@ -30,15 +30,20 @@ var tab_properties: Array = [
 	column_name,
 ] setget set_tab_properties, get_tab_properties
 
+onready var tab_manager
+
+signal preset_tab_tree_exited
+
 
 
 func _ready():
+	tab_manager = get_tree().get_nodes_in_group("base")[0]
 	Signals.connect("calculation_info_needed", self, "on_calculation_info_needed")
 	Signals.emit_signal("can_be_registered_for_summary", self)
+	connect("preset_tab_tree_exited", tab_manager, "_on_preset_tab_tree_exited")
 
 
 func _on_TabNameEdit_text_changed(new_text):
-	print("changed")
 	tab_name = new_text
 	name = new_text
 	tab_properties[1] = new_text
@@ -117,7 +122,13 @@ func _on_stat_changed() -> void:
 		is_concentration,
 		response_factor,
 		column_name]
-	SummaryManager.update_is_summary(summary_stats)
+	SummaryManager.update_is_summary(summary_stats, self)
+
+
+
+
+func _on_ISTab_tree_exited() -> void:
+	emit_signal("preset_tab_tree_exited")
 
 
 ###################################################
@@ -130,6 +141,8 @@ func set_tab_properties(new_properties: Array) -> void:
 
 func get_tab_properties() -> Array:
 	return tab_properties
+
+
 
 
 

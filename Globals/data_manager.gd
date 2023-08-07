@@ -5,6 +5,7 @@ var file_path: String = "" setget set_file_path, get_file_path
 var current_data_sorted_in_rows_string: Array = [] setget set_current_data_sorted_in_rows_string, get_current_data_sorted_in_rows_string
 var current_data_sorted_in_columns_string: Array = [] setget , get_current_data_sorted_in_columns_string#set_current_data_sorted_in_columns_string, get_current_data_sorted_in_columns_string
 var sheet_names: Array = ["Sheet1"] setget set_sheet_names, get_sheet_names
+var calculation_check_names: Array = [] setget set_calculation_check_names , get_calculation_check_names
 
 
 var current_importfile: int = importfile.TXT
@@ -18,19 +19,25 @@ enum importfile {
 func _ready() -> void:
 	Signals.connect("calculation_info_needed", self, "_on_calculation_info_needed")
 	Signals.connect("sample_area_column_changed", self, "_on_sample_area_column_changed")
+	Signals.connect("data_deleted", self, "_on_data_deleted")
 
+
+
+################################################################################
+## LOADING DATA ##
 
 func _on_new_file_name_set() -> void:
 	clear_current_data()
-	
 	if file_path.ends_with(".txt"):
 		current_importfile = importfile.TXT
 		var file_content_in_rows: Array = _import_text_file()
 		set_current_data_sorted_in_rows_string(file_content_in_rows)
+		set_calculation_check_names(file_content_in_rows[0])
 	elif file_path.ends_with(".xlsx"):
 		current_importfile = importfile.XLSX
 		var file_content_in_rows: Array = DataPorter.ImportWorkbook(file_path)
 		var file_sheet_names: Array = DataPorter.GetSheetNames(file_path)
+		set_calculation_check_names(file_sheet_names)
 		set_sheet_names(file_sheet_names) 
 		set_current_data_sorted_in_rows_string(file_content_in_rows)
 
@@ -50,6 +57,9 @@ func _import_text_file() -> Array:
 	return file_content
 
 
+################################################################################
+## INTERNAL DATA TRANSFORMATION ##
+
 func transform_data_in_columns() -> void:
 	for sheet_index in current_data_sorted_in_rows_string.size():
 		var column_count: int = current_data_sorted_in_rows_string[sheet_index][0].size()
@@ -57,9 +67,9 @@ func transform_data_in_columns() -> void:
 
 		for row in current_data_sorted_in_rows_string[sheet_index]:
 			for column_index in row.size():
-				sheet_array[column_index].append(String(row[column_index]))
+				if column_index - 1 <= row.size():
+					sheet_array[column_index].append(String(row[column_index]))
 		current_data_sorted_in_columns_string.append(sheet_array)
-	print("sending data uploaded signal")
 	Signals.emit_signal("data_updated")
 
 
@@ -67,24 +77,25 @@ func prepare_columns(column_count: int) -> Array:
 	var sheet_array: Array = []
 	for n in column_count:
 		sheet_array.append([])
-		#current_data_sorted_in_columns_string[sheet_index].append([])
 	return sheet_array
 
 
-func _on_calculation_info_needed() -> void:
-	Signals.emit_signal("send_sample_data_for_calculation", current_data_sorted_in_columns_string.duplicate(true), sheet_names.duplicate(true))
+################################################################################
+## DELETE AND CLEAR DATA ##
 
-
-func _on_sample_area_column_changed(new_number: int) -> void:
-	sample_area_column_number = clamp(new_number - 1, 0.0, 1000.0)
+func _on_data_deleted() -> void:
+	clear_current_data()
 
 
 func clear_current_data() -> void:
 	current_data_sorted_in_rows_string.clear()
 	current_data_sorted_in_columns_string.clear()
 	sheet_names.clear()
+	calculation_check_names.clear()
 
 
+################################################################################
+## LINEAR REGRESSION RETURNER ##
 ## other scripts call these functions to get data for linear regression
 
 func find_data_column(column_name: String) -> Array:
@@ -122,7 +133,22 @@ func find_calibration_curve_values(column_name: String, rows: Array) -> Array:
 	return cc_values
 
 
-####SETTER GETTER####
+################################################################################
+## SETUP ##
+
+func _on_sample_area_column_changed(new_number: int) -> void:
+	sample_area_column_number = clamp(new_number - 1, 0.0, 1000.0)
+
+
+################################################################################
+## CONNECTION TO CALCULATOR ##
+
+func _on_calculation_info_needed() -> void:
+	Signals.emit_signal("send_sample_data_for_calculation", current_data_sorted_in_columns_string.duplicate(true), sheet_names.duplicate(true))
+
+
+################################################################################
+##SETTER GETTER##
 
 func set_file_path(new_path: String) -> void:
 	file_path = new_path
@@ -135,21 +161,16 @@ func get_file_path() -> String:
 
 func set_current_data_sorted_in_rows_string(new_data: Array) -> void:
 	current_data_sorted_in_rows_string = new_data
-	Signals.emit_signal("new_data_loaded", current_data_sorted_in_rows_string, sheet_names)
+	Signals.emit_signal("new_data_loaded", current_data_sorted_in_rows_string.duplicate(), sheet_names.duplicate())
 	transform_data_in_columns()
 
 
 func get_current_data_sorted_in_rows_string() -> Array:
-	return current_data_sorted_in_rows_string
+	return current_data_sorted_in_rows_string.duplicate(true)
 
 
 func get_current_data_sorted_in_columns_string() -> Array:
 	return current_data_sorted_in_columns_string.duplicate(true)
-
-
-#func set_current_data_sorted_in_columns_string( new_data: Array) -> void:
-#	current_data_sorted_in_columns_string = new_data
-#	Signals.emit_signal("data_updated")
 
 
 func set_sheet_names(new_names: Array) -> void:
@@ -157,4 +178,12 @@ func set_sheet_names(new_names: Array) -> void:
 
 
 func get_sheet_names() -> Array:
-	return sheet_names
+	return sheet_names.duplicate(true)
+
+
+func set_calculation_check_names(new_names: Array) -> void:
+	calculation_check_names = new_names
+
+
+func get_calculation_check_names() -> Array:
+	return calculation_check_names.duplicate(true)

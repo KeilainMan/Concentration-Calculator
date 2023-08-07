@@ -56,14 +56,20 @@ var tab_properties: Array = [
 	header
 ] setget set_tab_properties, get_tab_properties
 
+onready var tab_manager
+
+signal preset_tab_tree_exited
 
 func _ready():
 	name = "Main"
-	
+	tab_manager = get_tree().get_nodes_in_group("base")[0]
 	
 	Signals.connect("calculation_info_needed", self, "on_calculation_info_needed")
-	Signals.emit_signal("can_be_registered_for_summary", self)
-
+	connect("preset_tab_tree_exited", tab_manager, "_on_preset_tab_tree_exited")
+	
+	extraktion_volume_selection_button.emit_signal("item_selected", varying_extraction_volumes)
+	normalization_selection_button.emit_signal("item_selected", normalization)
+	input_mode_selection_button.emit_signal("item_selected", input_mode)
 
 func _on_SeriesNameEdit_text_changed(new_text: String) -> void:
 	series_name = new_text
@@ -170,7 +176,7 @@ func _on_HeaderSelectionButton_item_selected(index: int) -> void:
 	_on_stat_changed()
 
 
-###########################################
+################################################################################
 ## On Load/Opening Functions ##
 
 func set_up_values() -> void:
@@ -210,13 +216,15 @@ func update_line_edits() -> void:
 	_on_stat_changed()
 
 
-#######################################################
+################################################################################
 ## Calculation Process Functions ##
 
 
 func on_calculation_info_needed() -> void:
+#	if calculation_allowed():
 	var data: Array = assemble_data_for_calculation()
 	Signals.emit_signal("send_general_data_for_calculation", data)
+	
 
 
 func assemble_data_for_calculation() -> Array:
@@ -234,7 +242,32 @@ func assemble_data_for_calculation() -> Array:
 	return data
 
 
-#######################################################
+#func calculation_allowed() -> bool:
+#	var names: Array = DataManager.get_calculation_check_names()
+#	var data: Array = DataManager.get_current_data_sorted_in_rows_string()
+#	if varying_extraction_volumes == 0:
+#		if !check_for_name(extraction_volume_column_name, names):
+#			PopUpManager.show_popup(5)
+#			return false
+#	if normalization == 0:
+#		if !check_for_name(masses_column_name, names):
+#			PopUpManager.show_popup(6)
+#			return false
+#	if input_mode == 1:
+#		if !check_for_name(sample_name_sheet_name, names):
+#			PopUpManager.show_popup(7)
+#			return false
+#	return true
+#
+#
+#func check_for_name(searched_name: String, all_names: Array) -> bool:
+#	for n in all_names:
+#		if n == searched_name:
+#			return true
+#	return false
+
+
+################################################################################
 ## Summary Functions ##
 
 func _on_stat_changed() -> void:
@@ -270,7 +303,15 @@ func _on_stat_changed() -> void:
 	SummaryManager.update_main_summary(summary_stats)
 
 
-#######################################################
+################################################################################
+## TO ORGANIZE TAB NAMES  ##
+
+func _on_Main_tree_exited() -> void:
+	emit_signal("preset_tab_tree_exited")
+
+
+################################################################################
+## SETTER GETTER  ##
 
 func set_tab_properties(new_properties: Array) -> void:
 	tab_properties = new_properties
@@ -280,6 +321,8 @@ func set_tab_properties(new_properties: Array) -> void:
 
 func get_tab_properties() -> Array:
 	return tab_properties
+
+
 
 
 
