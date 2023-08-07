@@ -3,6 +3,7 @@ extends Node
 
 signal new_data_loaded(data) #Array
 signal data_updated()
+signal data_deleted()
 signal sample_area_column_changed(column_number) #int
 
 signal path_for_calculation_selected(path, identifier)# string, string

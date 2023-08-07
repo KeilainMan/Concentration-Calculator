@@ -20,6 +20,7 @@ onready var quick_presets_button: MenuButton = $VBoxContainer/TextureRect/TopPar
 onready var tab_container = $VBoxContainer/ActionMenueContainer/TabContainer
 onready var new_preset_warning_dialog = $NewPresetWarningDialog
 onready var new_tab_button: MenuButton = $VBoxContainer/TextureRect/TopPartMenueContainer/HBoxContainer/NewTabButton
+onready var close_sample_file_button: Button = $VBoxContainer/TextureRect/TopPartMenueContainer/HBoxContainer/CloseSampleFileButton
 onready var preset_save_dialog = $PresetSaveDialog
 onready var preset_load_dialog = $PresetLoadDialog
 onready var summary_button: Button = $VBoxContainer/TextureRect/TopPartMenueContainer/HBoxContainer/SummaryButton
@@ -65,6 +66,12 @@ var file_content: Array = []
 var last_opened_preset_path: String = ""
 var summary_is_opened: bool = false
 
+var current_preset_tab_count: int = 0
+var destruction_preset_tab_count: int = 0
+var temp_tab_properties: Array = []
+
+
+################################################################################
 ##BUILD UP###########################################
 
 func _ready() -> void:
@@ -112,17 +119,19 @@ func update_quick_preset_popup_menu() -> void:
 		var file_name: String = slices2.back()
 		
 		quick_presets_button.get_popup().add_item(file_name, preset.get("id", -100))
-		
 
 
-##LOAD DATA FILE########################################
+################################################################################
+##LOAD DATA FILE##
 
 func _on_FileDialog_file_selected(path) -> void:
 	print(path)
 	DataManager.set_file_path(path)
+	close_sample_file_button.show()
 
 
-##MAIN MENU############################################
+################################################################################
+##MAIN MENU##
 
 #func _on_MenueButton_pressed():
 #	main_popup_menu.popup()
@@ -138,7 +147,7 @@ func _on_MainPopUpMenu_id_pressed(id: int) -> void:
 	if id == main_popup_menue_items.SAVE_PRESET:
 		preset_save_dialog.popup()
 	if id == main_popup_menue_items.CLOSE_PRESET:
-		delete_all_tabs()
+		delete_all_tabs("NULL")
 		new_tab_button.hide()
 		summary_button.hide()
 		SummaryManager.clear_summary()
@@ -147,7 +156,16 @@ func _on_MainPopUpMenu_id_pressed(id: int) -> void:
 		quick_preset_dialog.popup()
 
 
-##CREATE NEW PRESETS###################################
+################################################################################
+##CLOSE SAMPLE FILE##
+
+func _on_CloseSampleFileButton_pressed() -> void:
+	Signals.emit_signal("data_deleted")
+	close_sample_file_button.hide()
+
+
+################################################################################
+##CREATE NEW PRESETS##
 
 func setup_new_preset() -> void:
 	var is_preset_open: bool = check_for_open_preset()
@@ -162,14 +180,18 @@ func _on_NewPresetWarningDialog_confirmed() -> void:
 
 
 func create_new_preset() -> void:
-	delete_all_tabs()
-	
+	delete_all_tabs("CREATE")
+
+
+func instance_new_raw_preset() -> void:
 	instance_new_tab(main_tab)
-	
 	new_tab_button.show()
 	summary_button.show()
 	calculate_button.show()
 
+
+################################################################################
+## PRESET TAB INSTANCING ##
 
 func instance_new_tab(tab: PackedScene, tab_properties: Array = []) -> void:
 	var new_tab: Tabs = tab.instance()
@@ -181,10 +203,42 @@ func instance_new_tab(tab: PackedScene, tab_properties: Array = []) -> void:
 		new_tab.set_tab_properties(tab_properties)
 
 
-func delete_all_tabs() -> void:
-	for child in tab_container.get_children():
+################################################################################
+## DELETION OF ALL PRESET TABS ##
+
+func delete_all_tabs(callback: String) -> void:
+	if tab_container.get_child_count() == 0: #triggers if a no preset was loaded
+		match callback:
+			"CREATE":
+				instance_new_raw_preset() #instances a new preset (only main tab)
+			"LOAD":
+				instance_current_tab_properties() #instances a loaded preset
+		return
+	for child in tab_container.get_children(): #triggers if a preset was loaded
+		print("queue all tabs free: ", child)
 		child.queue_free()
 	return
+
+
+func _on_preset_tab_tree_exited() -> void:
+	destruction_preset_tab_count += 1
+	print(destruction_preset_tab_count, " | ", current_preset_tab_count)
+	if destruction_preset_tab_count == current_preset_tab_count:
+		current_preset_tab_count = 0
+		instance_current_tab_properties()
+		destruction_preset_tab_count = 0
+
+
+func instance_current_tab_properties() -> void:
+	for props in temp_tab_properties:
+		if props[0] == "MAIN":
+			instance_new_tab(main_tab, props)
+		elif props[0] == "INTERNAL_STANDARD":
+			instance_new_tab(is_tab, props)
+		elif props[0] == "CALIBRATION_CURVE":
+			instance_new_tab(cc_tab, props)
+		current_preset_tab_count += 1
+	temp_tab_properties.clear()
 
 
 func check_for_open_preset() -> bool:
@@ -200,7 +254,8 @@ func _on_NewTabPopUpMenu_id_pressed(id: int) -> void:
 		instance_new_tab(cc_tab)
 
 
-##SAVE PRESET###############################################
+################################################################################
+##SAVE PRESET##
 
 func _on_PresetSaveDialog_file_selected(path) -> void:
 	print(path)
@@ -211,7 +266,9 @@ func _on_PresetSaveDialog_file_selected(path) -> void:
 	if !path.ends_with(".tres"):
 		path = path + ".tres"
 	
-	ResourceSaver.save(path, new_preset_saver, ResourceSaver.FLAG_BUNDLE_RESOURCES)
+	var error = ResourceSaver.save(path, new_preset_saver)#, ResourceSaver.FLAG_BUNDLE_RESOURCES)
+	if !error == OK:
+		PopUpManager.show_error_popup(error)
 
 
 func gather_all_tab_properties() -> Array:
@@ -221,16 +278,20 @@ func gather_all_tab_properties() -> Array:
 	return all_properties
 
 
-##LOAD PRESET ###############################################
+################################################################################
+##LOAD PRESET ##
+
 func _on_PresetLoadDialog_file_selected(path) -> void:
 	print(path)
 	if !is_file_a_valid_preset(path):
 		return
-	load_preset(path)
+	else:
+		load_preset(path)
 
 
 func load_preset(path: String) -> void:
 	SummaryManager.clear_summary()
+	SummaryManager.clear_registered_tabs()
 	
 	last_opened_preset_path = path
 	var preset_save: Resource = load(path)
@@ -238,16 +299,10 @@ func load_preset(path: String) -> void:
 
 	if tab_properties.empty():
 		return
-		
-	delete_all_tabs()
-	for props in tab_properties:
-		if props[0] == "MAIN":
-			instance_new_tab(main_tab, props)
-		elif props[0] == "INTERNAL_STANDARD":
-			instance_new_tab(is_tab, props)
-		elif props[0] == "CALIBRATION_CURVE":
-			instance_new_tab(cc_tab, props)
 	
+	temp_tab_properties = tab_properties
+	delete_all_tabs("LOAD")
+
 	new_tab_button.show()
 	summary_button.show()
 	calculate_button.show()
@@ -255,11 +310,13 @@ func load_preset(path: String) -> void:
 
 func is_file_a_valid_preset(path: String) -> bool:
 	if !path.ends_with(".tres"):
+		print("Path is not valid")
 		preset_load_dialog.popup()
 		return false
 		
 	var preset_save: Resource = load(path)
-	if !preset_save.get("all_tab_properties"):
+	if preset_save.get("all_tab_properties") == null:
+		print("Preset isn't right configured")
 		preset_load_dialog.popup()
 		return false
 	return true
@@ -278,7 +335,11 @@ func _on_QuickPresetDialog_file_selected(path) -> void:
 		return
 	quick_preset_save.add_preset_path(path)
 	update_quick_preset_popup_menu()
-	ResourceSaver.save(QUICK_PRESET_SAVE_PATH, quick_preset_save, ResourceSaver.FLAG_BUNDLE_RESOURCES)
+	ResourceSaver.save(QUICK_PRESET_SAVE_PATH, quick_preset_save)# ResourceSaver.FLAG_BUNDLE_RESOURCES)
+#	var error: int = 
+#
+#	if !error == OK:
+#		PopUpManager.show_error_popup(error)
 
 
 func _on_QuickPresetPopUpMenu_id_pressed(id: int) -> void:
@@ -289,7 +350,8 @@ func _on_QuickPresetPopUpMenu_id_pressed(id: int) -> void:
 			load_preset(preset.get("path"))
 
 
-##SUMMARY#########################################################
+################################################################################
+##SUMMARY##
 
 func _on_SummaryButton_pressed() -> void:
 	if summary_is_opened:
@@ -302,9 +364,8 @@ func _on_SummaryButton_pressed() -> void:
 		summary_layer.hide()
 
 
-
-##CALCULATION PROCESS#############################################
-
+################################################################################
+##CALCULATION PROCESS##
 
 func _on_CalculateButton_id_pressed(id: int) -> void:
 	match id:
@@ -336,6 +397,9 @@ func _on_FileSaveDialogXlsxWS_file_selected(path: String) -> void:
 
 func _on_calculation_completed() -> void:
 	load_preset(last_opened_preset_path)
+
+
+
 
 
 

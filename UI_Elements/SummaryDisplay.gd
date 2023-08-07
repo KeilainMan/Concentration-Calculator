@@ -19,7 +19,6 @@ func _ready() -> void:
 ## Main Summary ##
 
 func update_main_summary(data: Array) -> void:
-	print("MAIN SUMMARY UPDATE")
 	for child in main_summary_column_container.get_children():
 		child.queue_free()
 	var all_labels: Array = [[],[],[]]

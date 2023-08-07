@@ -1,0 +1,28 @@
+D:\Godot\Concentration Calculator\.mono\temp\bin\ExportDebug\Concentration Calculator.dll
+D:\Godot\Concentration Calculator\.mono\temp\bin\ExportDebug\Concentration Calculator.pdb
+D:\Godot\Concentration Calculator\.mono\temp\bin\ExportDebug\Enums.NET.dll
+D:\Godot\Concentration Calculator\.mono\temp\bin\ExportDebug\MathNet.Numerics.dll
+D:\Godot\Concentration Calculator\.mono\temp\bin\ExportDebug\Microsoft.IO.RecyclableMemoryStream.dll
+D:\Godot\Concentration Calculator\.mono\temp\bin\ExportDebug\Newtonsoft.Json.dll
+D:\Godot\Concentration Calculator\.mono\temp\bin\ExportDebug\NPOI.OOXML.dll
+D:\Godot\Concentration Calculator\.mono\temp\bin\ExportDebug\NPOI.OpenXml4Net.dll
+D:\Godot\Concentration Calculator\.mono\temp\bin\ExportDebug\NPOI.OpenXmlFormats.dll
+D:\Godot\Concentration Calculator\.mono\temp\bin\ExportDebug\NPOI.dll
+D:\Godot\Concentration Calculator\.mono\temp\bin\ExportDebug\BouncyCastle.Crypto.dll
+D:\Godot\Concentration Calculator\.mono\temp\bin\ExportDebug\ICSharpCode.SharpZipLib.dll
+D:\Godot\Concentration Calculator\.mono\temp\bin\ExportDebug\SixLabors.Fonts.dll
+D:\Godot\Concentration Calculator\.mono\temp\bin\ExportDebug\SixLabors.ImageSharp.dll
+D:\Godot\Concentration Calculator\.mono\temp\bin\ExportDebug\System.Buffers.dll
+D:\Godot\Concentration Calculator\.mono\temp\bin\ExportDebug\System.Memory.dll
+D:\Godot\Concentration Calculator\.mono\temp\bin\ExportDebug\System.Numerics.Vectors.dll
+D:\Godot\Concentration Calculator\.mono\temp\bin\ExportDebug\System.Runtime.CompilerServices.Unsafe.dll
+D:\Godot\Concentration Calculator\.mono\temp\bin\ExportDebug\System.Text.Encoding.CodePages.dll
+D:\Godot\Concentration Calculator\.mono\temp\bin\ExportDebug\System.ValueTuple.dll
+D:\Godot\Concentration Calculator\.mono\temp\obj\ExportDebug\Concentration Calculator.csproj.AssemblyReference.cache
+D:\Godot\Concentration Calculator\.mono\temp\obj\ExportDebug\Concentration Calculator.GeneratedMSBuildEditorConfig.editorconfig
+D:\Godot\Concentration Calculator\.mono\temp\obj\ExportDebug\Concentration Calculator.AssemblyInfoInputs.cache
+D:\Godot\Concentration Calculator\.mono\temp\obj\ExportDebug\Concentration Calculator.AssemblyInfo.cs
+D:\Godot\Concentration Calculator\.mono\temp\obj\ExportDebug\Concentration Calculator.csproj.CoreCompileInputs.cache
+D:\Godot\Concentration Calculator\.mono\temp\obj\ExportDebug\Concentration Calculator.csproj.CopyComplete
+D:\Godot\Concentration Calculator\.mono\temp\obj\ExportDebug\Concentration Calculator.dll
+D:\Godot\Concentration Calculator\.mono\temp\obj\ExportDebug\Concentration Calculator.pdb

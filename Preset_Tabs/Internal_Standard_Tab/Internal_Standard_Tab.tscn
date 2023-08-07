@@ -264,6 +264,7 @@ align = 1
 valign = 1
 percent_visible = 0.0
 
+[connection signal="tree_exited" from="." to="." method="_on_ISTab_tree_exited"]
 [connection signal="text_changed" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/TabNameContainer/TabNameEdit" to="." method="_on_TabNameEdit_text_changed"]
 [connection signal="text_changed" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/CompoundNameContainer2/CompoundNameEdit" to="." method="_on_CompoundNameEdit_text_changed"]
 [connection signal="text_changed" from="Spacer/HBoxContainer/LeftSpace/VBoxContainer/ISNameContainer/ISNameEdit" to="." method="_on_ISNameEdit_text_changed"]
