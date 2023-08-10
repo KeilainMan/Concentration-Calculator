@@ -104,16 +104,16 @@ After filing in your main tab, you can choose to create a new tab for either "In
   For calibration with internal standard method the following procedure is applied:
   
   1. Firstly the mass of sample compound in the meassured sample will be calculated in ng.
-  ![alt text](https://github.com/KeilainMan/Concentration-Calculator/blob/main/assets/readme_pics/IS_calculation_1.PNG "IS Formula 1")
-  Therefor the peak area of the sample A<sub>S</sub> is divided by the peak area of the internal standard A<sub>IS</sub> times the extraction volume V times concentration of the internal standard c<sub>IS</sub> time the responde factor r<sub>f</sub>.
+  ![alt text](https://github.com/KeilainMan/Concentration-Calculator/blob/main/assets/readme_pics/IS_calculation_1.PNG "IS Formula 1")<br>
+  Therefor the peak area of the sample A<sub>S</sub> is divided by the peak area of the internal standard A<sub>IS</sub> times the extraction volume V times concentration of the internal standard c<sub>IS</sub> time the responde factor r<sub>f</sub>. 
   2. If normalization shall be applied and masses in mg are supplied the results will further be calculated by:
-  ![alt text](https://github.com/KeilainMan/Concentration-Calculator/blob/main/assets/readme_pics/is_calculation_2.PNG "IS Formula 2")
+  ![alt text](https://github.com/KeilainMan/Concentration-Calculator/blob/main/assets/readme_pics/IS_calculation_2.PNG "IS Formula 2")
   The mass of the sample compound n<sub>S</sub> is divided by the provided normalization mass m<sub>S</sub> and multiplied by 1000 to receive results in ng/g.
   
   For calibration with the internal standard method the following procedure is applied:
 
   1. Through least square regression a calibration curve is calculated from your given concentrations. The curve parameters are visible in the graph of the corresponding Calibration Curve Tab or in the summary. Then the mass of sample compound in the meassured sample will be calculated in ng:
-  ![alt text](https://github.com/KeilainMan/Concentration-Calculator/blob/main/assets/readme_pics/CC_calculation_1.PNG "CC Formula 1")
+  ![alt text](https://github.com/KeilainMan/Concentration-Calculator/blob/main/assets/readme_pics/CC_calculation_1.PNG "CC Formula 1")<br>
   Where the peak area of the sample A<sub>S</sub> is multiplied with the extraction volume V and the slope a.
   2. If normalization shall be applied it follows the same procedure as for internal standard calculation.
   
@@ -122,7 +122,7 @@ After filing in your main tab, you can choose to create a new tab for either "In
 
 ### Export
 When you start the calculation process you have to choose one export system:
-![alt text](https://github.com/KeilainMan/Concentration-Calculator/blob/main/assets/readme_pics/calibration_button.PNG "Calibration Button")
+![alt text](https://github.com/KeilainMan/Concentration-Calculator/blob/main/assets/readme_pics/calibration_button.png "Calibration Button")
 
 Export as txt: 
 - produce a tab delimited txt file. First column are you sample names, following columns are your calculation results.
