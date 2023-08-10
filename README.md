@@ -107,7 +107,7 @@ After filing in your main tab, you can choose to create a new tab for either "In
   ![alt text](https://github.com/KeilainMan/Concentration-Calculator/blob/main/assets/readme_pics/IS_calculation_1.PNG "IS Formula 1")<br>
   Therefor the peak area of the sample A<sub>S</sub> is divided by the peak area of the internal standard A<sub>IS</sub> times the extraction volume V times concentration of the internal standard c<sub>IS</sub> time the responde factor r<sub>f</sub>. 
   2. If normalization shall be applied and masses in mg are supplied the results will further be calculated by:
-  ![alt text](https://github.com/KeilainMan/Concentration-Calculator/blob/main/assets/readme_pics/IS_calculation_2.PNG "IS Formula 2")
+  ![alt text](https://github.com/KeilainMan/Concentration-Calculator/blob/main/assets/readme_pics/IS_calculation_2.PNG "IS Formula 2")<br>
   The mass of the sample compound n<sub>S</sub> is divided by the provided normalization mass m<sub>S</sub> and multiplied by 1000 to receive results in ng/g.
   
   For calibration with the internal standard method the following procedure is applied:
@@ -121,7 +121,7 @@ After filing in your main tab, you can choose to create a new tab for either "In
   If you want to use differen parameters (e.g. peak height) you can also apply them in the scope of this calculator. All formulas just work from numbers and the UI is customized for the use e.g. peak area and choosen units (ng, ml, mg, ng/g). 
 
 ### Export
-When you start the calculation process you have to choose one export system:
+When you start the calculation process you have to choose one export system:<br>
 ![alt text](https://github.com/KeilainMan/Concentration-Calculator/blob/main/assets/readme_pics/calibration_button.png "Calibration Button")
 
 Export as txt: 
@@ -136,10 +136,9 @@ Export as xlsx (w summary):
 
 ## Known Bugs
 
-1. Loading a preset on a existing preset changes tab names (reason: no duplicates allowed). This should not impact calculation
-2. Provided datapoints in the plot of CC Tabs seem to be off sometimes. This should not impact calculations as long as they are inserted correctly.
-3. R^2 value of linear regression with intercept through the origin is wrong. This does not impact calculations. The value is solely for validation purpose.
-4. There is no way to delete quick presets. 
+1. Provided datapoints in the plot of CC Tabs seem to be off sometimes. This should not impact calculations as long as they are inserted correctly.
+2. R^2 value of linear regression with intercept through the origin is wrong. This does not impact calculations. The value is solely for validation purpose.
+3. There is no way to delete quick presets but to delete them manually in the safe file in the user directory.
 
 
 

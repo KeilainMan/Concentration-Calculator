@@ -52,7 +52,7 @@ _global_script_class_icons={
 
 config/name="Concentration Calculator"
 run/main_scene="res://Base/Base.tscn"
-config/icon="res://icon.png"
+config/icon="res://assets/icons/desktopiconx.png"
 
 [autoload]
 
