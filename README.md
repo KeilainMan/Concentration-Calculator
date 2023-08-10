@@ -19,7 +19,7 @@
 ### Main Menu
 Open the main menu on the top left button:
 
-![alt text](https://github.com/KeilainMan/Concentration-Calculator/tree/main/assets/readme_pics/main_menu.png "Main Menu")
+![alt text](https://github.com/KeilainMan/Concentration-Calculator/blob/main/assets/readme_pics/main_menu.png "Main Menu")
 
 First you need to load your data into the calculator.
  
@@ -35,7 +35,7 @@ Your sample files can have one of the following configurations:
         - If the compound shall be calculated using a calibration curve just the column is sufficient, but provide your standards in there
      3. (Optional) A column for normalization (usually weight in mg)
      4. (Optional) A column for varying extraction volumes (usually in ml)
-    ![alt text](https://github.com/KeilainMan/Concentration-Calculator/tree/main/assets/readme_pics/txt_file.png "Text File Example")
+    ![alt text](https://github.com/KeilainMan/Concentration-Calculator/blob/main/assets/readme_pics/txt_file.PNG "Text File Example")
   2. Xlsx: Provide a xlsx file containing:
      1. A sheet for every compound you want to calculate. Sheetname should be unique
         - The sheet should contain a column with your meassured sample data (usually peak area)(columnname not nessasary, see Main-Tab explanation, header)
@@ -54,7 +54,7 @@ After loading your data you need to create or load a preset. For creating a new 
 When you create a new preset, a basic main tab will be opened.
 Fill in all nessasary fields (*):
 
-  ![alt text](https://github.com/KeilainMan/Concentration-Calculator/tree/main/assets/readme_pics/main_tab_input_mode_1.png "Main Tab with Input Mode 1")
+  ![alt text](https://github.com/KeilainMan/Concentration-Calculator/blob/main/assets/readme_pics/main_tab_input_mode_1.PNG "Main Tab with Input Mode 1")
 
   - Series Name: Insert a name to identify your preset
   - Series Info: Insert some info, like compound classes
@@ -73,7 +73,7 @@ Fill in all nessasary fields (*):
 
 After filing in your main tab, you can choose to create a new tab for either "Internal Standard" or "Calibration Curve". Choose the tab you want to create via the new tab button:
 
-  ![alt text](https://github.com/KeilainMan/Concentration-Calculator/tree/main/assets/readme_pics/main_tab_input_mode_1.png "Main Tab with Input Mode 1")
+  ![alt text](https://github.com/KeilainMan/Concentration-Calculator/blob/main/assets/readme_pics/main_tab_input_mode_1.PNG "Main Tab with Input Mode 1")
 
   Internal Standard Tab: This tab type is used if a compound shall be calculated via internal standard method.
     - Tab Name: Set a name for your tab. Highly recommended.
@@ -84,7 +84,7 @@ After filing in your main tab, you can choose to create a new tab for either "In
     - Response Factor: Insert a reponse factor for your internal standard.
     - Column/Sheet Name: Insert the name of the column (Input Mode1) or sheet (Input Mode2) of your compound. This has to be an exact match!
   
-  ![alt text](https://github.com/KeilainMan/Concentration-Calculator/tree/main/assets/readme_pics/is_tab "Internal Standard Tab")
+  ![alt text](https://github.com/KeilainMan/Concentration-Calculator/blob/main/assets/readme_pics/is_tab.PNG "Internal Standard Tab")
 
   Calibration Curve Tab:
     - Tab Name: Set a name for your tab. Highly recommended.
@@ -95,7 +95,7 @@ After filing in your main tab, you can choose to create a new tab for either "In
       - origin intercept: Sets the intercept to zero
       - intercept: calculates a intercept with the y-axis which fits the curve best.
 
-  ![alt text](https://github.com/KeilainMan/Concentration-Calculator/tree/main/assets/readme_pics/cc_tab "Calibration Curve Tab")
+  ![alt text](https://github.com/KeilainMan/Concentration-Calculator/blob/main/assets/readme_pics/cc_tab.PNG "Calibration Curve Tab")
 
   Create as many tabs as needed. When finished save your preset via the main menu button "Save preset"
 
@@ -104,16 +104,16 @@ After filing in your main tab, you can choose to create a new tab for either "In
   For calibration with internal standard method the following procedure is applied:
   
   1. Firstly the mass of sample compound in the meassured sample will be calculated in ng.
-  ![alt text](https://github.com/KeilainMan/Concentration-Calculator/tree/main/assets/readme_pics/is_calculation_1 "IS Formula 1")
+  ![alt text](https://github.com/KeilainMan/Concentration-Calculator/blob/main/assets/readme_pics/IS_calculation_1.PNG "IS Formula 1")
   Therefor the peak area of the sample A<sub>S</sub> is divided by the peak area of the internal standard A<sub>IS</sub> times the extraction volume V times concentration of the internal standard c<sub>IS</sub> time the responde factor r<sub>f</sub>.
   2. If normalization shall be applied and masses in mg are supplied the results will further be calculated by:
-  ![alt text](https://github.com/KeilainMan/Concentration-Calculator/tree/main/assets/readme_pics/is_calculation_2 "IS Formula 2")
+  ![alt text](https://github.com/KeilainMan/Concentration-Calculator/blob/main/assets/readme_pics/is_calculation_2.PNG "IS Formula 2")
   The mass of the sample compound n<sub>S</sub> is divided by the provided normalization mass m<sub>S</sub> and multiplied by 1000 to receive results in ng/g.
   
   For calibration with the internal standard method the following procedure is applied:
 
   1. Through least square regression a calibration curve is calculated from your given concentrations. The curve parameters are visible in the graph of the corresponding Calibration Curve Tab or in the summary. Then the mass of sample compound in the meassured sample will be calculated in ng:
-  ![alt text](https://github.com/KeilainMan/Concentration-Calculator/tree/main/assets/readme_pics/CC_calculation_1 "CC Formula 1")
+  ![alt text](https://github.com/KeilainMan/Concentration-Calculator/blob/main/assets/readme_pics/CC_calculation_1.PNG "CC Formula 1")
   Where the peak area of the sample A<sub>S</sub> is multiplied with the extraction volume V and the slope a.
   2. If normalization shall be applied it follows the same procedure as for internal standard calculation.
   
@@ -122,7 +122,7 @@ After filing in your main tab, you can choose to create a new tab for either "In
 
 ### Export
 When you start the calculation process you have to choose one export system:
-![alt text](https://github.com/KeilainMan/Concentration-Calculator/tree/main/assets/readme_pics/calibration_button "Calibration Button")
+![alt text](https://github.com/KeilainMan/Concentration-Calculator/blob/main/assets/readme_pics/calibration_button.PNG "Calibration Button")
 
 Export as txt: 
 - produce a tab delimited txt file. First column are you sample names, following columns are your calculation results.
