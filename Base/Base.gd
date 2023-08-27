@@ -7,6 +7,9 @@ export var preset_path: String = ""
 
 var quick_preset_save: Resource
 const QUICK_PRESET_SAVE_PATH: String = "user://quick_preset_save.tres"
+onready var quick_preset_save_name: String = "quick_preset_save.tres"
+onready var save_folder_name: String = "saves"
+onready var save_folder_path: String = ""
 
 onready var main_tab: PackedScene = preload("res://Preset_Tabs/Main_Tab/Main_Tab.tscn")
 onready var is_tab: PackedScene = preload("res://Preset_Tabs/Internal_Standard_Tab/Internal_Standard_Tab.tscn")
@@ -86,6 +89,9 @@ func _ready() -> void:
 	new_tab_button.get_popup().connect("id_pressed", self, "_on_NewTabPopUpMenu_id_pressed")
 	calculate_button.get_popup().connect("id_pressed", self, "_on_CalculateButton_id_pressed")
 #	Signals.connect("calculation_completed", self, "_on_calculation_completed")
+
+	
+	
 	if debug:
 		start_in_debug()
 
@@ -323,11 +329,30 @@ func is_file_a_valid_preset(path: String) -> bool:
 
 
 func create_or_load_quick_preset_safe() -> void:
-	if ResourceLoader.exists(QUICK_PRESET_SAVE_PATH):
-		quick_preset_save = load(QUICK_PRESET_SAVE_PATH)#QuickPresetSave.load_save()
-		update_quick_preset_popup_menu()
+	var temp_path = OS.get_executable_path().get_base_dir().plus_file(save_folder_name)
+	var directory: Directory = Directory.new()
+	print("directory created")
+	if directory.dir_exists(temp_path):
+		print("directory exists")
+		save_folder_path = temp_path
+		if ResourceLoader.exists(temp_path.plus_file(quick_preset_save_name)):
+			quick_preset_save = load(temp_path.plus_file(quick_preset_save_name))
+			update_quick_preset_popup_menu()
+			print("resource loaded")
+		else:
+			quick_preset_save = quick_preset_save_resource.new()
+			print("resource created")
 	else:
+		directory.make_dir(temp_path)
+		save_folder_path = temp_path
 		quick_preset_save = quick_preset_save_resource.new()
+		print("directory created2")
+
+#	if ResourceLoader.exists(QUICK_PRESET_SAVE_PATH):
+#		quick_preset_save = load(QUICK_PRESET_SAVE_PATH)#QuickPresetSave.load_save()
+#		update_quick_preset_popup_menu()
+#	else:
+#		quick_preset_save = quick_preset_save_resource.new()
 
 
 func _on_QuickPresetDialog_file_selected(path) -> void:
@@ -335,7 +360,7 @@ func _on_QuickPresetDialog_file_selected(path) -> void:
 		return
 	quick_preset_save.add_preset_path(path)
 	update_quick_preset_popup_menu()
-	ResourceSaver.save(QUICK_PRESET_SAVE_PATH, quick_preset_save)# ResourceSaver.FLAG_BUNDLE_RESOURCES)
+	ResourceSaver.save(save_folder_path.plus_file(quick_preset_save_name), quick_preset_save)# ResourceSaver.FLAG_BUNDLE_RESOURCES)
 #	var error: int = 
 #
 #	if !error == OK:
@@ -347,7 +372,11 @@ func _on_QuickPresetPopUpMenu_id_pressed(id: int) -> void:
 	
 	for preset in preset_infos:
 		if preset.get("id") == id:
-			load_preset(preset.get("path"))
+			var new_file: File = File.new()
+			if new_file.file_exists(preset.get("path")):
+				load_preset(preset.get("path"))
+			else:
+				PopUpManager.show_error_popup("File doesn't exist!")
 
 
 ################################################################################

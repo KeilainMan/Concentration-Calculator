@@ -29,7 +29,7 @@ func show_popup(text_index: int) -> void:
 	new_popup.popup()
 
 
-func show_error_popup(text: int) -> void:
+func show_error_popup(text) -> void:
 	var new_popup: AcceptDialog = AcceptDialog.new()
 	popup_parent_node.add_child(new_popup)
 	new_popup.dialog_text = "Error: " + str(text)
