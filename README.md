@@ -146,7 +146,7 @@ Export as xlsx (w summary):
 2. R^2 value of linear regression with intercept through the origin is wrong. This does not impact calculations. The value is solely for validation purpose.
 3. There is no way to delete quick presets but to delete them manually in the safe file in the save folder.
 4. There is no way of deleting a tab of an preset but to delete it from the save file. To delete a tab open the preset with a text editor. Every tab is saved like in the marked part in the picture below. Search for the corresponding tab you want to delete and remove the marked part, from the beginning bracket till the comma after the ending bracket. 
-![alt text](https://github.com/KeilainMan/Concentration-Calculator/blob/main/assets/readme_pics/tab_deletion.png "Delete a Tab")
+![alt text](https://github.com/KeilainMan/Concentration-Calculator/blob/main/assets/readme_pics/tab_deletion.PNG "Delete a Tab")
 
 
 ## Troubleshooting
