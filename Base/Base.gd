@@ -18,22 +18,24 @@ onready var preset_saver_resource: Script = preload("res://Presets/PresetSaver.g
 onready var quick_preset_save_resource: Script = preload("res://UI_Elements/QuickPreset/QuickPresetSave.gd")
 
 onready var file_open_dialog = $FileOpenDialog
-onready var main_menu_button: MenuButton = $VBoxContainer/TextureRect/TopPartMenueContainer/HBoxContainer/MenuButton
-onready var quick_presets_button: MenuButton = $VBoxContainer/TextureRect/TopPartMenueContainer/HBoxContainer/QuickPresetsButton
+onready var main_menu_button: MenuButton = $VBoxContainer/TextureRect/TopPartMenueContainer/HBoxContainer/FileBlock/MenuButton
+onready var quick_presets_button: MenuButton = $VBoxContainer/TextureRect/TopPartMenueContainer/HBoxContainer/PresetBlock/QuickPresetsButton
 onready var tab_container = $VBoxContainer/ActionMenueContainer/TabContainer
 onready var new_preset_warning_dialog = $NewPresetWarningDialog
-onready var new_tab_button: MenuButton = $VBoxContainer/TextureRect/TopPartMenueContainer/HBoxContainer/NewTabButton
-onready var close_sample_file_button: Button = $VBoxContainer/TextureRect/TopPartMenueContainer/HBoxContainer/CloseSampleFileButton
+onready var new_tab_button: MenuButton = $VBoxContainer/TextureRect/TopPartMenueContainer/HBoxContainer/PresetBlock/NewTabButton
+onready var close_sample_file_button: Button = $VBoxContainer/TextureRect/TopPartMenueContainer/HBoxContainer/FileBlock/CloseSampleFileButton
 onready var preset_save_dialog = $PresetSaveDialog
 onready var preset_load_dialog = $PresetLoadDialog
-onready var summary_button: Button = $VBoxContainer/TextureRect/TopPartMenueContainer/HBoxContainer/SummaryButton
-onready var calculate_button: MenuButton = $VBoxContainer/TextureRect/TopPartMenueContainer/HBoxContainer/CalculateButton
+onready var summary_button: Button = $VBoxContainer/TextureRect/TopPartMenueContainer/HBoxContainer/PresetBlock/SummaryButton
+onready var calculate_button: MenuButton = $VBoxContainer/TextureRect/TopPartMenueContainer/HBoxContainer/PresetBlock/CalculateButton
 onready var file_save_dialog_txt: FileDialog = $FileSaveDialogTxt
 onready var file_save_dialog_xlsx: FileDialog = $FileSaveDialogXlsx
 onready var file_save_dialog_xlsx_ws: FileDialog = $FileSaveDialogXlsxWS
 onready var quick_preset_dialog = $QuickPresetDialog
 onready var popup_layer: CanvasLayer = $PopupLayer
 onready var summary_layer: CanvasLayer = $SummaryLayer
+onready var close_preset_button: Button = $VBoxContainer/TextureRect/TopPartMenueContainer/HBoxContainer/PresetBlock/ClosePresetButton
+
 
 
 enum main_popup_menue_items {
@@ -136,6 +138,10 @@ func _on_FileDialog_file_selected(path) -> void:
 	close_sample_file_button.show()
 
 
+func _on_OpenSampleFileButton_pressed() -> void:
+	file_open_dialog.popup()
+
+
 ################################################################################
 ##MAIN MENU##
 
@@ -155,6 +161,7 @@ func _on_MainPopUpMenu_id_pressed(id: int) -> void:
 	if id == main_popup_menue_items.CLOSE_PRESET:
 		delete_all_tabs("NULL")
 		new_tab_button.hide()
+		close_preset_button.hide()
 		summary_button.hide()
 		SummaryManager.clear_summary()
 		calculate_button.hide()
@@ -192,6 +199,7 @@ func create_new_preset() -> void:
 func instance_new_raw_preset() -> void:
 	instance_new_tab(main_tab)
 	new_tab_button.show()
+	close_preset_button.show()
 	summary_button.show()
 	calculate_button.show()
 
@@ -260,6 +268,15 @@ func _on_NewTabPopUpMenu_id_pressed(id: int) -> void:
 		instance_new_tab(cc_tab)
 
 
+func _on_ClosePresetButton_pressed() -> void:
+	delete_all_tabs("NULL")
+	new_tab_button.hide()
+	close_preset_button.hide()
+	summary_button.hide()
+	SummaryManager.clear_summary()
+	calculate_button.hide()
+
+
 ################################################################################
 ##SAVE PRESET##
 
@@ -310,6 +327,7 @@ func load_preset(path: String) -> void:
 	delete_all_tabs("LOAD")
 
 	new_tab_button.show()
+	close_preset_button.show()
 	summary_button.show()
 	calculate_button.show()
 
@@ -378,6 +396,19 @@ func _on_QuickPresetPopUpMenu_id_pressed(id: int) -> void:
 			else:
 				PopUpManager.show_error_popup("File doesn't exist!")
 
+################################################################################
+##PRESET NAVIGATION##
+
+
+func _on_TabContainer_tab_selected(tab: int) -> void:
+	if tab_container.get_tab_count() > 1:
+		if !tab_container.get_child(tab_container.get_previous_tab()).tab_class == "MAIN":
+			tab_container.get_child(tab_container.get_previous_tab()).set_focused(false)
+	if !tab_container.get_child(tab).tab_class == "MAIN":
+		tab_container.get_child(tab).set_focused(true)
+
+
+
 
 ################################################################################
 ##SUMMARY##
@@ -426,6 +457,10 @@ func _on_FileSaveDialogXlsxWS_file_selected(path: String) -> void:
 
 func _on_calculation_completed() -> void:
 	load_preset(last_opened_preset_path)
+
+
+
+
 
 
 

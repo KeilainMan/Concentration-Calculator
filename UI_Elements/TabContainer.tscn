@@ -4,6 +4,8 @@
 anchor_right = 1.0
 anchor_bottom = 1.0
 tab_align = 0
+all_tabs_in_front = true
+drag_to_rearrange_enabled = true
 
 [node name="Tabs" type="Tabs" parent="."]
 anchor_right = 1.0

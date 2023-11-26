@@ -1,0 +1,7 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://Presets/PresetSaver.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+all_tab_properties = [ [ "MAIN", "phyto", "phyto", 0, 1.0, "volume", 0, "weigth", 1, 2, "SA", 5, 9, 0 ], [ "INTERNAL_STANDARD", "SA", "salicylic acid", "D4-salicylic acid", "D4-SA", 40.0, 1, "SA" ], [ "INTERNAL_STANDARD", "ABA", "abscisic acid", "D6-abscisic acid", "D6-ABA", 40.0, 1, "ABA" ], [ "INTERNAL_STANDARD", "JA", "jasmonic acid", "d6-jasmonic acid", "D6-JA", 40.0, 1, "JA" ], [ "INTERNAL_STANDARD", "JA-Ile", "jasmonic acid isoleucin", "D6-jasmonic acid isoleucin", "D6-JA-Ile", 8.0, 1, "JA-Ile" ], [ "INTERNAL_STANDARD", "OH-JA-Ile", "OH-jasmonic acid isoleucin", "D6-jasmonic acid isoleucin", "D6-JA-Ile", 8.0, 1, "OH-JA-Ile" ], [ "INTERNAL_STANDARD", "OH-JA", "OH-jasmonic acid", "d6-jasmonic acid", "D6-JA", 40.0, 1, "OH-JA" ], [ "INTERNAL_STANDARD", "COOH-JA-Ile", "COOH-jasmonic acid isoleucin", "D6-jasmonic acid isoleucin", "D6-JA-Ile", 8.0, 1, "COOH-JA-Ile" ], [ "INTERNAL_STANDARD", "SulfoJA", "Sulfo-jasmonic acid", "d6-jasmonic acid", "D6-JA", 40.0, 6, "SulfoJA" ] ]
