@@ -1,6 +1,8 @@
 extends Tabs
 class_name InternalStandardTab
 
+onready var close_tab_popup_menu: PackedScene = preload("res://UI_Elements/CloseTabPopUpMenu.tscn")
+
 onready var tab_name_edit = $Spacer/HBoxContainer/LeftSpace/VBoxContainer/TabNameContainer/TabNameEdit
 onready var compound_name_edit = $Spacer/HBoxContainer/LeftSpace/VBoxContainer/CompoundNameContainer2/CompoundNameEdit
 onready var is_name_edit = $Spacer/HBoxContainer/LeftSpace/VBoxContainer/ISNameContainer/ISNameEdit
@@ -31,6 +33,7 @@ var tab_properties: Array = [
 ] setget set_tab_properties, get_tab_properties
 
 onready var tab_manager
+onready var focused: bool = false setget set_focused, get_focused
 
 signal preset_tab_tree_exited
 
@@ -143,7 +146,28 @@ func get_tab_properties() -> Array:
 	return tab_properties
 
 
+func set_focused(value: bool) -> void:
+	focused = value
 
 
+func get_focused() -> bool:
+	return focused
+
+
+################################################################################
+## Close Tab ##
+
+func _on_close_this_tab() -> void:
+	queue_free()
+	
+################################################################################
+## Input ##
+
+func _input(event: InputEvent) -> void:
+	if focused:
+		if event.is_action_pressed("mouse_button_right"):
+			print("Mouseclick")
+			var new_popup: PopupMenu = close_tab_popup_menu.instance()
+			add_child(new_popup)
 
 

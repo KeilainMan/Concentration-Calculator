@@ -1,6 +1,9 @@
 extends Tabs
 class_name CalibrationCurveTab
 
+
+onready var close_tab_popup_menu: PackedScene = preload("res://UI_Elements/CloseTabPopUpMenu.tscn")
+
 onready var tab_name_edit = $Spacer/HBoxContainer/LeftSpace/VBoxContainer/TabNameContainer/TabNameEdit
 onready var compound_name_edit = $Spacer/HBoxContainer/LeftSpace/VBoxContainer/CompoundNameContainer2/CompoundNameEdit
 onready var column_name_edit = $Spacer/HBoxContainer/LeftSpace/VBoxContainer/ColumnNameContainer/ColumnNameEdit
@@ -83,6 +86,7 @@ var curve_styles_labels: Array = [
 ]
 
 onready var tab_manager
+onready var focused: bool = false setget set_focused, get_focused
 
 signal preset_tab_tree_exited
 
@@ -286,6 +290,20 @@ func get_tab_properties() -> Array:
 	return tab_properties
 
 
+func set_focused(value: bool) -> void:
+	focused = value
+
+
+func get_focused() -> bool:
+	return focused
+
+
+################################################################################
+## Close Tab ##
+
+func _on_close_this_tab() -> void:
+	queue_free()
+
 ## Concentration Table Functions ##################
 
 func _on_cc_table_changed() -> void:
@@ -415,6 +433,18 @@ func _on_CheckBox9_pressed() -> void:
 func _on_CheckBox10_pressed() -> void:
 	curve_ticks[9] = check_box_10.pressed
 	_on_cc_table_changed()
+
+
+################################################################################
+##INPUT##
+
+func _input(event: InputEvent) -> void:
+	if focused:
+		if event.is_action_pressed("mouse_button_right"):
+			print("Mouseclick")
+			var new_popup: PopupMenu = close_tab_popup_menu.instance()
+			add_child(new_popup)
+
 
 
 

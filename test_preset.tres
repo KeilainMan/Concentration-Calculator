@@ -1,0 +1,7 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://Presets/PresetSaver.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+all_tab_properties = [ [ "MAIN", "", "", 0, 0.0, "volume", 0, "weight", 1, 2, "SA", 5, 9, 1 ] ]
