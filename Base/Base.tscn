@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Base/Base.gd" type="Script" id=1]
 [ext_resource path="res://SpreadsheetBase/SpreadsheetBase.tscn" type="PackedScene" id=2]
@@ -15,6 +15,8 @@
 [ext_resource path="res://UI_Elements/SummaryDisplay.tscn" type="PackedScene" id=13]
 [ext_resource path="res://assets/icons/open_file50x.png" type="Texture" id=14]
 [ext_resource path="res://assets/icons/close_preset50x.png" type="Texture" id=15]
+[ext_resource path="res://assets/icons/open_preset50x.png" type="Texture" id=16]
+[ext_resource path="res://assets/icons/new_presetx50.png" type="Texture" id=17]
 
 [node name="Base" type="Control" groups=["base"]]
 anchor_right = 1.0
@@ -100,6 +102,31 @@ theme = ExtResource( 3 )
 icon = ExtResource( 7 )
 flat = false
 
+[node name="NewPresetButton" type="Button" parent="VBoxContainer/TextureRect/TopPartMenueContainer/HBoxContainer/PresetBlock"]
+margin_left = 60.0
+margin_right = 116.0
+margin_bottom = 56.0
+hint_tooltip = "New preset"
+theme = ExtResource( 3 )
+icon = ExtResource( 17 )
+
+[node name="OpenPresetButton" type="Button" parent="VBoxContainer/TextureRect/TopPartMenueContainer/HBoxContainer/PresetBlock"]
+margin_left = 120.0
+margin_right = 176.0
+margin_bottom = 56.0
+hint_tooltip = "Open preset"
+theme = ExtResource( 3 )
+icon = ExtResource( 16 )
+
+[node name="ClosePresetButton" type="Button" parent="VBoxContainer/TextureRect/TopPartMenueContainer/HBoxContainer/PresetBlock"]
+visible = false
+margin_left = 60.0
+margin_right = 116.0
+margin_bottom = 56.0
+hint_tooltip = "Close preset"
+theme = ExtResource( 3 )
+icon = ExtResource( 15 )
+
 [node name="NewTabButton" type="MenuButton" parent="VBoxContainer/TextureRect/TopPartMenueContainer/HBoxContainer/PresetBlock"]
 visible = false
 margin_left = 60.0
@@ -111,17 +138,8 @@ icon = ExtResource( 9 )
 flat = false
 align = 0
 
-[node name="ClosePresetButton" type="Button" parent="VBoxContainer/TextureRect/TopPartMenueContainer/HBoxContainer/PresetBlock"]
-visible = false
-margin_left = 60.0
-margin_right = 116.0
-margin_bottom = 56.0
-hint_tooltip = "Close preset"
-theme = ExtResource( 3 )
-icon = ExtResource( 15 )
-
 [node name="Placeholder3" type="MarginContainer" parent="VBoxContainer/TextureRect/TopPartMenueContainer/HBoxContainer/PresetBlock"]
-margin_left = 60.0
+margin_left = 180.0
 margin_right = 632.0
 margin_bottom = 56.0
 size_flags_horizontal = 3
@@ -306,6 +324,8 @@ color = Color( 1, 0.843137, 0, 1 )
 
 [connection signal="pressed" from="VBoxContainer/TextureRect/TopPartMenueContainer/HBoxContainer/FileBlock/OpenSampleFileButton" to="." method="_on_OpenSampleFileButton_pressed"]
 [connection signal="pressed" from="VBoxContainer/TextureRect/TopPartMenueContainer/HBoxContainer/FileBlock/CloseSampleFileButton" to="." method="_on_CloseSampleFileButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/TextureRect/TopPartMenueContainer/HBoxContainer/PresetBlock/NewPresetButton" to="." method="_on_NewPresetButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/TextureRect/TopPartMenueContainer/HBoxContainer/PresetBlock/OpenPresetButton" to="." method="_on_OpenPresetButton_pressed"]
 [connection signal="pressed" from="VBoxContainer/TextureRect/TopPartMenueContainer/HBoxContainer/PresetBlock/ClosePresetButton" to="." method="_on_ClosePresetButton_pressed"]
 [connection signal="pressed" from="VBoxContainer/TextureRect/TopPartMenueContainer/HBoxContainer/PresetBlock/SummaryButton" to="." method="_on_SummaryButton_pressed"]
 [connection signal="tab_selected" from="VBoxContainer/ActionMenueContainer/TabContainer" to="." method="_on_TabContainer_tab_selected"]

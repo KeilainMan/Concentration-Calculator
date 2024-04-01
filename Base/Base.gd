@@ -268,13 +268,7 @@ func _on_NewTabPopUpMenu_id_pressed(id: int) -> void:
 		instance_new_tab(cc_tab)
 
 
-func _on_ClosePresetButton_pressed() -> void:
-	delete_all_tabs("NULL")
-	new_tab_button.hide()
-	close_preset_button.hide()
-	summary_button.hide()
-	SummaryManager.clear_summary()
-	calculate_button.hide()
+
 
 
 ################################################################################
@@ -375,6 +369,7 @@ func create_or_load_quick_preset_safe() -> void:
 
 func _on_QuickPresetDialog_file_selected(path) -> void:
 	if !is_file_a_valid_preset(path):
+		PopUpManager.show_popup(7)
 		return
 	quick_preset_save.add_preset_path(path)
 	update_quick_preset_popup_menu()
@@ -408,7 +403,21 @@ func _on_TabContainer_tab_selected(tab: int) -> void:
 		tab_container.get_child(tab).set_focused(true)
 
 
+func _on_OpenPresetButton_pressed() -> void:
+	preset_load_dialog.popup()
 
+
+func _on_ClosePresetButton_pressed() -> void:
+	delete_all_tabs("NULL")
+	new_tab_button.hide()
+	close_preset_button.hide()
+	summary_button.hide()
+	SummaryManager.clear_summary()
+	calculate_button.hide()
+
+
+func _on_NewPresetButton_pressed() -> void:
+	setup_new_preset()
 
 ################################################################################
 ##SUMMARY##
@@ -457,6 +466,11 @@ func _on_FileSaveDialogXlsxWS_file_selected(path: String) -> void:
 
 func _on_calculation_completed() -> void:
 	load_preset(last_opened_preset_path)
+
+
+
+
+
 
 
 

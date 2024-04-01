@@ -12,6 +12,7 @@ var popup_messages: Array = [
 	"Calculation completed!", #4
 	"Calculation not possible, missing volume column/sheet!", #5
 	"Calculation not possible, missing masses column/sheet!", #6
+	"Preset not found. Please recheck its location!", #7
 ]
 
 func _ready() -> void:
